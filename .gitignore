@@ -1,0 +1,14 @@
+## .gitignore file for SPM and Xcode
+#
+.DS_Store
+.build/
+.swiftpm/
+/Packages
+xcuserdata/
+DerivedData/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+.netrc
+Package.resolved

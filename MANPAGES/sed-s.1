@@ -1,0 +1,125 @@
+.Dd August 8, 2026
+.Dt SED-S 1
+.Os 
+.Sh NAME
+.Nm sed-s
+.Nd wrap sed to demonstrate use of manpage support
+.Sh SYNOPSIS
+.Nm sed-s
+[-np]
+.Eo \&[  Fl i Ar extension Ec ]
+.Eo \&[  Ar command Ec ]
+.Eo \&[  Ar file Ns ... Ec ]
+.Nm sed-s
+[-np]
+.Eo \&[  Fl i Ar extension Ec ]
+.Eo \&[  Fl e Ar command Ec ]
+.Eo \&[  Fl f Ar command_file Ec ]
+.Eo \&[  Ar file Ns ... Ec ]
+.Sh DESCRIPTION
+The 
+.Nm sed-s No  utility reads each specified 
+.Ar file Ns , or the standard input if no 
+.Ar file No  is specified, modifying the input as specified by a list
+of editing commands. The input is then written to the standard output.
+.Pp
+A single command may be specified as the first argument to 
+.Nm sed-s Ns , in which
+case no 
+.Fl e No  or 
+.Fl f No  options are allowed. Multiple commands
+may be specified by using the 
+.Fl e No  or 
+.Fl f No  options. All commands
+are applied to the input in the order they are specified regardless of their origin.
+.Pp
+The following options are available:
+.Bl -tag -width indent
+.It Fl e Ar command
+Append 
+.Ar command No  to the list of editing commands (may be repeated).
+.It Fl f Ar command_file
+Append the editing commands found in the file 
+.Ar command_file No  to the list of
+editing commands (may be repeated). The editing commands should each be listed
+on a separate line. The editing commands are read from the standard input if 
+.Ar command_file No  is “-”.
+.It Fl i Ar extension
+Edit each 
+.Ar file No  in-place, saving backups with the specified 
+.Ar extension Ns .
+If a zero-length extension is given (""), no backup will be saved.
+.It Fl n
+By default, each line of input is echoed to the standard output after all of the
+commands have been applied to it. The 
+.Fl n No  option suppresses this behavior.
+.It Fl p
+Print the generated sed command without executing it.
+.El
+.Pp
+Regular expressions are always interpreted as extended (modern) regular expressions.
+.Pp
+.Sh EXIT STATUS
+The 
+.Nm sed-s No  utility exits 0 on success, and >0 if an error occurs.
+.Pp
+.Sh EXAMPLES
+Replace
+.Ql bar
+with
+.Ql baz
+when piped from another command:
+.Bd -literal -offset indent
+echo "An alternate word, like bar, is sometimes used in examples." | 
+.No sed-s No   's/bar/baz/'
+.Ed
+.Pp
+Using backlashes can sometimes be hard to read and follow:
+.Bd -literal -offset indent
+echo "/home/example" | 
+.No sed-s No   's/\/home\/example/\/usr\/local\/example/'
+.Ed
+.Pp
+Using a different separator can be handy when working with paths:
+.Bd -literal -offset indent
+echo "/home/example" | 
+.No sed-s No  's#/home/example#/usr/local/example#'
+.Ed
+.Pp
+Replace all occurrences of
+.Ql foo
+with
+.Ql bar
+in the file
+.Ql  test.txt
+without creating a backup of the file:
+.Bd -literal -offset indent
+ 
+.No sed-s No  -i '' -e 's/foo/bar/g' test.txt
+.Ed
+.Pp
+.Sh SEE ALSO
+.Xr man 1 ,
+.Xr mandoc 1 ,
+.Xr sed 1 ,
+.Xr mdoc 7 ,
+.Xr re_format 7   
+.Rs
+." 4.4BSD USD:15
+.%A Lee E. McMahon
+.%I AT&T Bell Laboratories
+.%T SED \(em A Non-interactive Text Editor
+.%R Computing Science Technical Report
+.%N 77
+.%D January 1979
+.Re
+.Pp
+.Sh AUTHORS
+The sed utility wrapped by 
+.Nm sed-s Ns , was written by
+.%A Diomidis D. Spinellis <dds@FreeBSD.org> .
+.Pp
+The 
+.Nm sed-s No  utiility was written (with help screen and manual page text lifted 
+from the sed utiltiy's manual page) by 
+.%A Peter Buenafuente Summerland 

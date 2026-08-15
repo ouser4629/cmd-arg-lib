@@ -1,0 +1,324 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Debug m1-greet",
+            "target": "m1-greet",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug m1-greet"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Release m1-greet",
+            "target": "m1-greet",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release m1-greet"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Debug m2-greet",
+            "target": "m2-greet",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug m2-greet"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Release m2-greet",
+            "target": "m2-greet",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release m2-greet"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Debug s1-greet",
+            "target": "s1-greet",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug s1-greet"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Release s1-greet",
+            "target": "s1-greet",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release s1-greet"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Debug s2-greet",
+            "target": "s2-greet",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug s2-greet"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Release s2-greet",
+            "target": "s2-greet",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release s2-greet"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Debug Spec_2_Greet",
+            "target": "Spec_2_Greet",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug Spec_2_Greet"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Release Spec_2_Greet",
+            "target": "Spec_2_Greet",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release Spec_2_Greet"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Debug Spec_1_Greet",
+            "target": "Spec_1_Greet",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug Spec_1_Greet"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Release Spec_1_Greet",
+            "target": "Spec_1_Greet",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release Spec_1_Greet"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Debug repeat-s",
+            "target": "repeat-s",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug repeat-s"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Release repeat-s",
+            "target": "repeat-s",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release repeat-s"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Debug person-s",
+            "target": "person-s",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug person-s"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Release person-s",
+            "target": "person-s",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release person-s"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Debug run-s",
+            "target": "run-s",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug run-s"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Release run-s",
+            "target": "run-s",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release run-s"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Debug advice-s",
+            "target": "advice-s",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug advice-s"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Release advice-s",
+            "target": "advice-s",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release advice-s"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Debug sed-s",
+            "target": "sed-s",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug sed-s"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Release sed-s",
+            "target": "sed-s",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release sed-s"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Debug repeat-m",
+            "target": "repeat-m",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug repeat-m"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Release repeat-m",
+            "target": "repeat-m",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release repeat-m"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Debug person-m",
+            "target": "person-m",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug person-m"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Release person-m",
+            "target": "person-m",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release person-m"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Debug run-m",
+            "target": "run-m",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug run-m"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Release run-m",
+            "target": "run-m",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release run-m"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Debug advice-m",
+            "target": "advice-m",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug advice-m"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Release advice-m",
+            "target": "advice-m",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release advice-m"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Debug sed-m",
+            "target": "sed-m",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug sed-m"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:cmd-arg-lib}",
+            "name": "Release sed-m",
+            "target": "sed-m",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release sed-m"
+        }
+    ]
+}
