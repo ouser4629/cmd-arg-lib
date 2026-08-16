@@ -46,8 +46,9 @@ struct Main {
 //   * Shows use of every `CmdArgTBasicType` provided "out of the box"
 //   * Shows use of Array<B>, Variadic<B> and Optional<B> where B is a basic type
 //   * Shows use of default values
+//   * Shows use of typealias to customize placeholders in help screends, etc.
 //   * Shows use of the help screen meta-flag initializer: `MetaFlag(helpElements:)`
-//   * Shows use of the script generation type: `MetaOption<Shell>`
+//   * Shows use of the script generation type: `MetaOption<CompletionGenerator>`
 //
 // *  Imports
 //   * CmdArgLibCore - for core functionality

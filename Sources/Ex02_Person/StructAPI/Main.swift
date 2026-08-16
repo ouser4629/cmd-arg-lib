@@ -59,14 +59,15 @@ struct Main: CommandNodeStruct {
 //   * Shows use of every `CmdArgTBasicType` provided "out of the box"
 //   * Shows use of Array<B>, Variadic<B> and Optional<B> where B is a basic type
 //   * Shows use of default values
+//   * Shows use of typeName embellishing to customize placeholders in help screends, etc.
 //   * Shows use of the help screen meta-flag initializer: `MetaFlag(helpElements:)`
-//   * Shows use of the script generation type: `MetaOption<Shell>`
+//   * Shows use of the script generation type: `MetaOption<CompletionGenerator>`
 //
 // * Imports
 //   * CmdArgLibCore - for core functionality
 //   * CmdArgLibCommandNodeStruct - the struct-based API
 //   * CmdArgLIbCompletions - support for completion script generation
-//   * Ex02_PersonShared - functionality shared with the Struct-Based Implementation
+//   * Ex02_PersonShared - functionality shared with the macro-Based Implementation
 //
 // * The CLI is defined in a struct that conforms to `CommandNodeStruct`
 //   * Each parameter's name, type, and default value are defined by a corresponding stored property
@@ -76,10 +77,11 @@ struct Main: CommandNodeStruct {
 //   * If a property's default value is nil, the corresponding argument is required, otherwise it is not
 //   * Accordingly, properties with type Optional<B:CmdArgBasicType> are guaranteed to be supplied with a non-nil value
 //
-// * The struct has a static property `configuration: Configuration`
+// * The struct has a stored property `configuration: Configuration`
 //   * Defines the name of the command
 //   * Defines shadow groups
 //   * Embellishes the stored properties, adding a custom label-spec and/or a type-name
+//   * Is excluded from the CLI - i.e., does not have a corresponding CLI argument
 //
 // * `CommandNodeStruct`
 //   * provides a static var `commandNode: CommandNode` that returns a command node
