@@ -18,21 +18,21 @@ private let manpageLayout: [ShowElement] = [
     .synopsis(lines: [synopsisLine1Names, synopsisLine2Names]),
 
     // The description
-    .mdoc("DESCRIPTION", description01),
-    .mdoc("", description02),
-    .mdoc("", "The following options are available:"),
+    .paragraph("DESCRIPTION", description01),
+    .paragraph("", description02),
+    .paragraph("", "The following options are available:"),
     .parameter("commands", commands),
     .parameter("commandFiles", commandRun),
     .parameter("inplace", inplaceEdit),
     .parameter("quiet", quiet),
     .parameter("preview", preview),
-    .mdoc("", note1),
+    .paragraph("", note1),
 
     // Other sections
-    .mdoc("", exitStatus),
-    .mdoc("", sedExamples),
-    .mdoc("", seeAlso),
-    .mdoc("", authors),
+    .mdoc(exitStatus),
+    .mdoc(sedExamples),
+    .mdoc(seeAlso),
+    .mdoc(authors),
 ]
 
 private let exitStatus = """
