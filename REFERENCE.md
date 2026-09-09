@@ -17,7 +17,7 @@
 - [Terminology](#terminology)
 - [MainFunctionMacro](#mainfunctionmacro)
 - [CommandNodeMacro](#commandnodemacro)
-- [CommandNodeStruct](#commandnodestruct)
+- [CommandNodeFrame](#commandnodeframe)
 - [Exception Pure](#exception-pure)
 - [Command Function](#command-function)
 - [Command Argument List](#command-argument-list)
@@ -46,7 +46,7 @@
 * Modular design enforces separation of concerns
   * CmdArgLibCore - core functionality
   * CmdArgLibMacros - a macro-based API
-  * CmdArgLibCommandNodeStruct - a protocol-based API
+  * CmdArgLibCommandNodeFrame - a protocol-based API
   * CmdArgLibHelpScreen - generates a help screen
   * CmdArgLibManpage - generates a manual page
   * CmdArgLibCompletions - generates completion scripts
@@ -122,9 +122,9 @@ The `run(state:)` method does not catch errors.
 
 ---
 
-## CommandNodeStruct
+## CommandNodeFrame
 
-`CommandNodeStruct` is a protocol meant to help define an instance of [`CommandNode<T>`](#commandnode), which it adds as
+`CommandNodeFrame` is a protocol meant to help define an instance of [`CommandNode<T>`](#commandnode), which it adds as
 a static property of a conforming struct. The command node parses command line arguments and uses them to initialize
 an instance of the conforming struct. It then calls the struct's run(state:) method which in turn, perform program logic and
 returns updated state. The added command node's `run(state:)` method does not catch errors.

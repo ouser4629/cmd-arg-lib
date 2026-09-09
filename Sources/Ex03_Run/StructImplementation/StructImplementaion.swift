@@ -6,11 +6,11 @@
 //  file, You can obtain one at https://mozilla.org/MPL/2.0.
 
 import CmdArgLibCore
-import CmdArgLibCommandNodeStruct
+import CmdArgLibCommandNodeFrame
 import CmdArgLibHelpScreen
 import Ex03_RunShared
 
-public struct StructImplementation: CommandNodeStruct {
+public struct StructImplementation: CommandNodeFrame {
 
     var comment: String?? = nil
     var command: Rest? = nil

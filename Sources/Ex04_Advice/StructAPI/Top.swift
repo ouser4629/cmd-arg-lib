@@ -6,14 +6,14 @@
 //  file, You can obtain one at https://mozilla.org/MPL/2.0.
 
 import CmdArgLibCore
-import CmdArgLibCommandNodeStruct
+import CmdArgLibCommandNodeFrame
 import CmdArgLibCompletions
 import CmdArgLibHelpScreen
 import Foundation
 import Ex04_AdviceShared
 
 @main
-struct Top: CommandNodeStruct  {
+struct Top: CommandNodeFrame  {
     var help: MetaFlag = MetaFlag(helpElements: helpLayout)
     var tree: MetaFlag = MetaFlag(treeFor: "advice-s", synopsis: "")
     var version: MetaFlag =  MetaFlag(string: "0.1.0")

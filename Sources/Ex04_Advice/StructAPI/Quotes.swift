@@ -6,13 +6,13 @@
 //  file, You can obtain one at https://mozilla.org/MPL/2.0.
 
 import CmdArgLibCore
-import CmdArgLibCommandNodeStruct
+import CmdArgLibCommandNodeFrame
 import CmdArgLibCompletions
 import CmdArgLibHelpScreen
 import Foundation
 import Ex04_AdviceShared
 
-struct Quotes: CommandNodeStruct {
+struct Quotes: CommandNodeFrame {
     var help: MetaFlag = MetaFlag(helpElements: helpElements)
 
     var configuration: CommandNodeConfiguration<TextStyle>? =  CommandNodeConfiguration<TextStyle>(

@@ -6,12 +6,12 @@
 //  file, You can obtain one at https://mozilla.org/MPL/2.0.
 
 import CmdArgLibCore
-import CmdArgLibCommandNodeStruct
+import CmdArgLibCommandNodeFrame
 import CmdArgLibCompletions
 import Ex02_PersonShared
 
 @main
-struct Main: CommandNodeStruct {
+struct Main: CommandNodeFrame {
     var help: MetaFlag = MetaFlag(helpElements: helpLayout)
     var l: Flag = false
     var u: Flag = false
@@ -65,11 +65,11 @@ struct Main: CommandNodeStruct {
 //
 // * Imports
 //   * CmdArgLibCore - for core functionality
-//   * CmdArgLibCommandNodeStruct - the struct-based API
+//   * CmdArgLibCommandNodeFrame - the struct-based API
 //   * CmdArgLIbCompletions - support for completion script generation
 //   * Ex02_PersonShared - functionality shared with the macro-Based Implementation
 //
-// * The CLI is defined in a struct that conforms to `CommandNodeStruct`
+// * The CLI is defined in a struct that conforms to `CommandNodeFrame`
 //   * Each parameter's name, type, and default value are defined by a corresponding stored property
 //   * The default label-spec is the property's name
 //   * The default type-name is the property's base type (not the typealias, if any that refers to it)
@@ -83,7 +83,7 @@ struct Main: CommandNodeStruct {
 //   * Embellishes the stored properties, adding a custom label-spec and/or a type-name
 //   * Is excluded from the CLI - i.e., does not have a corresponding CLI argument
 //
-// * `CommandNodeStruct`
+// * `CommandNodeFrame`
 //   * provides a static var `commandNode: CommandNode` that returns a command node
 //   * provides `static main()`, which calls the command node's `run` method, which in turn calls the struct's `run` method
 //

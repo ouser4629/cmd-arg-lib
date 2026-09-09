@@ -30,7 +30,7 @@ struct Main {
 
 ```swift
 @main
-struct Main: CommandNodeStruct {
+struct Main: CommandNodeFrame {
     var u: Flag = false
     var l: Flag = false
     var count: Int = 1
@@ -251,11 +251,11 @@ struct Main {
 
 ```swift
 import CmdArgLibCore
-import CmdArgLibCommandNodeStruct
+import CmdArgLibCommandNodeFrame
 import CmdArgLibHelpScreen
 
 @main
-struct Main: CommandNodeStruct {
+struct Main: CommandNodeFrame {
     typealias Phrase = String
     
     var help: MetaFlag = MetaFlag(helpElements: helpLayout)
@@ -703,7 +703,7 @@ NOTES
 <summary>Command Calls</summary>
 
 ```
-> print foo foo > Foo.txt
+> echo foo foo > Foo.txt
 
 > sed-m -i~ s/foo/bar/ Foo.txt -p
 sed -E -i ~ -e s/foo/bar/ Foo.txt
@@ -738,7 +738,7 @@ CAL has a modular design that makes it easier to customize and maintain.
 
 * CLI Definition
   * [CmdArgLibMacros](https://github.com/ouser4629/CmdArgLibMacros.git) uses macros to generate CLIs directly from ordinary Swift function declarations
-  * [CmdArgLibCommandNodeStruct](https://github.com/ouser4629/CmdArgLibCommandNodeStruct.git) creates CLIs from conforming structs
+  * [CmdArgLibCommandNodeFrame](https://github.com/ouser4629/CmdArgLibCommandNodeFrame.git) creates CLIs from conforming structs
 * Command presentation
   * [CmdArgLibHelpScreen](https://github.com/ouser4629/CmdArgLibHelpScreen.git) provides help screen support
   * [CmdArgLibManpage](https://github.com/ouser4629/CmdArgLibManpage.git) provides manual page support
@@ -770,7 +770,7 @@ or have unacceptable macro build performance.
 
 [CmdArgLibCore](https://github.com/ouser4629/CmdArgLibCore.git), 
 [CmdArgLibMacros](https://github.com/ouser4629/CmdArgLIbMacros.git), 
-[CmdArgLibCommandNodeStruct](https://github.com/ouser4629/CmdArgLibCommandNodeStruct.git), 
+[CmdArgLibCommandNodeFrame](https://github.com/ouser4629/CmdArgLibCommandNodeFrame.git), 
 [CmdArgLibHelpScreen](https://github.com/ouser4629/CmdArgLibHelpScreen.git), 
 [CmdArgLibManpage](https://github.com/ouser4629/CmdArgLibManpage.git), 
 [CmdArgLibCompletions](https://github.com/ouser4629/CmdArgLibCompletions.git), 

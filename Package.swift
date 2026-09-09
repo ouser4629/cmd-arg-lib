@@ -55,7 +55,7 @@ if includeMacroBasedCode {
     dependencies.append(.package(url: "https://github.com/ouser4629/CmdArgLibMacros.git", branch: "main"))
 }
 if includeStructBasedCode {
-    dependencies.append(.package(url: "https://github.com/ouser4629/CmdArgLibCommandNodeStruct.git", branch: "main"))
+    dependencies.append(.package(url: "https://github.com/ouser4629/CmdArgLibCommandNodeFrame.git", branch: "main"))
 }
 
 // Shared targets
@@ -90,13 +90,13 @@ if includeStructBasedCode {
     targets += [
         .executableTarget(
             name: "Ex01_PrintStructAPI",
-            dependencies: [ "CmdArgLibCore", "CmdArgLibCommandNodeStruct", "CmdArgLibHelpScreen",],
+            dependencies: [ "CmdArgLibCore", "CmdArgLibCommandNodeFrame", "CmdArgLibHelpScreen",],
             path: "Sources/Ex01_Print/StructAPI"
         ),
         //
         .executableTarget(
             name: "Ex02_PersonStructAPI",
-            dependencies: [ "CmdArgLibCore", "CmdArgLibCommandNodeStruct", "Ex02_PersonShared", "CmdArgLibCompletions"],
+            dependencies: [ "CmdArgLibCore", "CmdArgLibCommandNodeFrame", "Ex02_PersonShared", "CmdArgLibCompletions"],
             path: "Sources/Ex02_Person/StructAPI"
         ),
         //
@@ -107,7 +107,7 @@ if includeStructBasedCode {
         ),
         .target(
             name: "Ex03_RunStructImplementation",
-            dependencies: ["CmdArgLibCore", "CmdArgLibCommandNodeStruct", "CmdArgLibCompletions", "Ex03_RunShared"],
+            dependencies: ["CmdArgLibCore", "CmdArgLibCommandNodeFrame", "CmdArgLibCompletions", "Ex03_RunShared"],
             path: "Sources/Ex03_Run/StructImplementation"
         ),
         .testTarget(
@@ -118,13 +118,13 @@ if includeStructBasedCode {
         //
         .executableTarget(
             name: "Ex04_AdviceStructAPI",
-            dependencies: [ "CmdArgLibCore", "CmdArgLibCommandNodeStruct", "CmdArgLibHelpScreen", "CmdArgLibCompletions", "Ex04_AdviceShared"],
+            dependencies: [ "CmdArgLibCore", "CmdArgLibCommandNodeFrame", "CmdArgLibHelpScreen", "CmdArgLibCompletions", "Ex04_AdviceShared"],
             path: "Sources/Ex04_Advice/StructAPI"
         ),
         //
         .executableTarget(
             name: "Ex05_SedStructAPI",
-            dependencies: [ "CmdArgLibCore", "CmdArgLibCommandNodeStruct", "Ex05_SedShared"],
+            dependencies: [ "CmdArgLibCore", "CmdArgLibCommandNodeFrame", "Ex05_SedShared"],
             path: "Sources/Ex05_Sed/StructAPI"
         ),
     ]

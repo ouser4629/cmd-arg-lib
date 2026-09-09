@@ -6,11 +6,11 @@
 //  file, You can obtain one at https://mozilla.org/MPL/2.0.
 
 import CmdArgLibCore
-import CmdArgLibCommandNodeStruct
+import CmdArgLibCommandNodeFrame
 import Ex05_SedShared
 
 @main
-struct Main: CommandNodeStruct {
+struct Main: CommandNodeFrame {
     var quiet: Flag = false
     var preview: Flag = false
     var inplace: Extension?? = nil
