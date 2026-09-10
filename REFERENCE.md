@@ -42,6 +42,7 @@
   - [Meta-Types](#meta-types)
   - [Show Elements](#show-elements)
   - [Synopsis Lines](#synopsis-lines)
+  - [Synopsis Elements](#synopsis-elements)
   - [Show Macros](#show-macros)
   - [Help Screen](#help-screen)
   - [Manual Page](#manual-page)
