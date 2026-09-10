@@ -15,11 +15,10 @@
 
 - [Features](#features)
 - [Terminology](#terminology)
-- [API](#api)
+- [Macro-Based API](#macro-based-api)
   - [MainFunctionMacro](#mainfunctionmacro)
   - [CommandNodeMacro](#commandnodemacro)
-  - [CommandNodeFrame](#commandnodeframe)
-  - [Shadow Group](#shadow-group)
+- [Struct-Based API](#struct-based-api)
 - [Command Function](#command-function)
   - [Command Function Parameter](#command-function-parameter)
   - [Label-Spec](#label-spec)
@@ -31,8 +30,8 @@
   - [Stateful Command Function](#stateful-command-function)
 - [CommandNode](#commandnode)
   - [Run Context](#run-context)
-  - [Run Method](#run-method)
   - [Command Action](#command-action)
+  - [Run Method](#run-method)
 - [Hierarchical Commands](#hierarchical-commands)
   - [Command Tree](#command-tree)
   - [Simple Command Tree](#simple-command-tree)
@@ -116,50 +115,47 @@ conventions.
 
 ---
 
-## API
+## Macro-Based API
+
+The macro-based API constists of two macros: `MainFunctionMacro` and `CommandNodeMacro`, both of which
+are provided by the library's CmdArgLibMacros module.
 
 ### MainFunctionMacro
 
-`MainFunctionMacro` is a peer macro meant to annotate a [command function](#command-function)
-that implements program logic. The macro generates a peer function, `run(with:)`, that is called with 
-an array of words. If the words are a valid [command argument list](#command-argument-list), the parsed
-values are passed to the annotated command function. Otherwise, the generated peer function throws an
-[exception](#exception).
+`MainFunctionMacro(shadowGroups: [String] = [])` generates code for non-hierachical CLIs.
 
-The macro also generates a peer function, `main()`, that fetches words passed in from the terminal and
+It is a peer macro meant to annotate a [command function](#command-function)
+that implements program logic. The macro generates a peer function, `run(with:)`, that is called with 
+an array of words. If the words constitute a valid [command argument list](#command-argument-list), the parsed
+values are passed to the annotated command function. Otherwise, the generated peer function throws an
+[Exception](#exception).
+
+The each string passed to the shadowGroups parameter contains the names of a group of CLI parameters that
+override each other. If more than one member of a group appears in a command argument list, only the last one will be parsed.
+
+The macro generates a peer function, `main()`, that fetches words passed in from the terminal and
 passes them to the generated 'run(with:function)'. Any errors thrown by `run(with:` or by the command function, 
 are caught and printed to stderr.
 
----
-
 ### CommandNodeMacro
 
-`CommandNodeMacro<T>` is a peer macro that generates an instance of [CommandNode<T>](#command-node). It is 
-meant to annotate a [stateful command function](#stateful-command-function) that implements
+`CommandNodeMacro<T>( shadowGroups: [String] = [], synopsis: String, children: [CommandNode<T>] = [])`
+ is a peer macro that generates an instance of [CommandNode<T>](#commandnode). Trees of command nodes 
+ are used to define hierachical CLIs. 
+ 
+The macro is meant to annotate a [stateful command function](#stateful-command-function) that implements
 program logic that will be associated with the generated command node.
 
-For example, the generated command node could be:
-
-```swift
-static let commandNode = CommandNode<TextStyle>(
-    name: "advice-m",
-    synopsis: "Print quotes and book titles.",
-    action: action,
-    runContextMaker: makeRunContext,
-    children: childNodes
-)
-```
-
-where action and runContextMaker are derived from the annotated command function, while name, 
-synopsis and children are derived from the macro parameters.
+A command node has a [run method](run-method) that processes command line arguments and state using the
+annotated stateful command function, producing new state and remaining command line arguments. If the
+node has children, the current node run method calls the appropriate child node's run function with
+the returned state and remaining command line arguments.
 
 ---
 
-### CommandNodeFrame
+## Struct-Based API
 
-`CommandNodeFrame` is a protocol that provides a conforming struct with a static instance [`CommandNode<T>`](#commandnode).
-As a convenience, the protocol provides a `main()` function, which is useful when the conforming struct is annotated
-with `@main`.
+The struct-based API is based on `CommandNodeFrame`, a protocol provided by the library's `CmdArgLibCommandNodeFrame` module.
 
 ```swift
 public protocol CommandNodeFrame: Sendable, Codable {
@@ -172,16 +168,22 @@ public protocol CommandNodeFrame: Sendable, Codable {
 }
 ```
 
-The user provides one stored property for each CLI argument, the configuration property, and `run(state:)`.
-The protocol supplies the commandNode.
+The user provides one stored property for each CLI argument, the `configuration` property and `run(state:)` method.
+The protocol supplies `commandNode` and `main()`. The stored properties corresponding to CLI arguments
+can have the same types as the parameters of a [command function](#command-function). All of the stored properties
+must have a default value. For CLI arguments that are required, use an optional type wth a default value
+of `nil`.
 
----
+The configuration property provides information used by `CommandNodeFrame` to construct the instance
+of `CommandNode<T>` it requires.
 
-### Shadow Group
-
-A shadow group is a group of parameters that override each other. If more than one member of a group
-appears in a command argument list, only the last one will be parsed.
-
+```swift
+public init(commandName: String = "",
+    shadowGroups: [String] = [],
+    embellishments: [Embellishment] = [],
+    commandSynopsis: String? = nil,
+    children: [CmdArgLibCore.CommandNode<T>] = [])
+```
 ---
 
 ## Command Function
@@ -205,13 +207,13 @@ appear within brackets.
 ### Command Function Parameter
 
 A Swift function parameter has a label, a name, a type, and, optionally, a default value. A parameter
-is a "command function parameter" if its label is a [label-spec](#label-spec) and its type is [command function type](#command-function-type).
+is a "command function parameter" if its label is a [label-spec](#label-spec) and its type is [command function type](#command-function).
 
 ---
 
 ### Label-Spec
 
-A label-spec can contain only ascii alphanumeric characters and underscores, and must not start with a numeric.
+A label-spec can contain only ascii alphanumeric characters and underscores, and must not start with a digit.
 If a label-spec contains exactly two underscores, the underscores delimit three "label-names", used
 to generate "short", "old-style" and "long" argument labels, like "-h", "-help" and "--help". Empty label-names
 are ignored. The first label-name, if not empty, must be a single letter.
@@ -220,7 +222,7 @@ If a label-spec does not contain exactly two underscores, the entire label-spec 
 If it consists of a single character, other than an underscore, it is used to generate a short label. If the single character
 is an underscore, no label is generated. If the single label-name consists of more than one character, it is used to generate a long label.
 
-Camelcased label-names, like "fileName" are converted to kebob-case, like "file-name".
+Camelcased label-names, like "fileName" are converted to kebab-case, like "file-name".
 
 ---
 
@@ -228,18 +230,18 @@ Camelcased label-names, like "fileName" are converted to kebob-case, like "file-
 
 These are the types allowed for command function parameters, where `B` is
 any type that conforms to [`CmdArgBasicType`](#cmdargbasictype), and where `M` is 
-any type that conforms to [MetaOptionType][#metaoptiontype]
+any type that conforms to [MetaOptionElement][#metaoptionelement].
 
-| Type              | Default Value      | Values Per Occurrence | Repeatable |
-|:----------------|:-------------------|:----------------------|:-----------|
-| `B`             | allowed            | 1                     | no         |
-| `Array<B>`      | allowed, if `[]`   | 1                     | yes        |
-| `Optional<B>`   | implicit - `nil`   | 1                     | no         |
-| `Variadic<B>`   | allowed, if `[]`   | 1 or more             | no         |
-| `Rest`          | allowed, if `[]`   | 1 or more             | no         |
-| `Flag`          | implicit - `false` | 0                     | yes        |
-| `MetaFlag`      | required           | 0                     | yes        |
-| `MetaOption<M>` | required           | 1 or more             | no         |
+| Type            | Default Value      | Values Per Occurrence | Repeatable | Required in CLI Argument List |
+|:----------------|:-------------------|:----------------------|:-----------|:------------------------------|
+| `B`             | allowed            | 1                     | no         | when missing a default value  |
+| `Array<B>`      | allowed, if `[]`   | 1                     | yes        | when missing a default value  |
+| `Optional<B>`   | implicit - `nil`   | 1                     | no         | never                         |
+| `Variadic<B>`   | allowed, if `[]`   | 1 or more             | no         | when missing a default value  |
+| `Rest`          | allowed, if `[]`   | 1 or more             | no         | when missing a default value  |
+| `Flag`          | implicit - `false` | 0                     | yes        | never                         |
+| `MetaFlag`      | required           | 0                     | yes        | never                         |
+| `MetaOption<M>` | required           | 1 or more             | no         | never                         |
 
 Note that `Rest`, `Flag`, `MetaFlag` and `MetaOption<M>` do not conform to  [`CmdArgBasicType`](#cmdargbasictype).
 
@@ -326,25 +328,27 @@ The parser associates positional command arguments with positional parameters as
 * The parser makes a first pass over all command arguments, assigning values to labeled parameters or labeled stored variables and flags.
 * Each time the parser finds unconsumed values, up until the next label or end of arguments, it saves the values as a "value-array".
 * After the first pass is completed, the parser assigns the values in the value-arrays to positional parameters
-  * Start witht the list of positional parameters, ordered as they appear in the command function
+  * Start with the list of positional parameters, ordered as they appear in the command function
   * Take the first parameter, p, in the list of parameters
   * Take the first value-array, va, in the list of value-arrays
   * If either is empty - stop the assignment loop
     * if the list of parameters is empty and the list of value-arrays is not raise "unassigned value" error
     * if the list of parameters is not empty and the list of value-arrays is empty raise "unassigned parameter" error
   * If the p is variadic
-    * assign all members of va, to p
+    * assign all members of va to p
     * drop p and va from the front of their respective lists
   * Otherwise
     * assign the first element, v, of va to p
     * drop p from the front of its array and drop v from the front of va
     * if va is now empty, remove it from the value-array list
-  * Repeat the assigment cycle
+  * Repeat the assignment cycle
+  
+  
+The net effect is that positional values are collected into value arrays and subsequently 
+assigned to positional parameters independently of where labels occurred.
 
-The net effect is that positional values are "permuted" to the end of the arguments list as is
-common with many argument parsers (e.g., getopt), except that each variadic argument list is
-treated as a separate value. For example, the CLI has two positional parameters, with types
-Variant<Color> and Variant<Animal> respetivesly.
+For example, the CLI has two positional parameters, with types
+Variant<Color> and Variant<Animal> respetively.
 
 ```
 > print-colors-and-animals red blue --uppercase cat dog
@@ -352,16 +356,16 @@ COLORS: RED BLUE
 ANIMALS: CAT DOG
 ```
 
-Most argument parsers would first parse `--uppercase` and then treat all four positional arguments as
-colors. The library handles this correctly by collecting arrays of arrays of positional words, not arrays
-of postional words.
+Most argument parsers would first parse `--uppercase` and then collect all four positional arguments as
+a single array of values, rather than an array of value arrays. Parsing would fail because cat and dog
+are not valid colors.
 
 ---
 
 ### Stateful Command Function
 
 A stateful command function is the same as a normal [command function](#command-function) except that (a) its
-last parameter must be `state: [T]`, and (b) if it returns a value, the value must be an instance of `[T]`.
+last parameter must be `state: [T]`, and (b) it must return new state, an instance of `[T]`.
 
 If a stateful command function is annotated by a `CommandNodeMacro` with child nodes, the command function cannot
 have any positional parameters.
@@ -374,9 +378,9 @@ A command node has a public `runContext` property, an internal `commandAction` p
 
 ### Run Context
 
-The `runContext` property of type `RunContextFunction`, is parameterless function that produces an
-instance `RunContext`. The `RunContext` produced by the `runContext` function is used by library's 'error 
-screen and by `MetaTypeFunctions` contained in instances of `MetaFlag` and `MetaOption`.
+The `runContext` property is a parameterless function of type `RunContextFunction` that produces an
+instance of `RunContext`. The `RunContext` produced by the `runContext` function is used by the library's 'error 
+screen and by the [`MetaTypeFunction`](#metafunction) contained in instances of `MetaFlag` and `MetaOption`.
 
 
 ### Command Action
@@ -386,7 +390,7 @@ The `commandAction` property is a function that conforms to `CommandNodeAction<T
 ```swift
 public typealias CommandNodeAction<T: Sendable> =
     @Sendable (
-        [String],  // as yet unconsummed command argument list
+        [String],  // as yet unconsumed command argument list
         [T],  // state
         [CommandNode<T>]  // run path, ending with self
     ) async throws -> (
@@ -396,12 +400,12 @@ public typealias CommandNodeAction<T: Sendable> =
 ```
 
 A command node's `commandAction` performs the node's program logic. It is called indirectly
-via the node's public `run(with:state:parentNodes)' function.
+via the node's public `run(with:state:parentNodes)` function.
 
 The `commandAction` receives the 
-portion of the top level command line arguments not consummed by parent nodes,
+portion of the top-level command-line arguments not consummed by parent nodes,
 the state produced by its immediate parent, and the current chain of command nodes.
-It returns new state and the unconsumeded portion of command argument list.
+It returns new state and the unconsumed portion of command argument list.
 
 A command node's `commandAction` is typically constructed by the library's `CommandMacro` or
 by its `CommandNodeFrame` protocol.
@@ -429,9 +433,9 @@ returns (newState, unconsumedWords)
 
 * if unconsumedWords is empty, throw a missing subcommand name Exception.
 
-* let (newNodeName, newWords) = (unconsummed-words.first!, unconsumedWords.dropFirst(1))
+* let (newNodeName, newWords) = (unconsumed-words.first!, unconsumedWords.dropFirst(1))
 
-* guard let newCommandNode be the child node names newNodeName
+* Look up newNodeName among the current node's children. If no child has that name, throw an appropriate exception
 
 * let newParentNodes = parentNodes.append(currentNode)
 
@@ -444,7 +448,7 @@ returns (newState, unconsumedWords)
 
 ### Command Tree
 
-A “command tree” is a strict tree of [command nodes](#command-node), i.e., a node can be reached
+A “command tree” is a strict tree of [command nodes](#commandnode), i.e., a node can be reached
 by only one path, beginning with a top-level node.
 
 All instances of a given command tree must have the same type: `CommandNode<T>`, where `T` can be
@@ -458,7 +462,7 @@ a [command argument list](#command-argument-list), an empty node path, and an em
 ### Simple Command Tree
 
 In many cases, the sole node that influences program logic when a top-level tree is executed is the final
-node encountered. Consequently, all child nodes operate independently of any state passed by parent trees.
+node encountered. Consequently, all child nodes operate independently of any state passed by their parent nodes.
 
 As a syntactic convenience for managing such “simple" command trees, the library defines `SimpleCommand`
 as a typealias for `CommandNode<Void>`. Additionally, if `CommandNodeMacro<T>` annotates a command function
@@ -493,7 +497,7 @@ than printing directly to standard output or standard error.
 If the function is passed any other `Error`, it will 
 
 * simplify the error's message
-* generates an error screen with the message and callNames
+* generate an error screen with the message and callNames
 * exit with EXIT_FAILURE
 
 ---
@@ -528,7 +532,27 @@ The library provides two meta-types: `MetaFlag` and `MetaOption<M>`, where `M` c
 to the `MetaOptionElement` protocol. 
 
 Instances of `MetaFlag` and of `MetaOption<M>` have a stored property names `metaTypeFunction`
-of type `MetaTypeFunction?`:
+of type `[`MetaTypeFunction?`](#metafunction):
+
+When a meta-flag or meta-option parameter is encountered during parsing:
+
+* the parameter's default value's meta-type-function is called instead of the command function
+* the `Exception` returned typically contains meta-info like a help screen, but can also indicate errors
+
+A command function can contain any number of meta-flags and meta-options. Unlike ordinary parameters, meta-flags
+and meta-options form an implicit shadow group, so that only the last meta-flag or meta-option will be triggered.
+
+The library provides a few built-in `MetaFlag` initializers. These cover the most common uses:
+help screens, man page generators, and text messages.
+
+MetaFlag constructors produce their own meta-type functions based on their
+parameters (e.g., an array of `ShowElement`).
+
+A meta-option initializer has a parameter, `metaOptionElement` of type that conforms to [MetaOptionElement][#metaoptionelement], which
+in turn has a property, `metaTypeFuncion` with type [`MetaTypeFunction?`](#metafunction) . The initializer uses the
+`metaOptionElement` parameter's metaTypeFunction to initialize the new instance's metaTypeFunction.
+
+#### MetaTypeFunction
 
 ```swift
 public typealias MetaTypeFunction = @Sendable (
@@ -538,27 +562,14 @@ public typealias MetaTypeFunction = @Sendable (
 ) -> Exception
 ```
 
-MetaFlag constructors produce their own meta-type functions base on their
-parameters (e.g., an array of `ShowElement`).
+#### MetaOptionElement
 
-A meta-option initializer has a parameter, `metaOptionElement` of type that conforms to MetaOptionElement, which
-in turn has a property, `metaTypeFuncion` with type `MetaTypeFunction`. The initializer uses the
-`metaOptionElement` parameter's metaTypeFunction to initialize the new instances metaTypeFunction.
-
-When a meta-flag or meta-option parameter is encountered during parsing:
-
-* the parameter's default value's meta-type-function is called instead of the command function
-* the `Exception` returned typically contains meta-info like a help screen, but can also indicate errors
-
-A command function can contain any number of meta-flags and meta-options.  However, all meta-flags and meta-options
-automatically shadow each other, so that only the last meta-flag or meta-option will be triggered.
-
-The array of `String` passed to a meta-option's metaFlagFunction are not checked by the library. 
-Within the function,erroneous values should be detected and reported by returning an appropriate Exception. E.g., if a
-string is not a good rawValue for an enum.
-
-The library provides a few built-in `MetaFlag` initializers. These cover the most common uses:
-help screens, man page generators, and text messages.
+```swift
+public protocol MetaOptionElement {
+    var metaTypeFunction: MetaTypeFunction? { get }
+    var showElements: [ShowElement] { get }
+}
+```
 
 ___
 
@@ -572,14 +583,14 @@ A text element has an optional header and an optional body. The body is automati
 line-wrapped. The body can start on the same line as the header with hanging indent or on the line
 after the header with basic indent, which defaults to 2. A line element is the same
 except that the body is not line wrapped. (Especially useful for when laying out
-a manual page). The bodies of text and line elements can contain [show macros](#show-macro).
+a manual page). The bodies of text and line elements can contain [show macros](#show-macros).
 
-A synopsis element has a header and an array of "synopsis lines", where each synopsis line
+A synopsis element has a header and an array of [synopsis lines](#synopsis-lines), where each synopsis line
 is an array of [synopsis elements](#synopsis-elements). 
 
 
 Each parameter description element has a parameter name and a parameter synopsis.
-The synopsis can contain [show macros](#show-macro).
+The synopsis can contain [show macros](#show-macros).
 A parameter description element has a third field, used to provide hints to shell completion script generators.
 
 A pseudo parameter element has name and a description. It formats the same as a parameter description. One
@@ -591,19 +602,8 @@ A command context element is used to describe a subcommand.
 
 ### Synopsis Lines
 
-Show element constructors for synopsis sections take a header and an array of synopsis line, where
-line is an array of `SynopsisElement`, a typealias for `String`.
-
-There are four types of synopsis elements:
-
-* parameter name - like "color"
-* dummy parameter element - like "$c__color:Color=", "$c__color:Color?", "$\_:[File]", "f:Flag", etc.
-* all parameters - like "$*"
-* excluded parameter name - like "!color"
-
-Except for the leading $ and the optional suffix "=", a dummy parameter element is the same as a parameter definition with no name.
-I.e., "label:Type", where label is "\_", "foo", "f__foo", etc.
-The "=" indicates that the dummy parameter should have a default value.
+Show element constructors for synopsis sections take a header and an array of synopsis lines, where
+each line is an array of [synopsis elements](#synopsis-elements).
 
 If a synopsis line list is empty except for one or more excluded parameter name specs, the names
 of all the command function's parameters are appended to the list.
@@ -611,7 +611,22 @@ of all the command function's parameters are appended to the list.
 The excluded parameter names are collected and applied in a final pass to eliminate excluded parameters.
 
 Synopsis line elements added by default are added in the order that they appear in the annotated command function
-or confoming structs, as appropriate.
+or conforming structs, as appropriate.
+
+### Synopsis Elements
+
+`SynoposisElement` is a typealias for `String`.
+
+There are four types of synopsis elements, distinguished by prefixes:
+
+* parameter name - like "color"
+* dummy parameter specification - like "$c__color:Color=", "$c__color:Color?", "$\_:[File]", "f:Flag", etc.
+* all parameters - like "$*"
+* excluded parameter name - like "!color"
+
+Except for the leading $ and the optional suffix "=", a dummy parameter element is the same as a parameter definition with no name.
+I.e., "label:Type", where label is "\_", "foo", "f__foo", etc.
+The "=" indicates that the dummy parameter should have a default value.
 
 ---
 
@@ -619,7 +634,7 @@ or confoming structs, as appropriate.
 
 It is often useful to insert a command function parameter's label, type or description in
 help screen and manual page text. The library provides the following
-"show macros", which can be inserted in text that appears in [show elements](#show-element)
+"show macros", which can be inserted in text that appears in [show elements](#show-elements)
 or in an error screen. When the show element or error screen is rendered, the macro will be expanded
 appropriately.
 
@@ -646,7 +661,7 @@ is that of `T`.
 A help screen made available by adding a "help meta-flag", a meta-flag that has a default
 value initialized with `MetaFlag(helpElements: [ShowElement])`.
 
-The  [showElements](#show-element) define the layout of text, synopsis lines, and parameter descriptions to be included
+The [showElements](#show-elements) define the layout of text, synopsis lines, and parameter descriptions to be included
 in the help screen.
 
 By default, meta-flags are not included in the synopsis line, unless they have a short label,
@@ -660,7 +675,7 @@ in the command argument list. They are enclosed in brackets in the synopsis line
 default values are "required", must appear at least once in the command argument list, and
 are not enclosed in brackets.
 
-Camelcased type names, like "FileName" are rendered like "<file_name>", i.e., converted to snake_case and enclosed in angle-brackets.
+Camelcased type names, like "FileName" are rendered like "<file-name>", i.e., converted to kebab-case and enclosed in angle-brackets.
 
 The library cannot detect, at compile time, if a parameter
 description has an unrecognized parameter name. If this is detected, at run time, the library
@@ -674,12 +689,12 @@ The library can generate mdoc source documents, which can be rendered by man.
 
 A manual page is defined by a meta-flag whose default value is an instance of `MetaFlag(mdocElements: [ShowElement])`.
 The ShowElements are the same as for help screen meta-flags, except that the first two elements
-must be a "prologue" show element followed by a synopsis show element with header "SYNOPSIS".
+must be a a prologue `ShowElement`, followed by a synopsis `ShowElement` with header "SYNOPSIS".
 The prologue element, unique to manual page layouts, provides the description, date
 and operating system info that mdoc requires.
 
 Native "mdoc text" can be included in a show element array as line show elements. When converting an array
-of help screen elements to an array of mdocElements, it is recommended that all text
-elements be converted to line elements (e.g., s/text/line/g).
+of help screen elements to an array of mdocElements, it is recommended that all .text
+show element constructors (which line wrap) be converted to .paragraph constructors (which do not line wrap).
 
 ---
