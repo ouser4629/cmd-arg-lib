@@ -26,7 +26,7 @@ var includeMacroBasedCode = true
 var products: [Product] = []
 if includeStructBasedCode {
     products += [
-        .executable(name: "print-s1", targets: ["Ex01_PrintStructAPI"]),
+        .executable(name: "print-s", targets: ["Ex01_PrintStructAPI"]),
         .executable(name: "person-s", targets: ["Ex02_PersonStructAPI"]),
         .executable(name: "run-s", targets: ["Ex03_RunStructAPI"]),
         .executable(name: "advice-s", targets: ["Ex04_AdviceStructAPI"]),
@@ -35,7 +35,7 @@ if includeStructBasedCode {
 }
 if includeMacroBasedCode {
     products += [
-        .executable(name: "print-m1", targets: ["Ex01_PrintMacrosAPI"]),
+        .executable(name: "print-m", targets: ["Ex01_PrintMacrosAPI"]),
         .executable(name: "person-m", targets: ["Ex02_PersonMacrosAPI"]),
         .executable(name: "run-m", targets: ["Ex03_RunMacrosAPI"]),
         .executable(name: "advice-m", targets: ["Ex04_AdviceMacrosAPI"]),

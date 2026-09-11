@@ -11,21 +11,14 @@ import CmdArgLibHelpScreen
 
 @main
 struct Main: CommandNodeFrame {
-    typealias Phrase = String
-    
-    var help: MetaFlag = MetaFlag(helpElements: helpLayout)
+    var h__help: MetaFlag = MetaFlag(helpElements: helpLayout)
     var l: Flag = false
     var u: Flag = false
     var count: Int = 1
-    var phrase: Phrase? = nil
+    var phrase: String? = nil
 
     var configuration: CommandNodeConfiguration<Void>? = CommandNodeConfiguration<Void>(
-        commandName: "print-s1",
-        shadowGroups: ["u l"],
-        embellishments: [
-            .embellish("help", label: "h__help"),
-            .embellish("phrase", label: "_", typeName: "Phrase?"),
-        ]
+        commandName: "print-s",
     )
 
     func run(state: [Void]) throws -> [Void] {
@@ -36,15 +29,14 @@ struct Main: CommandNodeFrame {
     }
 
     private static let helpLayout: [ShowElement] = [
-        .text("DESCRIPTION\n", "Print a $D{phrase} multiple times."),
+        .text("DESCRIPTION\n", "Print a phrase multiple times."),
         .synopsis("\nUSAGE\n"),
         .text("\nPARAMETERS"),
-        .parameter("help", "Show help information"),
+        .parameter("h__help", "Show help information"),
         .parameter("l", "Lowercase the output"),
         .parameter("u", "Uppercase the output"),
-        .parameter("count", "The number of times to print the $D{phrase}"),
-        .parameter("phrase", "The $D{phrase} to print"),
-        .text("\nNOTE\n", "The $S{l} and $S{u} flags shadow each other. The last one specified takes precedence."),
+        .parameter("count", "The number of times to print the phrase"),
+        .parameter("phrase", "The phrase to print"),
     ]
 }
 

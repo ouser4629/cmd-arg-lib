@@ -11,15 +11,13 @@ import CmdArgLibHelpScreen
 
 @main
 struct Main {
-    typealias Phrase = String
-
-    @MainFunctionMacro(shadowGroups: ["u l"])
-    static public func printM1(
-        h__help help: MetaFlag = MetaFlag(helpElements: helpLayout),
+    @MainFunctionMacro
+    static public func printM(
+        h__help: MetaFlag = MetaFlag(helpElements: helpLayout),
         l: Flag,
         u: Flag,
         count: Int = 1,
-        _ phrase: Phrase) throws
+        phrase: String) throws
     {
         guard count >= 1 else { throw Exception.error("count must be >= 1") }
         let line = u ? phrase.uppercased() : l ? phrase.lowercased() : phrase
@@ -27,15 +25,13 @@ struct Main {
     }
 
     private static let helpLayout: [ShowElement] = [
-        .text("DESCRIPTION\n", "Print a $D{phrase} multiple times."),
+        .text("DESCRIPTION\n", "Print a phrase multiple times."),
         .synopsis("\nUSAGE\n"),
         .text("\nPARAMETERS"),
-        .parameter("help", "Show help information"),
+        .parameter("h__help", "Show help information"),
         .parameter("l", "Lowercase the output"),
         .parameter("u", "Uppercase the output"),
-        .parameter("count", "The number of times to print the $D{phrase}"),
-        .parameter("phrase", "The $D{phrase} to print"),
-        .text("\nNOTE\n", "The $S{l} and $S{u} flags shadow each other. The last one specified takes precedence."),
+        .parameter("count", "The number of times to print the phrase"),
+        .parameter("phrase", "The phrase to print"),
     ]
 }
-

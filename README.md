@@ -18,8 +18,9 @@ A Swift library for defining, parsing, and documenting command-line interfaces.
 struct Main {
     @MainFunctionMacro
     static public func printM (
-        u: Flag, 
+        h__help: MetaFlag = MetaFlag(helpElements: helpLayout),
         l: Flag, 
+        u: Flag, 
         count: Int = 1, 
         phrase: String)
     { ... }
@@ -31,8 +32,9 @@ struct Main {
 ```swift
 @main
 struct Main: CommandNodeFrame {
-    var u: Flag = false
+    var h__help: MetaFlag = MetaFlag(helpElements: helpLayout)
     var l: Flag = false
+    var u: Flag = false
     var count: Int = 1
     var phrase: String? = nil
     
@@ -51,11 +53,11 @@ private static let helpLayout: [ShowElement] = [
     .text("DESCRIPTION\n", "Print a phrase multiple times."),
     .synopsis("\nUSAGE\n"),
     .text("\nPARAMETERS"),
-    .parameter("count", "The number of times to print the phrase"),
-    .parameter("phrase", "The phrase to print"),
+    .parameter("h__help", "Show help information"),
     .parameter("l", "Lowercase the output"),
     .parameter("u", "Uppercase the output"),
-    .parameter("help", "Show help information"),
+    .parameter("count", "The number of times to print the phrase"),
+    .parameter("phrase", "The phrase to print"),
 ]
 ```
 
@@ -95,22 +97,22 @@ command-line development and installation tool.
 ## Get a list of the executables
 #
 cmd-arg-lib> swift run
-error: multiple executable products available: print-s1, person-s, run-s, 
-advice-s, sed-s, print-m1, person-m, run-m, advice-m, sed-m
+error: multiple executable products available: print-s, person-s, run-s, 
+advice-s, sed-s, print-m, person-m, run-m, advice-m, sed-m
 ```
 
 ```
-## Run "print-m1 -h"
+## Run "print-m -h"
 #
-cmd-arg-lib> swift run -c release print-m1 -h
+cmd-arg-lib> swift run -c release print-m -h
 Building for production...
 [1/1] Write swift-version--58304C5D6DBC2206.txt
-Build of product 'print-m1' complete! (0.12s)
+Build of product 'print-m' complete! (0.12s)
 DESCRIPTION
   Print a phrase multiple times.
 
 USAGE
-  print-m1 [-hlu] [--count <int>] <phrase>
+  print-m [-hlu] [--count <int>] <phrase>
 
 PARAMETERS
   -h/--help             Show help information.
@@ -124,12 +126,12 @@ NOTE
 ```
 
 ```
-## Run "print-m1 -lu --count 2 Hello"
+## Run "print-m -lu --count 2 Hello"
 #
-cmd-arg-lib> swift run -c release print-m1 -lu --count 2 Hello
+cmd-arg-lib> swift run -c release print-m -lu --count 2 Hello
 Building for production...
 [1/1] Write swift-version--58304C5D6DBC2206.txt
-Build of product 'print-m1' complete! (0.12s)
+Build of product 'print-m' complete! (0.12s)
 HELLO
 HELLO
 ```
@@ -300,7 +302,7 @@ struct Main: CommandNodeFrame {
     var phrase: Phrase? = nil
 
     var configuration: CommandNodeConfiguration<Void>? = CommandNodeConfiguration<Void>(
-        commandName: "print-s1",
+        commandName: "print-s",
         shadowGroups: ["u l"],
         embellishments: [
             .embellish("help", label: "h__help"),
