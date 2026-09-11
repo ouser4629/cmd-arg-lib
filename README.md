@@ -94,17 +94,26 @@ command-line development and installation tool.
 <summary>Build and Run with `swift run`</summary>
 
 ```
-## Get a list of the executables
+## Build and list all the executables
 #
-cmd-arg-lib> swift run
-error: multiple executable products available: print-s, person-s, run-s, 
-advice-s, sed-s, print-m, person-m, run-m, advice-m, sed-m
+cmd-arg-lib> swift build -c release > /dev/null
+cmd-arg-lib> cd .build/release && ls -1@F | grep "[ms]\*" && cd ../..
+advice-m*
+advice-s*
+person-m*
+person-s*
+print-m*
+print-s*
+run-m*
+run-s*
+sed-m*
+sed-s*
 ```
 
 ```
 ## Run "print-m -h"
 #
-cmd-arg-lib> swift run -c release print-m -h
+[I] cmd-arg-lib> swift run -c release print-m -h
 Building for production...
 [1/1] Write swift-version--58304C5D6DBC2206.txt
 Build of product 'print-m' complete! (0.12s)
@@ -112,23 +121,20 @@ DESCRIPTION
   Print a phrase multiple times.
 
 USAGE
-  print-m [-hlu] [--count <int>] <phrase>
+  print-m [-hlu] [--count <int>] --phrase <string>
 
 PARAMETERS
   -h/--help             Show help information.
   -l                    Lowercase the output.
   -u                    Uppercase the output.
   --count <int>         The number of times to print the phrase (default: 1).
-  <phrase>              The phrase to print.
-
-NOTE
-  The -l and -u flags shadow each other. The last one specified takes precedence.
+  --phrase <string>     The phrase to print.
 ```
 
 ```
-## Run "print-m -lu --count 2 Hello"
+## Run "print-m -lu --count 2 --phrase Hello"
 #
-cmd-arg-lib> swift run -c release print-m -lu --count 2 Hello
+cmd-arg-lib> swift run -c release print-m -lu --count 2 --phrase Hello
 Building for production...
 [1/1] Write swift-version--58304C5D6DBC2206.txt
 Build of product 'print-m' complete! (0.12s)
