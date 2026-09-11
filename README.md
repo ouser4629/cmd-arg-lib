@@ -11,7 +11,7 @@
 
 A Swift library for defining, parsing, and documenting command-line interfaces.
 
-* Use the library's macro based API to convert ordinary Swift functions into terminal commands with one line of code:
+* Use the library's macro-based API to convert ordinary Swift functions into terminal commands with one line of code:
 
 ```swift
 @main
@@ -67,97 +67,162 @@ Together, these features allow CAL to produce CLIs that feel native to Swift whi
 
 ---
 
-## Examples
+## Usage
 
-This repository includes five examples designed to demonstrate almost all of CAL's features.
-
-Each example is implemented twice, first with CAL's macro-based API, and then with its struct-based API.
+This repository includes six examples designed to demonstrate almost all of CAL's features.
 
 <details>
 <summary>Installation</summary>
 
-It is recommended to install [`caltool`](https://github.com/ouser4629/cmd-arg-lib-tool.git), CAL's command-line development and installation tool.
-
 ```
 > rm -rf Demo && mkdir Demo && cd Demo
-
 Demo> git clone https://github.com/ouser4629/cmd-arg-lib.git
-...
-
 Demo> cd cmd-arg-lib
-
 cmd-arg-lib> swift build -c release
-...
+```
 
-cmd-arg-lib> caltool install --with-completion-scripts fish zsh
+</details>
+
+### Edit and Run in XCode
+
+A great way to learn the library is edit the examples and run them in Xcode.
+
+This can, however be extremely frustrating, primarily because you have to reset
+launch arguments each time you want to try new input.
+
+It is recommended that you edit in Xcode, and run in the terminal.
+
+### Edit and Run with `swift run`
+
+A better way is to edit in Xcode and check the result with `swift run`.
+
+First get the names of the executables.
+
+<details>
+<summary>List the executables</summary>
+
+```
+cmd-arg-lib> swift run
+error: multiple executable products available: print-s1, person-s, run-s, 
+advice-s, sed-s, print-m1, person-m, run-m, advice-m, sed-m
+```
+
+</details>
+
+Then, run desired examples. For example:
+
+<details>
+<summary>Print-m1</summary>
+
+```
+cmd-arg-lib> swift run -c release print-m1 -h
+Building for production...
+[1/1] Write swift-version--58304C5D6DBC2206.txt
+Build of product 'print-m1' complete! (0.12s)
+DESCRIPTION
+  Print a phrase multiple times.
+
+USAGE
+  print-m1 [-hlu] [--count <int>] <phrase>
+
+PARAMETERS
+  -h/--help             Show help information.
+  -l                    Lowercase the output.
+  -u                    Uppercase the output.
+  --count <int>         The number of times to print the phrase (default: 1).
+  <phrase>              The phrase to print.
+
+NOTE
+  The -l and -u flags shadow each other. The last one specified takes precedence.
+```
+
+```
+cmd-arg-lib> swift run -c release print-m1 -lu --count 2 Hello
+Building for production...
+[1/1] Write swift-version--58304C5D6DBC2206.txt
+Build of product 'print-m1' complete! (0.12s)
+HELLO
+HELLO
+```
+
+</details>
+
+This approach makes it easy to input various arguments to the example programs, but it is
+not the same as running an installed version of the example in an arbitrary directory.
+
+* It has slow startup
+* The output is a mix of build reporting and actual program output
+* Completion scripts do not work
+* You are stuck running from the package directory
+
+### Edit and Run with `caltool`
+
+The ideal approach is to edit then build, install temporarily, run and, if desired, uninstall.
+
+[`caltool`](https://github.com/ouser4629/cmd-arg-lib-tool.git), CAL's
+command-line development and installation tool, makes this easy. 
+
+
+After each edit:
+
+<details>
+<summary>Rebuild and Run</summary>
+
+```
+## Rebuild
+#
+cmd-arg-lib> swift build -c release > /dev/null
+```
+
+```
+## Reinstall selected executables (in none specifies, all will be installed)
+#
+cmd-arg-lib> caltool install sed-m advice-m -c fish zsh
 advice-m
     installed "advice-m" in /Users/po/.local/bin
     installed "advice-m.fish" in /Users/po/.config/fish/completions
     installed "_advice-m" in /Users/po/.config/zsh/completions
-advice-s
-    installed "advice-s" in /Users/po/.local/bin
-    installed "advice-s.fish" in /Users/po/.config/fish/completions
-    installed "_advice-s" in /Users/po/.config/zsh/completions
-person-m
-    installed "person-m" in /Users/po/.local/bin
-    installed "person-m.fish" in /Users/po/.config/fish/completions
-    installed "_person-m" in /Users/po/.config/zsh/completions
-person-s
-    installed "person-s" in /Users/po/.local/bin
-    installed "person-s.fish" in /Users/po/.config/fish/completions
-    installed "_person-s" in /Users/po/.config/zsh/completions
-print-m1
-    installed "print-m1" in /Users/po/.local/bin
-print-s1
-    installed "print-s1" in /Users/po/.local/bin
-run-m
-    installed "run-m" in /Users/po/.local/bin
-run-s
-    installed "run-s" in /Users/po/.local/bin
 sed-m
     installed "sed-m" in /Users/po/.local/bin
     installed "sed-m.1" in /Users/po/.local/share/man/man1
-sed-s
-    installed "sed-s" in /Users/po/.local/bin
-    installed "sed-s.1" in /Users/po/.local/share/man/man1
-...
+```
 
-cmd-arg-lib> caltool uninstall
+```
+## Run and example (for completions, move to new terminal tab to refresh
+## completio caches
+##
+cmd-arg-lib> cd
+> advice-m --lower -t
+> advice-m
+├── quotes
+│   ├── general - print quotes about life in general
+│   └── computing - print quotes about computing
+└── books - print a list of recommended books
+```
+
+If desired, uninstall executable products.
+
+```
+## Uninstall installed executables
+##
+> caltool uninstall sed-m advice-m
 advice-m
     uninstalled "advice-m" in /Users/po/.local/bin
     uninstalled "advice-m.fish" in /Users/po/.config/fish/completions
     uninstalled "_advice-m" in /Users/po/.config/zsh/completions
-advice-s
-    uninstalled "advice-s" in /Users/po/.local/bin
-    uninstalled "advice-s.fish" in /Users/po/.config/fish/completions
-    uninstalled "_advice-s" in /Users/po/.config/zsh/completions
-person-m
-    uninstalled "person-m" in /Users/po/.local/bin
-    uninstalled "person-m.fish" in /Users/po/.config/fish/completions
-    uninstalled "_person-m" in /Users/po/.config/zsh/completions
-person-s
-    uninstalled "person-s" in /Users/po/.local/bin
-    uninstalled "person-s.fish" in /Users/po/.config/fish/completions
-    uninstalled "_person-s" in /Users/po/.config/zsh/completions
-print-m1
-    uninstalled "print-m1" in /Users/po/.local/bin
-print-s1
-    uninstalled "print-s1" in /Users/po/.local/bin
-run-m
-    uninstalled "run-m" in /Users/po/.local/bin
-run-s
-    uninstalled "run-s" in /Users/po/.local/bin
 sed-m
     uninstalled "sed-m" in /Users/po/.local/bin
     uninstalled "sed-m.1" in /Users/po/.local/share/man/man1
-sed-s
-    uninstalled "sed-s" in /Users/po/.local/bin
-    uninstalled "sed-s.1" in /Users/po/.local/share/man/man1
 ```
 
 </details>
- 
+
 ---
+
+## Examples
+
+Each example is implemented twice, first with CAL's macro-based API, and then with its struct-based API.
+ 
 
 ### 1 - Print
 
