@@ -11,7 +11,7 @@
 
 A Swift library for defining, parsing, and documenting command-line interfaces.
 
-* Use the library's macro-based API to convert ordinary Swift functions into terminal commands with one line of code:
+* Use the library's macro-based API to turn ordinary Swift functions into command-line commands with one line of code:
 
 ```swift
 @main
@@ -37,7 +37,7 @@ struct Main: CommandNodeFrame {
     var phrase: String? = nil
     
     var configuration: CommandNodeConfiguration<Void>? = CommandNodeConfiguration<Void>(
-        commandName: "person-s",
+        commandName: "print-s",
     )
     
     func run(state: [Void]) throws -> [Void] 
@@ -63,13 +63,13 @@ CLIs defined using CAL mimic Swift, yet feel natural to shell users.
 
 Help screens and manual pages are built from composable show elements, rather than from fixed templates.
 
-Together, these features allow CAL to produce CLIs that feel native to Swift while meeting the documentation and usability expectations of professional command-line tools.
+Together, these features provide a direct mapping from Swift APIs to command-line interfaces while supporting conventional help screens and manual pages.
 
 ---
 
 ## Usage
 
-This repository includes six examples designed to demonstrate almost all of CAL's features.
+This repository includes five examples designed to demonstrate almost all of CAL's features.
 
 <details>
 <summary>Installation</summary>
@@ -82,7 +82,8 @@ cmd-arg-lib> swift build -c release
 ```
 </details>
 
-The best way to learn from an example is edit it in Xcode, and then build and run the example in the terminal.
+The examples are intended to be edited in Xcode and then built and run from the terminal.
+
 You can build and run with `swift run` or with [`caltool`](https://github.com/ouser4629/cmd-arg-lib-tool.git), CAL's
 command-line development and installation tool.
 
@@ -123,7 +124,7 @@ NOTE
 ```
 
 ```
-## Run "rint-m1 -lu --count 2 Hello"
+## Run "print-m1 -lu --count 2 Hello"
 #
 cmd-arg-lib> swift run -c release print-m1 -lu --count 2 Hello
 Building for production...
@@ -133,13 +134,12 @@ HELLO
 HELLO
 ```
 
-This approach makes it easy to input various arguments to the example programs, but it is
-not the same as running an installed version of the example in an arbitrary directory.
+This approach has some disadvantages:
 
-* It has slow startup
-* The output is a mix of build reporting and actual program output
-* Completion scripts do not work
-* You are stuck running from the package directory
+* The command starts slowly
+* The output mixes build reporting with actual program output
+* The command's installed completion scripts do not work
+* You must run the command from the package directory
 
 </details>
 
@@ -147,7 +147,7 @@ not the same as running an installed version of the example in an arbitrary dire
 <summary>Build and Run with `caltool`</summary>
 
 ```
-## Reinstall selected advice-m (in none specifies, all executables will be installed
+## Build and install advice-m
 #
 cmd-arg-lib> swift build -c release > /dev/null
 cmd-arg-lib> caltool install advice-m -c fish zsh
@@ -158,28 +158,30 @@ advice-m
 ```
 
 ```
-## Run and example (move to new terminal tab to refresh completio caches)
+## Run an example. You may need to open a new terminal tab to refresh 
+## shell completion caches.
 ##
 cmd-arg-lib> cd
 > advice-m -t
-> advice-m
+advice-m
 ├── quotes
 │   ├── general - print quotes about life in general
 │   └── computing - print quotes about computing
 └── books - print a list of recommended books
+
+> advice-m quotes general
+Quote
+  Simplicity is complexity resolved. - Constantin Brancusi
 ```
 
 ```
-## Uninstall installed executables
+## Uninstall advice-m
 ##
-> caltool uninstall sed-m advice-m
+> caltool uninstall advice-m
 advice-m
     uninstalled "advice-m" in /Users/po/.local/bin
     uninstalled "advice-m.fish" in /Users/po/.config/fish/completions
     uninstalled "_advice-m" in /Users/po/.config/zsh/completions
-sed-m
-    uninstalled "sed-m" in /Users/po/.local/bin
-    uninstalled "sed-m.1" in /Users/po/.local/share/man/man1
 ```
 
 </details>
@@ -274,7 +276,8 @@ struct Main {
 }
 ```
 
-`Flag` is a `typealias` for `Bool` with an implied value of `false`. Parameters with default values are optional in the CLI. Others are required.”
+`Flag` is a `typealias` for `Bool` with an implied value of `false`. Parameters with default values are
+optional in the CLI. Others parameters are required.
 
 </details>
 
@@ -316,11 +319,10 @@ struct Main: CommandNodeFrame {
 }
 ```
 
-Embellishments are required because stored properties don't have labels and, at run time, type aliases are
-removed.
+Embellishments are required because stored properties have no parameter labels and type aliases are unavailable at run time.
 
-All stored properties must have a default value. Stored properties with `nil` default values like `phrase`, are required 
-arguments in the CLI. Others are not required.
+All stored properties must have default values. Properties with a nil default value, such as phrase, denote required
+CLI arguments. Other properties denote optional CLI arguments.
 
 </details>
 
@@ -342,7 +344,7 @@ private static let helpLayout: [ShowElement] = [
 ```
 
 `$S` and `$D` are show macros. E.g., `$S` inserts the formatted shortest label for the parameter named
-between the brackets. `$D` inserts its unformatted type name, including any type alias or embellishment.”
+between its braces. `$D` inserts the parameter's unformatted type name, including any type alias or embellishment.
 
 </details>
 
@@ -350,7 +352,7 @@ between the brackets. `$D` inserts its unformatted type name, including any type
 
 ### 2 - Person
 
-This example collects and prints a person's personal data.
+This example collects and prints a person's personal information.
 
 It demonstrates nearly every feature needed to build a typical non-hierarchical command tool.
 
@@ -434,12 +436,12 @@ See "person-m --help" for more information.
 
 ### 3 - Run
 
-This example optionally prints a comment before running a command using `Process`.
+This example optionally prints a comment before running a command with `Process`.
 
-It demonstrates
+It demonstrates:
 
 * using [Exception](REFERENCE.md#exception) to write to CAL's error screen, standard output
-  and standard error in [exception pure](REFERENCE.md#exception-pure) functions
+  and standard error in [exception-pure](REFERENCE.md#exception-pure) functions
 * using a CLI parameter of type [`Rest`](REFERENCE.md#rest) to collect all subsequent words verbatim
 * using CAL's [CmdArgLibTestSupport](https://github.com/ouser4629/CmdArgLibTestSupport.git) module to test 
   expected command output
@@ -481,8 +483,8 @@ In the following, "worker" is the method that performs program logic.
 # Syntax errors that worker never sees
 > run-m -v 'This is a silly long comment' ls -1
 Errors:
-  missing an occurence of the "--command" option
-  unassigned arguments: ls and -1
+  missing an occurrence of the "--command" option
+  unassigned arguments: "ls" and "-1"
 See "run-m --help" for more information.
 ```
 
@@ -505,7 +507,7 @@ foo
 ```
 
 ```
-# Worker throws `Exception.stdout(_:)` to write to standard output
+# Rest collects all subsequent arguments verbatim
 > run-m --command print Nothing gets by Rest , including --help , -- and -h
 Nothing gets by Rest , including --help , -- and -h
 ```
@@ -527,7 +529,7 @@ cat: bar: No such file or directory
 <details>
 <summary>Using Test Support</summary>
 
-This test is commented out because it is designed to fail.”
+This test is commented out because it is designed to fail.
 
 ```swift
 @Test func defectiveTest() throws {
@@ -547,7 +549,7 @@ This test is commented out because it is designed to fail.”
 ```
 
 The test sets up a temporary directory with two text files, "xcode" and "zed". The `testOutput` function 
-will run the example with the indicated input, the same as if run from the terminal. I.e.,
+will run the example with the indicated input, just as if it were run from the terminal. For example:
 
 ```
 > touch xcode zed
@@ -560,7 +562,7 @@ xcode
 zed 
 ```
 
-But the test expects 'run-m' to produce this:
+But the test expects `run-m` to produce this:
 
 ```
 > run-m -v 'Actual comment' --command ls -1
@@ -571,8 +573,7 @@ vscode
 zed 
 ```
 
-If the defective test is uncommented, `swift test` will report the error
-in diff format:
+If the defective test is uncommented, swift test reports the mismatch in diff format:
 
 ```
 > swift test
@@ -587,12 +588,12 @@ Building for debugging...
 + xcode
 + zed
 - vscode
------- END MISMATCH --- "+" and "-" indicate changes to expected to match actual
+------ END MISMATCH --- ("+" and "-" indicate changes to expected to match actual)
 ✘ Test defectiveTest() recorded an issue at Ex03_MacrosTests.swift:123:13: Expectation failed: ok
 ✘ Test defectiveTest() failed after 0.100 seconds with 1 issue.
 ```
 
-See [CmdArgLibTestSuite](https://github.com/ouser4629/CmdArgLibTestSuite.git) for numerous examples.
+See [CmdArgLibTestSuites](https://github.com/ouser4629/CmdArgLibTestSuites.git) for numerous examples.
 
 </details>
 
@@ -658,16 +659,19 @@ advice-m
 <summary>Command Calls</summary>
 
 ```
+## Correct command call
 > advice-m --upper quotes general --count 2
 QUOTES
   WELL DONE IS BETTER THAN WELL SAID. - BENJAMIN FRANKLIN
   SIMPLICITY IS COMPLEXITY RESOLVED. - CONSTANTIN BRANCUSI
 
+## Parser stops at first command with an error, `advice-m `
 > advice-m --upper -c green quotes general --count 2.0
 Error:
   "green" is not a valid <color> after -c
 See "advice-m --help" for more information.
 
+## Parser stops at lower level 
 > advice-m --upper quotes general --count 2.0
 Error:
   "2.0" is not a valid <count> after --count
@@ -682,7 +686,7 @@ See "advice-m quotes general --help" for more information.
 
 This example wraps sed.
 
-It shows more advanced usage, including
+It demonstrates more advanced usage, including
 the library's [CmdArgLibManpage](https://github.com/ouser4629/CmdArgLibManpage.git) module.
 
 <details>
@@ -754,9 +758,11 @@ foo foo
 
 The [MANPAGES directory](MANPAGES) contains the manual pages for this example.
 
-After cloning, you can view the manual pages from the terminal. E.g.,
+After cloning the repository, you can view the manual pages from the terminal. For example:
 
- cmd-arg-lib> man ./MANPAGES/sed-m.1
+```
+cmd-arg-lib> man ./MANPAGES/sed-m.1
+```
  
 If you are not familiar with less, which is used to view manual pages, press "q" to exit.
 
@@ -769,15 +775,15 @@ If you are not familiar with less, which is used to view manual pages, press "q"
 CAL has a modular design that makes it easier to customize and maintain. 
 
 * CLI Definition
-  * [CmdArgLibMacros](https://github.com/ouser4629/CmdArgLibMacros.git) uses macros to generate CLIs directly from ordinary Swift function declarations
-  * [CmdArgLibCommandNodeFrame](https://github.com/ouser4629/CmdArgLibCommandNodeFrame.git) creates CLIs from conforming structs
+  * [CmdArgLibMacros](https://github.com/ouser4629/CmdArgLibMacros.git) provides macros to generate CLIs directly from ordinary Swift function declarations
+  * [CmdArgLibCommandNodeFrame](https://github.com/ouser4629/CmdArgLibCommandNodeFrame.git) provides a protocol to generate CLIs from conforming structs
 * Command presentation
   * [CmdArgLibHelpScreen](https://github.com/ouser4629/CmdArgLibHelpScreen.git) provides help screen support
   * [CmdArgLibManpage](https://github.com/ouser4629/CmdArgLibManpage.git) provides manual page support
   * [CmdArgLibCompletions](https://github.com/ouser4629/CmdArgLibCompletions.git) provides shell completion support
 * Support modules
   * [CmdArgLibTestSupport](https://github.com/ouser4629/CmdArgLibTestSupport.git) provides support for unit tests
-  * [CmdArgLibTestSuite](https://github.com/ouser4629/CmdArgLibTestSuite.git) CAL's own unit tests
+  * [CmdArgLibTestSuites](https://github.com/ouser4629/CmdArgLibTestSuites.git) contains CAL's own unit tests
   * [CmdArgLibCore](https://github.com/ouser4629/CmdArgLibCore.git) provides support for all other CAL modules
 
 Import what you need.
@@ -786,13 +792,13 @@ Import what you need.
 
 ## Project Status
 
-The library's [documentation](REFERENCE.md) is currently focused on terminology and API reference material. Additional tutorials and conceptual documentation are planned.
+The library's [documentation](REFERENCE.md) focuses on terminology and API reference material.
 
 This software is licensed under the [Mozilla Public License, v. 2.0 "MPL-2.0"](https://mozilla.org/MPL/2.0).
 
-The library is currently in beta (version 0.5.0), and currently has only been tested for macOS.
+The library is in beta (version 0.5.0) and has been tested only on macOS.
 
-The library requires macOS 12. 
+All CAL modules require macOS 12 or later. 
 
 The [CmdArgLibMacros](https://github.com/ouser4629/CmdArgLibMacros.git) module 
 should be built using Swift 6.2 or later. Earlier toolchains either do not support macros
@@ -800,11 +806,11 @@ or have unacceptable macro build performance.
 
 ## See Also
 
-[CmdArgLibCore](https://github.com/ouser4629/CmdArgLibCore.git), 
-[CmdArgLibMacros](https://github.com/ouser4629/CmdArgLIbMacros.git), 
-[CmdArgLibCommandNodeFrame](https://github.com/ouser4629/CmdArgLibCommandNodeFrame.git), 
-[CmdArgLibHelpScreen](https://github.com/ouser4629/CmdArgLibHelpScreen.git), 
-[CmdArgLibManpage](https://github.com/ouser4629/CmdArgLibManpage.git), 
-[CmdArgLibCompletions](https://github.com/ouser4629/CmdArgLibCompletions.git), 
-[CmdArgLibTestSupport](https://github.com/ouser4629/CmdArgLibTestSupport.git) 
-[CmdArgLibTestSuites](https://github.com/ouser4629/CmdArgLibTestSuites.git) 
+* [CmdArgLibCore](https://github.com/ouser4629/CmdArgLibCore.git)
+* [CmdArgLibMacros](https://github.com/ouser4629/CmdArgLibMacros.git)
+* [CmdArgLibCommandNodeFrame](https://github.com/ouser4629/CmdArgLibCommandNodeFrame.git)
+* [CmdArgLibHelpScreen](https://github.com/ouser4629/CmdArgLibHelpScreen.git)
+* [CmdArgLibManpage](https://github.com/ouser4629/CmdArgLibManpage.git)
+* [CmdArgLibCompletions](https://github.com/ouser4629/CmdArgLibCompletions.git)
+* [CmdArgLibTestSupport](https://github.com/ouser4629/CmdArgLibTestSupport.git)
+* [CmdArgLibTestSuites](https://github.com/ouser4629/CmdArgLibTestSuites.git)
