@@ -80,11 +80,11 @@ Demo> git clone https://github.com/ouser4629/cmd-arg-lib.git
 Demo> cd cmd-arg-lib
 cmd-arg-lib> swift build -c release
 ```
-
 </details>
 
-A great way to learn the library is to pick an example, edit it in Xcode, and then
-build and run the example in the terminal.
+The best way to learn from an example is edit it in Xcode, and then build and run the example in the terminal.
+You can build and run with `swift run` or with [`caltool`](https://github.com/ouser4629/cmd-arg-lib-tool.git), CAL's
+command-line development and installation tool.
 
 
 <details>
@@ -142,11 +142,6 @@ not the same as running an installed version of the example in an arbitrary dire
 * You are stuck running from the package directory
 
 </details>
-
-Another approach is to edit then build, install temporarily, run and, if desired, uninstall.
-
-[`caltool`](https://github.com/ouser4629/cmd-arg-lib-tool.git), CAL's
-command-line development and installation tool, makes this easy. 
 
 <details>
 <summary>Build and Run with `caltool`</summary>
