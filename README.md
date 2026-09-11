@@ -211,22 +211,19 @@ It demonstrates basic usage.
 <summary>Help Screen</summary>
 
 ```
-> print-m -h
+cmd-arg-lib> print-m -h
 DESCRIPTION
   Print a phrase multiple times.
 
 USAGE
-  print-m [-hlu] [--count <int>] <phrase>
+  print-m [-hlu] [--count <int>] --phrase <string>
 
 PARAMETERS
   -h/--help             Show help information.
   -l                    Lowercase the output.
   -u                    Uppercase the output.
   --count <int>         The number of times to print the phrase (default: 1).
-  <phrase>              The phrase to print.
-
-NOTE
-  The -l and -u flags shadow each other. The last one specified takes precedence.
+  --phrase <string>     The phrase to print.
 ```
 
 </details>
@@ -235,20 +232,16 @@ NOTE
 <summary>Command Calls</summary>
 
 ```
-> print-m --count 2 "Hello world!"
-Hello world!
+> print-m --count 2 --phrase "Hello world!"
 Hello world!
 
-> print-m -lu "Hello world!"
+> print-m -lu --phrase "Hello world!"
 HELLO WORLD!
-
-> print-m -ul "Hello world!"
-hello world!
 
 > print-m -xuxxylzz --count 2.1
 Errors:
   unrecognized options: "-x", "-y" and "-z", in "-xuxxylzz"
-  missing value: "<phrase>"
+  missing an occurrence of the "--phrase" option
   "2.1" is not a valid <int> after --count
 See "print-m --help" for more information.
 ```
@@ -265,15 +258,13 @@ import CmdArgLibHelpScreen
 
 @main
 struct Main {
-    typealias Phrase = String
-
-    @MainFunctionMacro(shadowGroups: ["u l"])
+    @MainFunctionMacro
     static public func printM(
-        h__help help: MetaFlag = MetaFlag(helpElements: helpLayout),
+        h__help: MetaFlag = MetaFlag(helpElements: helpLayout),
         l: Flag,
         u: Flag,
         count: Int = 1,
-        _ phrase: Phrase) throws
+        phrase: String) throws
     {
         guard count >= 1 else { throw Exception.error("count must be >= 1") }
         let line = u ? phrase.uppercased() : l ? phrase.lowercased() : phrase
@@ -282,6 +273,7 @@ struct Main {
 
     private static let helpLayout: [ShowElement] = [ ... ]
 }
+
 ```
 
 `Flag` is a `typealias` for `Bool` with an implied value of `false`. Parameters with default values are
@@ -299,21 +291,14 @@ import CmdArgLibHelpScreen
 
 @main
 struct Main: CommandNodeFrame {
-    typealias Phrase = String
-    
-    var help: MetaFlag = MetaFlag(helpElements: helpLayout)
+    var h__help: MetaFlag = MetaFlag(helpElements: helpLayout)
     var l: Flag = false
     var u: Flag = false
     var count: Int = 1
-    var phrase: Phrase? = nil
+    var phrase: String? = nil
 
     var configuration: CommandNodeConfiguration<Void>? = CommandNodeConfiguration<Void>(
         commandName: "print-s",
-        shadowGroups: ["u l"],
-        embellishments: [
-            .embellish("help", label: "h__help"),
-            .embellish("phrase", label: "_", typeName: "Phrase?"),
-        ]
     )
 
     func run(state: [Void]) throws -> [Void] {
@@ -327,8 +312,6 @@ struct Main: CommandNodeFrame {
 }
 ```
 
-Embellishments are required because stored properties have no parameter labels and type aliases are unavailable at run time.
-
 All stored properties must have default values. Properties with a nil default value, such as phrase, denote required
 CLI arguments. Other properties denote optional CLI arguments.
 
@@ -339,20 +322,16 @@ CLI arguments. Other properties denote optional CLI arguments.
 
 ```swift
 private static let helpLayout: [ShowElement] = [
-    .text("DESCRIPTION\n", "Print a $D{phrase} multiple times."),
+    .text("DESCRIPTION\n", "Print a phrase multiple times."),
     .synopsis("\nUSAGE\n"),
     .text("\nPARAMETERS"),
-    .parameter("help", "Show help information"),
+    .parameter("h__help", "Show help information"),
     .parameter("l", "Lowercase the output"),
     .parameter("u", "Uppercase the output"),
-    .parameter("count", "The number of times to print the $D{phrase}"),
-    .parameter("phrase", "The $D{phrase} to print"),
-    .text("\nNOTE\n", "The $S{l} and $S{u} flags shadow each other. The last one specified takes precedence."),
+    .parameter("count", "The number of times to print the phrase"),
+    .parameter("phrase", "The phrase to print"),
 ]
 ```
-
-`$S` and `$D` are show macros. E.g., `$S` inserts the formatted shortest label for the parameter named
-between its braces. `$D` inserts the parameter's unformatted type name, including any type alias or embellishment.
 
 </details>
 
