@@ -203,7 +203,7 @@ Each example is implemented twice, first with CAL's macro-based API, and then wi
 
 ### 1 - Print
 
-This example prints a phrase.
+This example, preseneted above, prints a phrase. 
 
 It demonstrates basic usage.
 
@@ -245,75 +245,6 @@ Errors:
   "2.1" is not a valid <int> after --count
 See "print-m --help" for more information.
 ```
-
-</details>
-
-<details>
-<summary>Macro-Based Implementation</summary>
-
-```swift
-import CmdArgLibCore
-import CmdArgLibMacros
-import CmdArgLibHelpScreen
-
-@main
-struct Main {
-    @MainFunctionMacro
-    static public func printM(
-        h__help: MetaFlag = MetaFlag(helpElements: helpLayout),
-        l: Flag,
-        u: Flag,
-        count: Int = 1,
-        phrase: String) throws
-    {
-        guard count >= 1 else { throw Exception.error("count must be >= 1") }
-        let line = u ? phrase.uppercased() : l ? phrase.lowercased() : phrase
-        for _ in 1...count { print(line) }
-    }
-
-    private static let helpLayout: [ShowElement] = [ ... ]
-}
-
-```
-
-`Flag` is a `typealias` for `Bool` with an implied value of `false`. Parameters with default values are
-optional in the CLI. Others parameters are required.
-
-</details>
-
-<details>
-<summary>Struct-Based Implementation</summary>
-
-```swift
-import CmdArgLibCore
-import CmdArgLibCommandNodeFrame
-import CmdArgLibHelpScreen
-
-@main
-struct Main: CommandNodeFrame {
-    var h__help: MetaFlag = MetaFlag(helpElements: helpLayout)
-    var l: Flag = false
-    var u: Flag = false
-    var count: Int = 1
-    var phrase: String? = nil
-
-    var configuration: CommandNodeConfiguration<Void>? = CommandNodeConfiguration<Void>(
-        commandName: "print-s",
-    )
-
-    func run(state: [Void]) throws -> [Void] {
-        guard count >= 1 else { throw Exception.error("count must be >= 1") }
-        let line = u ? phrase!.uppercased() : l ? phrase!.lowercased() : phrase!
-        for _ in 1...count { print(line) }
-        return []
-    }
-
-    private static let helpLayout: [ShowElement] = [ ... ]
-}
-```
-
-All stored properties must have default values. Properties with a nil default value, such as phrase, denote required
-CLI arguments. Other properties denote optional CLI arguments.
 
 </details>
 
