@@ -18,7 +18,7 @@ var includeMacroBasedCode = true
 // Swift 6.2 or later. Earlier toolchains either do not support macros
 // or have unacceptable macro build performance.
 #if compiler(<6.2)
-    includeMacroExamples = false
+    includeMacroBasedCode = false
 }
 #endif
 
