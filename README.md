@@ -83,38 +83,24 @@ cmd-arg-lib> swift build -c release
 
 </details>
 
-### Edit and Run in XCode
+A great way to learn the library is to pick an example, edit it in Xcode, and then
+build and run the example in the terminal.
 
-A great way to learn the library is edit the examples and run them in Xcode.
-
-This can, however be extremely frustrating, primarily because you have to reset
-launch arguments each time you want to try new input.
-
-It is recommended that you edit in Xcode, and run in the terminal.
-
-### Edit and Run with `swift run`
-
-A better way is to edit in Xcode and check the result with `swift run`.
-
-First get the names of the executables.
 
 <details>
-<summary>List the executables</summary>
+<summary>Build and Run with `swift run`</summary>
 
 ```
+## Get a list of the executables
+#
 cmd-arg-lib> swift run
 error: multiple executable products available: print-s1, person-s, run-s, 
 advice-s, sed-s, print-m1, person-m, run-m, advice-m, sed-m
 ```
 
-</details>
-
-Then, run desired examples. For example:
-
-<details>
-<summary>Print-m1</summary>
-
 ```
+## Run "print-m1 -h"
+#
 cmd-arg-lib> swift run -c release print-m1 -h
 Building for production...
 [1/1] Write swift-version--58304C5D6DBC2206.txt
@@ -137,6 +123,8 @@ NOTE
 ```
 
 ```
+## Run "rint-m1 -lu --count 2 Hello"
+#
 cmd-arg-lib> swift run -c release print-m1 -lu --count 2 Hello
 Building for production...
 [1/1] Write swift-version--58304C5D6DBC2206.txt
@@ -144,8 +132,6 @@ Build of product 'print-m1' complete! (0.12s)
 HELLO
 HELLO
 ```
-
-</details>
 
 This approach makes it easy to input various arguments to the example programs, but it is
 not the same as running an installed version of the example in an arbitrary directory.
@@ -155,52 +141,38 @@ not the same as running an installed version of the example in an arbitrary dire
 * Completion scripts do not work
 * You are stuck running from the package directory
 
-### Edit and Run with `caltool`
+</details>
 
-The ideal approach is to edit then build, install temporarily, run and, if desired, uninstall.
+Another approach is to edit then build, install temporarily, run and, if desired, uninstall.
 
 [`caltool`](https://github.com/ouser4629/cmd-arg-lib-tool.git), CAL's
 command-line development and installation tool, makes this easy. 
 
-
-After each edit:
-
 <details>
-<summary>Rebuild and Run</summary>
+<summary>Build and Run with `caltool`</summary>
 
 ```
-## Rebuild
+## Reinstall selected advice-m (in none specifies, all executables will be installed
 #
 cmd-arg-lib> swift build -c release > /dev/null
-```
-
-```
-## Reinstall selected executables (in none specifies, all will be installed)
-#
-cmd-arg-lib> caltool install sed-m advice-m -c fish zsh
+cmd-arg-lib> caltool install advice-m -c fish zsh
 advice-m
     installed "advice-m" in /Users/po/.local/bin
     installed "advice-m.fish" in /Users/po/.config/fish/completions
     installed "_advice-m" in /Users/po/.config/zsh/completions
-sed-m
-    installed "sed-m" in /Users/po/.local/bin
-    installed "sed-m.1" in /Users/po/.local/share/man/man1
 ```
 
 ```
-## Run and example (for completions, move to new terminal tab to refresh
-## completio caches
+## Run and example (move to new terminal tab to refresh completio caches)
 ##
 cmd-arg-lib> cd
-> advice-m --lower -t
+> advice-m -t
 > advice-m
 ├── quotes
 │   ├── general - print quotes about life in general
 │   └── computing - print quotes about computing
 └── books - print a list of recommended books
 ```
-
-If desired, uninstall executable products.
 
 ```
 ## Uninstall installed executables
