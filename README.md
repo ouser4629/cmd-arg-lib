@@ -248,24 +248,6 @@ See "print-m --help" for more information.
 
 </details>
 
-<details>
-<summary>Help Screen Layout</summary>
-
-```swift
-private static let helpLayout: [ShowElement] = [
-    .text("DESCRIPTION\n", "Print a phrase multiple times."),
-    .synopsis("\nUSAGE\n"),
-    .text("\nPARAMETERS"),
-    .parameter("h__help", "Show help information"),
-    .parameter("l", "Lowercase the output"),
-    .parameter("u", "Uppercase the output"),
-    .parameter("count", "The number of times to print the phrase"),
-    .parameter("phrase", "The phrase to print"),
-]
-```
-
-</details>
-
 ---
 
 ### 2 - Person
