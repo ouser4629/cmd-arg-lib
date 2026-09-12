@@ -711,7 +711,7 @@ The library's [documentation](REFERENCE.md) focuses on terminology and API refer
 
 This software is licensed under the [Mozilla Public License, v. 2.0 "MPL-2.0"](https://mozilla.org/MPL/2.0).
 
-The library is in beta (version 0.5.0) and has been tested only on macOS.
+The library is in beta (version 0.5.1) and has been tested only on macOS.
 
 All CAL modules require macOS 12 or later. 
 
