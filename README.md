@@ -73,7 +73,7 @@ Together, these features provide a direct mapping from Swift APIs to command-lin
 
 This repository includes five examples designed to demonstrate almost all of CAL's features.
 
-They are intended to be edited, say in Xcode, and then built and run from the terminal.
+The examples are intended to be edited, say in Xcode, and then built and run from the terminal.
 
 <details>
 <summary>Installation</summary>
