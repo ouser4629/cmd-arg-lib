@@ -154,9 +154,24 @@ This approach has some disadvantages:
 <summary>Build and Run with `caltool`</summary>
 
 ```
-## Build and install advice-m
+## Build and list all the executables
 #
 cmd-arg-lib> swift build -c release > /dev/null
+cmd-arg-lib> cd .build/release && ls -1@F | grep "[ms]\*" && cd ../..
+advice-m*
+advice-s*
+person-m*
+person-s*
+print-m*
+print-s*
+run-m*
+run-s*
+sed-m*
+sed-s*
+```
+
+```
+## Install advice-m
 cmd-arg-lib> caltool install advice-m -c fish zsh
 advice-m
     installed "advice-m" in /Users/po/.local/bin
@@ -165,7 +180,7 @@ advice-m
 ```
 
 ```
-## Run an example. You may need to open a new terminal tab to refresh 
+## Run advice-m. You may need to open a new terminal tab to refresh 
 ## shell completion caches.
 ##
 cmd-arg-lib> cd
