@@ -73,6 +73,8 @@ Together, these features provide a direct mapping from Swift APIs to command-lin
 
 This repository includes five examples designed to demonstrate almost all of CAL's features.
 
+They are intended to be edited, say in Xcode, and then built and run from the terminal.
+
 <details>
 <summary>Installation</summary>
 
@@ -84,11 +86,8 @@ cmd-arg-lib> swift build -c release
 ```
 </details>
 
-The examples are intended to be edited in Xcode and then built and run from the terminal.
-
 You can build and run with `swift run` or with [`caltool`](https://github.com/ouser4629/cmd-arg-lib-tool.git), CAL's
 command-line development and installation tool.
-
 
 <details>
 <summary>Build and Run with `swift run`</summary>
@@ -703,14 +702,3 @@ All CAL modules require macOS 12 or later.
 The [CmdArgLibMacros](https://github.com/ouser4629/CmdArgLibMacros.git) module 
 should be built using Swift 6.2 or later. Earlier toolchains either do not support macros
 or have unacceptable macro build performance.
-
-## See Also
-
-* [CmdArgLibCore](https://github.com/ouser4629/CmdArgLibCore.git)
-* [CmdArgLibMacros](https://github.com/ouser4629/CmdArgLibMacros.git)
-* [CmdArgLibCommandNodeFrame](https://github.com/ouser4629/CmdArgLibCommandNodeFrame.git)
-* [CmdArgLibHelpScreen](https://github.com/ouser4629/CmdArgLibHelpScreen.git)
-* [CmdArgLibManpage](https://github.com/ouser4629/CmdArgLibManpage.git)
-* [CmdArgLibCompletions](https://github.com/ouser4629/CmdArgLibCompletions.git)
-* [CmdArgLibTestSupport](https://github.com/ouser4629/CmdArgLibTestSupport.git)
-* [CmdArgLibTestSuites](https://github.com/ouser4629/CmdArgLibTestSuites.git)
