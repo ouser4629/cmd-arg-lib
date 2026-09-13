@@ -175,9 +175,9 @@ sed-s*
 #
 cmd-arg-lib> caltool install advice-m -c fish zsh
 advice-m
-    installed "advice-m" in /Users/ps/.local/bin
-    installed "advice-m.fish" in /Users/ps/.config/fish/completions
-    installed "_advice-m" in /Users/ps/.config/zsh/completions
+    installed "advice-m" in "/Users/ps/.local/bin"
+    installed "advice-m.fish" in "/Users/ps/.config/fish/completions"
+    installed "_advice-m" in "/Users/ps/.config/zsh/completions"
 ```
 
 ```
@@ -202,9 +202,9 @@ Quote
 ##
 > caltool uninstall advice-m
 advice-m
-    uninstalled "advice-m" in /Users/ps/.local/bin
-    uninstalled "advice-m.fish" in /Users/ps/.config/fish/completions
-    uninstalled "_advice-m" in /Users/ps/.config/zsh/completions
+    uninstalled "advice-m" in "/Users/ps/.local/bin"
+    uninstalled "advice-m.fish" in "/Users/ps/.config/fish/completions"
+    uninstalled "_advice-m" in "/Users/ps/.config/zsh/completions"
 ```
 
 </details>
