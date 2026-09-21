@@ -1,4 +1,4 @@
-<!-- 
+<!--
 //  Copyright (c) 2025-2026 Peter Buenafuente Summerland.
 //  All rights reserved.
 //
@@ -19,9 +19,9 @@ struct Main {
     @MainFunctionMacro
     static public func printM (
         h__help: MetaFlag = MetaFlag(helpElements: helpLayout),
-        l: Flag, 
-        u: Flag, 
-        count: Int = 1, 
+        l: Flag,
+        u: Flag,
+        count: Int = 1,
         phrase: String)
     { ... }
 }
@@ -37,12 +37,12 @@ struct Main: CommandNodeFrame {
     var u: Flag = false
     var count: Int = 1
     var phrase: String? = nil
-    
+
     var configuration: CommandNodeConfiguration<Void>? = CommandNodeConfiguration<Void>(
         commandName: "print-s",
     )
-    
-    func run(state: [Void]) throws -> [Void] 
+
+    func run(state: [Void]) throws -> [Void]
     { ... }
 ```
 
@@ -76,7 +76,7 @@ This repository includes five examples designed to demonstrate almost all of CAL
 The examples are intended to be edited, say in Xcode, and then built and run from the terminal.
 
 <details>
-<summary>Installation</summary>
+<summary>Install</summary>
 
 ```
 > rm -rf Demo && mkdir Demo && cd Demo
@@ -84,127 +84,39 @@ Demo> git clone https://github.com/ouser4629/cmd-arg-lib.git
 Demo> cd cmd-arg-lib
 cmd-arg-lib> swift build -c release
 ```
-</details>
 
-You can build and run with `swift run` or with [`caltool`](https://github.com/ouser4629/cmd-arg-lib-tool.git), CAL's
-command-line development and installation tool.
-
-<details>
-<summary>Build and Run with `swift run`</summary>
+After this, the example executables can installed, one by one, as follows:
 
 ```
-## Build and list all the executables
-#
-cmd-arg-lib> swift build -c release > /dev/null
-cmd-arg-lib> cd .build/release && ls -1@F | grep "[ms]\*" && cd ../..
-advice-m*
-advice-s*
-person-m*
-person-s*
-print-m*
-print-s*
-run-m*
-run-s*
-sed-m*
-sed-s*
+cmd-arg-lib> cd .build/release
+release> cp print-m ~/.local/bin
+release> cp print-s ~/.local/bin
+
+release> cp person-m ~/.local/bin
+release> cp person-s ~/.local/bin
+
+release> cp run-m ~/.local/bin
+release> cp run-s ~/.local/bin
+
+release> cp advice-m ~/.local/bin
+release> cp advice-s ~/.local/bin
+
+release> cp sed-m ~/.local/bin
+release> cp sed-s ~/.local/bin
+cd ../..
+cmd-arg-lib>
 ```
-
-```
-## Run "print-m -h"
-#
-[I] cmd-arg-lib> swift run -c release print-m -h
-Building for production...
-[1/1] Write swift-version--58304C5D6DBC2206.txt
-Build of product 'print-m' complete! (0.12s)
-DESCRIPTION
-  Print a phrase multiple times.
-
-USAGE
-  print-m [-hlu] [--count <int>] --phrase <string>
-
-PARAMETERS
-  -h/--help             Show help information.
-  -l                    Lowercase the output.
-  -u                    Uppercase the output.
-  --count <int>         The number of times to print the phrase (default: 1).
-  --phrase <string>     The phrase to print.
-```
-
-```
-## Run "print-m -lu --count 2 --phrase Hello"
-#
-cmd-arg-lib> swift run -c release print-m -lu --count 2 --phrase Hello
-Building for production...
-[1/1] Write swift-version--58304C5D6DBC2206.txt
-Build of product 'print-m' complete! (0.12s)
-HELLO
-HELLO
-```
-
-This approach has some disadvantages:
-
-* The command starts slowly
-* The output mixes build reporting with actual program output
-* The command's installed completion scripts do not work
-* You must run the command from the package directory
 
 </details>
 
 <details>
-<summary>Build and Run with `caltool`</summary>
+<summary>Edit and Run</summary>
+
+Assuming you are interested in one example, say `person-m`, you can run this after
+each edit:
 
 ```
-## Build and list all the executables
-#
-cmd-arg-lib> swift build -c release > /dev/null
-cmd-arg-lib> cd .build/release && ls -1@F | grep "[ms]\*" && cd ../..
-advice-m*
-advice-s*
-person-m*
-person-s*
-print-m*
-print-s*
-run-m*
-run-s*
-sed-m*
-sed-s*
-```
-
-```
-## Install advice-m
-#
-cmd-arg-lib> caltool install advice-m -c fish zsh
-advice-m
-    installed "advice-m" in "/Users/ps/.local/bin"
-    installed "advice-m.fish" in "/Users/ps/.config/fish/completions"
-    installed "_advice-m" in "/Users/ps/.config/zsh/completions"
-```
-
-```
-## Run advice-m. You may need to open a new terminal tab to refresh 
-## shell completion caches.
-##
-cmd-arg-lib> cd
-> advice-m -t
-advice-m
-├── quotes
-│   ├── general - print quotes about life in general
-│   └── computing - print quotes about computing
-└── books - print a list of recommended books
-
-> advice-m quotes general
-Quote
-  Simplicity is complexity resolved. - Constantin Brancusi
-```
-
-```
-## Uninstall advice-m
-##
-> caltool uninstall advice-m
-advice-m
-    uninstalled "advice-m" in "/Users/ps/.local/bin"
-    uninstalled "advice-m.fish" in "/Users/ps/.config/fish/completions"
-    uninstalled "_advice-m" in "/Users/ps/.config/zsh/completions"
+cmd-arg-lib> swift build -c release && cp .build/release/person-m ~/.local/bin
 ```
 
 </details>
@@ -214,11 +126,10 @@ advice-m
 ## Examples
 
 Each example is implemented twice, first with CAL's macro-based API, and then with its struct-based API.
- 
 
 ### 1 - Print
 
-This example, preseneted above, prints a phrase. 
+This example, preseneted above, prints a phrase.
 
 It demonstrates basic usage.
 
@@ -358,7 +269,7 @@ It demonstrates:
 * using [Exception](REFERENCE.md#exception) to write to CAL's error screen, standard output
   and standard error in [exception-pure](REFERENCE.md#exception-pure) functions
 * using a CLI parameter of type [`Rest`](REFERENCE.md#rest) to collect all subsequent words verbatim
-* using CAL's [CmdArgLibTestSupport](https://github.com/ouser4629/CmdArgLibTestSupport.git) module to test 
+* using CAL's [CmdArgLibTestSupport](https://github.com/ouser4629/CmdArgLibTestSupport.git) module to test
   expected command output
 
 <details>
@@ -463,7 +374,7 @@ This test is commented out because it is designed to fail.
 }
 ```
 
-The test sets up a temporary directory with two text files, "xcode" and "zed". The `testOutput` function 
+The test sets up a temporary directory with two text files, "xcode" and "zed". The `testOutput` function
 will run the example with the indicated input, just as if it were run from the terminal. For example:
 
 ```
@@ -474,7 +385,7 @@ Actual comment
 ls -1
 ---
 xcode
-zed 
+zed
 ```
 
 But the test expects `run-m` to produce this:
@@ -485,7 +396,7 @@ Expected comment
 ls -1
 ---
 vscode
-zed 
+zed
 ```
 
 If the defective test is uncommented, swift test reports the mismatch in diff format:
@@ -495,7 +406,7 @@ If the defective test is uncommented, swift test reports the mismatch in diff fo
 Building for debugging...
 ...
 ◇ Test defectiveTest() started.
------- OUTPUT MISMATCH at Ex03_RunMacrosTests/Ex03_MacrosTests.swift:122 
+------ OUTPUT MISMATCH at Ex03_RunMacrosTests/Ex03_MacrosTests.swift:122
 + Actual comment
 - Expected comment
   ls -1
@@ -516,7 +427,7 @@ See [CmdArgLibTestSuites](https://github.com/ouser4629/CmdArgLibTestSuites.git) 
 
 ### 4 - Advice
 
-This example displays quotes and recommends books. 
+This example displays quotes and recommends books.
 
 It demonstrates a hierarchical command structure in which state is passed from parent commands to child commands.
 
@@ -586,7 +497,7 @@ Error:
   "green" is not a valid <color> after -c
 See "advice-m --help" for more information.
 
-## Parser stops at lower level 
+## Parser stops at lower level
 > advice-m --upper quotes general --count 2.0
 Error:
   "2.0" is not a valid <count> after --count
@@ -628,7 +539,7 @@ OPTIONS
   -f <command-file>     Append the editing commands found in the file <command-file>
                         to the list of editing commands (may be repeated). The editing
                         commands should each be listed on a separate line. The
-                        editing commands are read from the standard input if 
+                        editing commands are read from the standard input if
                         <command-file> is “-”.
   --generate-manpage    Generate a man page.
   --version             Show version information.
@@ -678,7 +589,7 @@ After cloning the repository, you can view the manual pages from the terminal. F
 ```
 cmd-arg-lib> man ./MANPAGES/sed-m.1
 ```
- 
+
 If you are not familiar with less, which is used to view manual pages, press "q" to exit.
 
 </details>
@@ -687,7 +598,7 @@ If you are not familiar with less, which is used to view manual pages, press "q"
 
 ## Modules
 
-CAL has a modular design that makes it easier to customize and maintain. 
+CAL has a modular design that makes it easier to customize and maintain.
 
 * CLI Definition
   * [CmdArgLibMacros](https://github.com/ouser4629/CmdArgLibMacros.git) provides macros to generate CLIs directly from ordinary Swift function declarations
@@ -713,8 +624,8 @@ This software is licensed under the [Mozilla Public License, v. 2.0 "MPL-2.0"](h
 
 The library is in beta (version 0.5.1) and has been tested only on macOS.
 
-All CAL modules require macOS 12 or later. 
+All CAL modules require macOS 12 or later.
 
-The [CmdArgLibMacros](https://github.com/ouser4629/CmdArgLibMacros.git) module 
+The [CmdArgLibMacros](https://github.com/ouser4629/CmdArgLibMacros.git) module
 should be built using Swift 6.2 or later. Earlier toolchains either do not support macros
 or have unacceptable macro build performance.
