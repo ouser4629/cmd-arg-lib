@@ -129,7 +129,7 @@ Each example is implemented twice, first with CAL's macro-based API, and then wi
 
 ### 1 - Print
 
-This example, preseneted above, prints a phrase.
+This example, presented above, prints a phrase.
 
 It demonstrates basic usage.
 
