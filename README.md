@@ -627,7 +627,7 @@ Import what you need.
 
 The library's [documentation](REFERENCE.md) focuses on terminology and API reference material.
 
-This software is licensed under the [Mozilla Public License, v. 2.0 "MPL-2.0"](https://mozilla.org/MPL/2.0).
+This software is licensed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
 The library is in beta (version 0.5.1) and has been tested only on macOS.
 
