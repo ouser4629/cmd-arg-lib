@@ -17,16 +17,14 @@ import CmdArgLibCommandNodeDef
 import CmdArgLibHelpScreen
 
 @main
-struct Main: CommandNodeDef {
+struct PrintS: CommandNodeDef {
     var h__help: MetaFlag = MetaFlag(helpElements: helpLayout)
     var l: Flag = false
     var u: Flag = false
     var count: Int = 1
     var phrase: String? = nil
 
-    var configuration: CommandNodeConfig<Void>? = CommandNodeConfig<Void>(
-        commandName: "print-s",
-    )
+    var configuration: CommandNodeConfig<Void>? = nil
 
     func run(state: [Void]) throws -> [Void] {
         guard count >= 1 else { throw Exception.error("count must be >= 1") }
