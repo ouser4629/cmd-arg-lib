@@ -13,17 +13,17 @@
 // limitations under the License.
 
 import CmdArgLibCore
-import CmdArgLibCommandNodeFrame
+import CmdArgLibCommandNodeDef
 import CmdArgLibCompletions
 import CmdArgLibHelpScreen
 import Foundation
 import Ex04_AdviceShared
 
-struct GeneralQuotes: CommandNodeFrame {
+struct GeneralQuotes: CommandNodeDef {
     var count: Int = 1
     var help: MetaFlag = MetaFlag(helpElements: helpLayout)
 
-    var configuration: CommandNodeConfiguration<TextStyle>? = CommandNodeConfiguration<TextStyle>(
+    var configuration: CommandNodeConfig<TextStyle>? = CommandNodeConfig<TextStyle>(
         commandName: "general",
         embellishments: [
             .embellish("help", label: "h__help"),

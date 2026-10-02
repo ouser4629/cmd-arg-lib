@@ -13,14 +13,14 @@
 // limitations under the License.
 
 import CmdArgLibCore
-import CmdArgLibCommandNodeFrame
+import CmdArgLibCommandNodeDef
 import CmdArgLibCompletions
 import CmdArgLibHelpScreen
 import Foundation
 import Ex04_AdviceShared
 
 @main
-struct Top: CommandNodeFrame  {
+struct Top: CommandNodeDef  {
     var help: MetaFlag = MetaFlag(helpElements: helpLayout)
     var tree: MetaFlag = MetaFlag(treeFor: "advice-s", synopsis: "")
     var version: MetaFlag =  MetaFlag(string: "0.1.0")
@@ -29,7 +29,7 @@ struct Top: CommandNodeFrame  {
     var lower: Flag = false
     var color: Color = .white
 
-    var configuration: CommandNodeConfiguration<TextStyle>? = CommandNodeConfiguration<TextStyle>(
+    var configuration: CommandNodeConfig<TextStyle>? = CommandNodeConfig<TextStyle>(
         commandName: "advice-s",
         shadowGroups: ["lower upper"],
         embellishments: [
@@ -42,7 +42,7 @@ struct Top: CommandNodeFrame  {
             .embellish("color", label: "c__color"),
         ],
         commandSynopsis: "Print quotes and book titles.",
-        children: [booksNode, quotesNode]
+        children: children
     )
 
     func run(state: [TextStyle]) -> [TextStyle]
@@ -53,13 +53,9 @@ struct Top: CommandNodeFrame  {
 
     static let generator = CompletionGenerator(name: "advice-s", suggestionElements: helpLayout)
 
-    private static let booksNode = Books.commandNode
-
-    private static let quotesNode = Quotes.commandNode
-
-    private static let children = [Quotes.commandNode, Books.commandNode,]
-
-    private static let childNodes = [Quotes.commandNode, Books.commandNode,]
+    private static let booksNode = Books().commandNode
+    private static let quotesNode = Quotes().commandNode
+    private static let children = [quotesNode, booksNode,]
 
     private static let helpLayout = sharedHelp + [
         .text("SUBCOMMANDS"),

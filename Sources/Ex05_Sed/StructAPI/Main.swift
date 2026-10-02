@@ -13,11 +13,11 @@
 // limitations under the License.
 
 import CmdArgLibCore
-import CmdArgLibCommandNodeFrame
+import CmdArgLibCommandNodeDef
 import Ex05_SedShared
 
 @main
-struct Main: CommandNodeFrame {
+struct Main: CommandNodeDef {
     var quiet: Flag = false
     var preview: Flag = false
     var inplace: Extension?? = nil
@@ -29,7 +29,7 @@ struct Main: CommandNodeFrame {
     var generateManpage: MetaFlag = manpageMetaFlag
     var version: MetaFlag = MetaFlag(string: "Version 1.0")
 
-    var configuration: CommandNodeConfiguration<Void>? = CommandNodeConfiguration<Void>(
+    var configuration: CommandNodeConfig<Void>? = CommandNodeConfig<Void>(
         commandName: "sed-s",
         embellishments: [
             .embellish("help",label: "h__help"),

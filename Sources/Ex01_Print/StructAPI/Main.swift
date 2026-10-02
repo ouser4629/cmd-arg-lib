@@ -13,18 +13,18 @@
 // limitations under the License.
 
 import CmdArgLibCore
-import CmdArgLibCommandNodeFrame
+import CmdArgLibCommandNodeDef
 import CmdArgLibHelpScreen
 
 @main
-struct Main: CommandNodeFrame {
+struct Main: CommandNodeDef {
     var h__help: MetaFlag = MetaFlag(helpElements: helpLayout)
     var l: Flag = false
     var u: Flag = false
     var count: Int = 1
     var phrase: String? = nil
 
-    var configuration: CommandNodeConfiguration<Void>? = CommandNodeConfiguration<Void>(
+    var configuration: CommandNodeConfig<Void>? = CommandNodeConfig<Void>(
         commandName: "print-s",
     )
 

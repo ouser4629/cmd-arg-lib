@@ -13,18 +13,18 @@
 // limitations under the License.
 
 import CmdArgLibCore
-import CmdArgLibCommandNodeFrame
+import CmdArgLibCommandNodeDef
 import CmdArgLibHelpScreen
 import Ex03_RunShared
 
-public struct StructImplementation: CommandNodeFrame {
+public struct StructImplementation: CommandNodeDef {
 
     var comment: String?? = nil
     var command: Rest? = nil
     var verbose: Flag = false
     var help: MetaFlag = MetaFlag(helpElements: helpLayout)
 
-    public var configuration: CommandNodeConfiguration<Void>? = CommandNodeConfiguration<Void>(
+    public var configuration: CommandNodeConfig<Void>? = CommandNodeConfig<Void>(
         commandName: "run-s",
         embellishments: [
             .embellish("comment", label: "_", typeName: "Comment??"),

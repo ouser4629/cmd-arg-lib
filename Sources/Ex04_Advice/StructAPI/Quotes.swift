@@ -13,16 +13,16 @@
 // limitations under the License.
 
 import CmdArgLibCore
-import CmdArgLibCommandNodeFrame
+import CmdArgLibCommandNodeDef
 import CmdArgLibCompletions
 import CmdArgLibHelpScreen
 import Foundation
 import Ex04_AdviceShared
 
-struct Quotes: CommandNodeFrame {
+struct Quotes: CommandNodeDef {
     var help: MetaFlag = MetaFlag(helpElements: helpElements)
 
-    var configuration: CommandNodeConfiguration<TextStyle>? =  CommandNodeConfiguration<TextStyle>(
+    var configuration: CommandNodeConfig<TextStyle>? =  CommandNodeConfig<TextStyle>(
         commandName: "quotes",
         embellishments: [
             .embellish("help", label: "h__help"),
@@ -36,9 +36,8 @@ struct Quotes: CommandNodeFrame {
         return state
     }
 
-    private static let generalNode = GeneralQuotes.commandNode
-    
-    private static let computingNode = ComputingQuotes.commandNode
+    private static let generalNode = GeneralQuotes().commandNode
+    private static let computingNode = ComputingQuotes().commandNode
 
     private static let helpElements: [ShowElement] = [
         .text("DESCRIPTION\n", "Print quotes by famous people."),
