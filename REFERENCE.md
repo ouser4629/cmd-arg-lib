@@ -66,7 +66,7 @@
 * Modular design enforces separation of concerns
   * CmdArgLibCore - provides core functionality
   * CmdArgLibMacros - provides a macro-based API
-  * CmdArgLibCommandNodeFrame - provides a protocol-based API
+  * CmdArgLibCommandNodeDef - provides a protocol-based API
   * CmdArgLibHelpScreen - provides a help screen generator
   * CmdArgLibManpage - provides a manual page generator
   * CmdArgLibCompletions - provides completion script generators
@@ -163,13 +163,13 @@ the returned state and remaining command line arguments.
 
 ## Struct-Based API
 
-The struct-based API is based on `CommandNodeFrame`, a protocol provided by the library's `CmdArgLibCommandNodeFrame` module.
+The struct-based API is based on `CommandNodeDef`, a protocol provided by the library's `CmdArgLibCommandNodeDef` module.
 
 ```swift
-public protocol CommandNodeFrame: Sendable, Codable {
+public protocol CommandNodeDef: Sendable, Codable {
     associatedtype StateElement:Sendable
     init()
-    var configuration: CommandNodeConfiguration<StateElement>? { get set }
+    var configuration: CommandNodeConfig<StateElement>? { get set }
     func run(state: [StateElement]) async throws -> [StateElement]
     static func main() async throws
     static var commandNode:CommandNode<StateElement> { get }
@@ -182,7 +182,7 @@ can have the same types as the parameters of a [command function](#command-funct
 must have a default value. For CLI arguments that are required, use an optional type wth a default value
 of `nil`.
 
-The configuration property provides information used by `CommandNodeFrame` to construct the instance
+The configuration property provides information used by `CommandNodeDef` to construct the instance
 of `CommandNode<T>` it requires.
 
 ```swift
@@ -416,7 +416,7 @@ the state produced by its immediate parent, and the current chain of command nod
 It returns new state and the unconsumed portion of command argument list.
 
 A command node's `commandAction` is typically constructed by the library's `CommandMacro` or
-by its `CommandNodeFrame` protocol.
+by its `CommandNodeDef` protocol.
 
 ---
 

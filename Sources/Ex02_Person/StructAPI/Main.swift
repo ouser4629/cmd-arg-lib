@@ -73,11 +73,11 @@ struct MainDef: CommandNodeDef {
 //
 // * Imports
 //   * CmdArgLibCore - for core functionality
-//   * CmdArgLibCommandNodeFrame - the struct-based API
+//   * CmdArgLibCommandNodeDef - the struct-based API
 //   * CmdArgLIbCompletions - support for completion script generation
 //   * Ex02_PersonShared - functionality shared with the macro-Based Implementation
 //
-// * The CLI is defined in a struct that conforms to `CommandNodeFrame`
+// * The CLI is defined in a struct that conforms to `CommandNodeDef`
 //   * Each parameter's name, type, and default value are defined by a corresponding stored property
 //   * The default label-spec is the property's name
 //   * The default type-name is the property's base type (not the typealias, if any that refers to it)
@@ -91,7 +91,7 @@ struct MainDef: CommandNodeDef {
 //   * Embellishes the stored properties, adding a custom label-spec and/or a type-name
 //   * Is excluded from the CLI - i.e., does not have a corresponding CLI argument
 //
-// * `CommandNodeFrame`
+// * `CommandNodeDef`
 //   * provides a static var `commandNode: CommandNode` that returns a command node
 //   * provides `static main()`, which calls the command node's `run` method, which in turn calls the struct's `run` method
 //
