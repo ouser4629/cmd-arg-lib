@@ -38,16 +38,14 @@ struct Main {
 
 ```swift
 @main
-struct Main: CommandNodeDef {
+struct PrintS: CommandNodeDef {
     var h__help: MetaFlag = MetaFlag(helpElements: helpLayout)
     var l: Flag = false
     var u: Flag = false
     var count: Int = 1
     var phrase: String? = nil
 
-    var configuration: CommandNodeConfig<Void>? = CommandNodeConfig<Void>(
-        commandName: "print-s",
-    )
+    var configuration: CommandNodeConfig<Void>? = 
 
     func run(state: [Void]) throws -> [Void]
     { ... }
@@ -629,7 +627,7 @@ The library's [documentation](REFERENCE.md) focuses on terminology and API refer
 
 This software is licensed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
-The library is in beta (version 0.5.1) and has been tested only on macOS.
+The library is in beta (version 0.5.2) and has been tested only on macOS.
 
 All CAL modules require macOS 12 or later.
 
