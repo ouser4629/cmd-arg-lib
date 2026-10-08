@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import CmdArgLibCore
-import CmdArgLibCommandNodeDef
+import CmdArgLibProtocols
 import CmdArgLibCompletions
 import CmdArgLibHelpScreen
 import Foundation

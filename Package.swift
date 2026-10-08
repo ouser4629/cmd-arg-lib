@@ -62,9 +62,8 @@ if includeMacroBasedCode {
     dependencies.append(.package(url: "https://github.com/ouser4629/CmdArgLibMacros.git", branch: "main"))
 }
 if includeStructBasedCode {
-//    dependencies.append(.package(path: "/Users/po/ZLocal/ZDev/Swift/PS2Lib/User4629/CmdArgLibCommandNodeDef"))
 //    dependencies.append(.package(path: "/Users/po/ZLocal/ZDev/Swift/PS2Lib/User4629/CmdArgLibProtocols"))
-    dependencies.append(.package(url: "https://github.com/ouser4629/CmdArgLibCommandNodeDef.git", branch: "main"))
+//    dependencies.append(.package(path: "/Users/po/ZLocal/ZDev/Swift/PS2Lib/User4629/CmdArgLibProtocols"))
     dependencies.append(.package(url: "https://github.com/ouser4629/CmdArgLibProtocols.git", branch: "main"))
 }
 
@@ -100,7 +99,7 @@ if includeStructBasedCode {
     targets += [
         .executableTarget(
             name: "Ex01_PrintStructAPI",
-            dependencies: [ "CmdArgLibCore", "CmdArgLibCommandNodeDef", "CmdArgLibHelpScreen",],
+            dependencies: [ "CmdArgLibCore", "CmdArgLibProtocols", "CmdArgLibHelpScreen",],
             path: "Sources/Ex01_Print/StructAPI"
         ),
         //
@@ -117,7 +116,7 @@ if includeStructBasedCode {
         ),
         .target(
             name: "Ex03_RunStructImplementation",
-            dependencies: ["CmdArgLibCore", "CmdArgLibCommandNodeDef", "CmdArgLibCompletions", "Ex03_RunShared"],
+            dependencies: ["CmdArgLibCore", "CmdArgLibProtocols", "CmdArgLibCompletions", "Ex03_RunShared"],
             path: "Sources/Ex03_Run/StructImplementation"
         ),
         .testTarget(
@@ -128,13 +127,13 @@ if includeStructBasedCode {
         //
         .executableTarget(
             name: "Ex04_AdviceStructAPI",
-            dependencies: [ "CmdArgLibCore", "CmdArgLibCommandNodeDef", "CmdArgLibHelpScreen", "CmdArgLibCompletions", "Ex04_AdviceShared"],
+            dependencies: [ "CmdArgLibCore", "CmdArgLibProtocols", "CmdArgLibHelpScreen", "CmdArgLibCompletions", "Ex04_AdviceShared"],
             path: "Sources/Ex04_Advice/StructAPI"
         ),
         //
         .executableTarget(
             name: "Ex05_SedStructAPI",
-            dependencies: [ "CmdArgLibCore", "CmdArgLibCommandNodeDef", "Ex05_SedShared"],
+            dependencies: [ "CmdArgLibCore", "CmdArgLibProtocols", "Ex05_SedShared"],
             path: "Sources/Ex05_Sed/StructAPI"
         ),
     ]

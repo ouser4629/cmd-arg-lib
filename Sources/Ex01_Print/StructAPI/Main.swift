@@ -13,24 +13,23 @@
 // limitations under the License.
 
 import CmdArgLibCore
-import CmdArgLibCommandNodeDef
+import CmdArgLibProtocols
 import CmdArgLibHelpScreen
 
 @main
-struct PrintS: CommandNodeDef {
+struct PrintS: MainFunctionDef{
     var h__help: MetaFlag = MetaFlag(helpElements: helpLayout)
     var l: Flag = false
     var u: Flag = false
     var count: Int = 1
     var phrase: String? = nil
 
-    var configuration: CommandNodeConfig<Void>? = nil
+    var attributes: MainFunctionAttributes? = nil
 
-    func run(state: [Void]) throws -> [Void] {
+    func run() throws {
         guard count >= 1 else { throw Exception.error("count must be >= 1") }
         let line = u ? phrase!.uppercased() : l ? phrase!.lowercased() : phrase!
         for _ in 1...count { print(line) }
-        return []
     }
 
     private static let helpLayout: [ShowElement] = [

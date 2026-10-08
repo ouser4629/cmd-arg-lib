@@ -44,8 +44,7 @@ struct PersonS: MainFunctionDef {
     )
 
     @MainActor
-    func run(state: [Void]) -> [Void]
-    {
+    func run() {
         var lines: [String] = []
         if let weight, let weight { lines.append("  \(name!) weighs \(weight) kgs.") }
         if !sonHas.isEmpty  { lines.append("  \(name!)'s son has \(sonHas.map{"a \($0)"}.joinedWith("and")).") }
@@ -56,7 +55,6 @@ struct PersonS: MainFunctionDef {
         var line = lines.joined(separator: "\n")
         line = u ? line.uppercased() : l ? line.lowercased() : line
         for _ in 0..<abs(count) { print(line) }
-        return []
     }
 
     static let generator = CompletionGenerator(name: "person-s", suggestionElements: helpLayout)
@@ -69,33 +67,3 @@ struct PersonS: MainFunctionDef {
 //   * Shows use of typeName embellishing to customize placeholders in help screends, etc.
 //   * Shows use of the help screen meta-flag initializer: `MetaFlag(helpElements:)`
 //   * Shows use of the script generation type: `MetaOption<CompletionGenerator>`
-//
-// * Imports
-//   * CmdArgLibCore - for core functionality
-//   * CmdArgLibCommandNodeDef - the struct-based API
-//   * CmdArgLIbCompletions - support for completion script generation
-//   * Ex02_PersonShared - functionality shared with the macro-Based Implementation
-//
-// * The CLI is defined in a struct that conforms to `CommandNodeDef`
-//   * Each parameter's name, type, and default value are defined by a corresponding stored property
-//   * The default label-spec is the property's name
-//   * The default type-name is the property's base type (not the typealias, if any that refers to it)
-//   * Every stored property must have an explicit default value
-//   * If a property's default value is nil, the corresponding argument is required, otherwise it is not
-//   * Accordingly, properties with type Optional<B:CmdArgBasicType> are guaranteed to be supplied with a non-nil value
-//
-// * The struct has a stored property `configuration: Configuration`
-//   * Defines the name of the command
-//   * Defines shadow groups
-//   * Embellishes the stored properties, adding a custom label-spec and/or a type-name
-//   * Is excluded from the CLI - i.e., does not have a corresponding CLI argument
-//
-// * `CommandNodeDef`
-//   * provides a static var `commandNode: CommandNode` that returns a command node
-//   * provides `static main()`, which calls the command node's `run` method, which in turn calls the struct's `run` method
-//
-// * The run(state) method
-//   * Is called by the command node provided by the struct
-//   * Performs program logic, based on command line arguments and state
-//   * Returns state, which the command node can pass to child nodes
-//   * For simple hierarchies and stand-alone commands, use [Void] for state, ignore it, and return []

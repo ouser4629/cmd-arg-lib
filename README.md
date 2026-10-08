@@ -38,16 +38,22 @@ struct Main {
 
 ```swift
 @main
-struct PrintS: CommandNodeDef {
+struct PrintS: MainFunctionDef{
     var h__help: MetaFlag = MetaFlag(helpElements: helpLayout)
     var l: Flag = false
     var u: Flag = false
     var count: Int = 1
     var phrase: String? = nil
 
-    var configuration: CommandNodeConfig<Void>? = 
+    var attributes: MainFunctionAttributes? = nil
 
-    func run(state: [Void]) throws -> [Void]
+    func run(state: [Void]) throws -> [Void] {
+        guard count >= 1 else { throw Exception.error("count must be >= 1") }
+        let line = u ? phrase!.uppercased() : l ? phrase!.lowercased() : phrase!
+        for _ in 1...count { print(line) }
+        return []
+    }
+
     { ... }
 ```
 
@@ -607,7 +613,7 @@ CAL has a modular design that makes it easier to customize and maintain.
 
 * CLI Definition
   * [CmdArgLibMacros](https://github.com/ouser4629/CmdArgLibMacros.git) provides macros to generate CLIs directly from ordinary Swift function declarations
-  * [CmdArgLibCommandNodeDef](https://github.com/ouser4629/CmdArgLibCommandNodeDef.git) provides a protocol to generate CLIs from conforming structs
+  * [CmdArgLibProtocols](https://github.com/ouser4629/CmdArgLibProtocols.git) provides a protocol to generate CLIs from conforming structs
 * Command presentation
   * [CmdArgLibHelpScreen](https://github.com/ouser4629/CmdArgLibHelpScreen.git) provides help screen support
   * [CmdArgLibManpage](https://github.com/ouser4629/CmdArgLibManpage.git) provides manual page support

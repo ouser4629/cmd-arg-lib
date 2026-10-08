@@ -13,19 +13,18 @@
 // limitations under the License.
 
 import CmdArgLibCore
-import CmdArgLibCommandNodeDef
+import CmdArgLibProtocols
 import CmdArgLibHelpScreen
 import Ex03_RunShared
 
-public struct RunS: CommandNodeDef {
+public struct RunS: MainFunctionDef{
 
     var comment: String?? = nil
     var command: Rest? = nil
     var verbose: Flag = false
     var help: MetaFlag = MetaFlag(helpElements: helpLayout)
 
-    public var configuration: CommandNodeConfig<Void>? = CommandNodeConfig<Void>(
-        commandName: "run-s",
+    public var attributes: MainFunctionAttributes? = MainFunctionAttributes(
         embellishments: [
             .embellish("comment", label: "_", typeName: "Comment??"),
             .embellish("help", label: "h__help"),
@@ -33,9 +32,8 @@ public struct RunS: CommandNodeDef {
         ]
     )
 
-    public func run(state: [Void]) throws -> [Void] {
+    public func run() throws {
         try readAndCall(comment ?? nil, command: command!.elements, verbose: verbose)
-        return []
     }
 
     public init() {}

@@ -40,7 +40,7 @@ struct Ex03_RunStructImplementaionTests {
             baz
             foo
             """
-            let ok = await testOutput(of: RunS().commandNode.run, with: input, expecting: expected)
+            let ok = await testOutput(of: RunS.run, with: input, expecting: expected)
             #expect(ok)
         }
     }
@@ -54,7 +54,7 @@ struct Ex03_RunStructImplementaionTests {
             ---
             <foo content><baz content><foo content>
             """
-            let ok = await testOutput(of: RunS().commandNode.run, with: input, expecting: expected)
+            let ok = await testOutput(of: RunS.run, with: input, expecting: expected)
             #expect(ok)
         }
     }
@@ -69,7 +69,7 @@ struct Ex03_RunStructImplementaionTests {
             ---
             <foo content><baz content>
             """
-            let ok = await testOutput(of: RunS().commandNode.run, with: input, expecting: expected)
+            let ok = await testOutput(of: RunS.run, with: input, expecting: expected)
             #expect(ok)
         }
     }
@@ -80,7 +80,7 @@ struct Ex03_RunStructImplementaionTests {
             let expected = """
             Unknown command: badName
             """
-            let ok = await testOutput(of: RunS().commandNode.run, with: input, expecting: expected)
+            let ok = await testOutput(of: RunS.run, with: input, expecting: expected)
             #expect(ok)
     }
 
@@ -92,7 +92,7 @@ struct Ex03_RunStructImplementaionTests {
               The comment is too long.
             See "run-s --help" for more information.
             """
-            let ok = await testOutput(of: RunS().commandNode.run, with: input, expecting: expected)
+        let ok = await testOutput(of: RunS.run, with: input, expecting: expected)
             #expect(ok)
     }
 
@@ -104,7 +104,7 @@ struct Ex03_RunStructImplementaionTests {
             let expected = """
             cat: nonExistingFile: No such file or directory
             """
-            let ok = await testOutput(of: RunS().commandNode.run, with: input, expecting: expected)
+            let ok = await testOutput(of: RunS.run, with: input, expecting: expected)
             #expect(ok)
         }
     }

@@ -13,11 +13,11 @@
 // limitations under the License.
 
 import CmdArgLibCore
-import CmdArgLibCommandNodeDef
+import CmdArgLibProtocols
 import Ex05_SedShared
 
 @main
-struct SedS: CommandNodeDef {
+struct SedS: MainFunctionDef {
     var quiet: Flag = false
     var preview: Flag = false
     var inplace: Extension?? = nil
@@ -29,7 +29,7 @@ struct SedS: CommandNodeDef {
     var generateManpage: MetaFlag = manpageMetaFlag
     var version: MetaFlag = MetaFlag(string: "Version 1.0")
 
-    var configuration: CommandNodeConfig<Void>? = CommandNodeConfig<Void>(
+    var attributes: MainFunctionAttributes? = MainFunctionAttributes(
         embellishments: [
             .embellish("help",label: "h__help"),
             .embellish("quiet",label: "n",typeName: "Flag"),
@@ -42,7 +42,7 @@ struct SedS: CommandNodeDef {
         ]
     )
 
-    func run(state: [Void]) throws -> [Void] {
+    func run() throws {
         try work(
             quiet: quiet,
             preview: preview,
@@ -52,6 +52,5 @@ struct SedS: CommandNodeDef {
             command: command ?? nil,
             files: files
         )
-        return []
     }
 }
