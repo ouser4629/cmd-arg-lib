@@ -62,8 +62,6 @@ if includeMacroBasedCode {
     dependencies.append(.package(url: "https://github.com/ouser4629/CmdArgLibMacros.git", branch: "main"))
 }
 if includeStructBasedCode {
-//    dependencies.append(.package(path: "/Users/po/ZLocal/ZDev/Swift/PS2Lib/User4629/CmdArgLibProtocols"))
-//    dependencies.append(.package(path: "/Users/po/ZLocal/ZDev/Swift/PS2Lib/User4629/CmdArgLibProtocols"))
     dependencies.append(.package(url: "https://github.com/ouser4629/CmdArgLibProtocols.git", branch: "main"))
 }
 
