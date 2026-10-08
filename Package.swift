@@ -63,7 +63,9 @@ if includeMacroBasedCode {
 }
 if includeStructBasedCode {
 //    dependencies.append(.package(path: "/Users/po/ZLocal/ZDev/Swift/PS2Lib/User4629/CmdArgLibCommandNodeDef"))
+//    dependencies.append(.package(path: "/Users/po/ZLocal/ZDev/Swift/PS2Lib/User4629/CmdArgLibProtocols"))
     dependencies.append(.package(url: "https://github.com/ouser4629/CmdArgLibCommandNodeDef.git", branch: "main"))
+    dependencies.append(.package(url: "https://github.com/ouser4629/CmdArgLibProtocols.git", branch: "main"))
 }
 
 // Shared targets
@@ -104,7 +106,7 @@ if includeStructBasedCode {
         //
         .executableTarget(
             name: "Ex02_PersonStructAPI",
-            dependencies: [ "CmdArgLibCore", "CmdArgLibCommandNodeDef", "Ex02_PersonShared", "CmdArgLibCompletions"],
+            dependencies: [ "CmdArgLibCore", "CmdArgLibProtocols", "Ex02_PersonShared", "CmdArgLibCompletions"],
             path: "Sources/Ex02_Person/StructAPI"
         ),
         //

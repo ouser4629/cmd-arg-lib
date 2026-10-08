@@ -13,12 +13,12 @@
 // limitations under the License.
 
 import CmdArgLibCore
-import CmdArgLibCommandNodeDef
+import CmdArgLibProtocols
 import CmdArgLibCompletions
 import Ex02_PersonShared
 
 @main
-struct PersonS: CommandNodeDef {
+struct PersonS: MainFunctionDef {
     var help: MetaFlag = MetaFlag(helpElements: helpLayout)
     var l: Flag = false
     var u: Flag = false
@@ -30,7 +30,7 @@ struct PersonS: CommandNodeDef {
     var generateCompletionScript: MetaOption<CompletionGenerator> = MetaOption(generator)
 
     // Configuration
-    var configuration: CommandNodeConfig<Void>? = CommandNodeConfig<Void>(
+    var attributes: MainFunctionAttributes? = MainFunctionAttributes(
         shadowGroups: ["u l"],
         embellishments: [
             .embellish("help", label: "h__help"),
