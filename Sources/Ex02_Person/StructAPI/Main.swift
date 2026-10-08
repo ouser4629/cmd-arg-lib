@@ -18,7 +18,7 @@ import CmdArgLibCompletions
 import Ex02_PersonShared
 
 @main
-struct MainDef: CommandNodeDef {
+struct PersonS: CommandNodeDef {
     var help: MetaFlag = MetaFlag(helpElements: helpLayout)
     var l: Flag = false
     var u: Flag = false
@@ -31,7 +31,6 @@ struct MainDef: CommandNodeDef {
 
     // Configuration
     var configuration: CommandNodeConfig<Void>? = CommandNodeConfig<Void>(
-        commandName: "person-s",
         shadowGroups: ["u l"],
         embellishments: [
             .embellish("help", label: "h__help"),

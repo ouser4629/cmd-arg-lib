@@ -17,7 +17,7 @@ import CmdArgLibCommandNodeDef
 import CmdArgLibHelpScreen
 import Ex03_RunShared
 
-public struct StructImplementation: CommandNodeDef {
+public struct RunS: CommandNodeDef {
 
     var comment: String?? = nil
     var command: Rest? = nil

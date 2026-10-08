@@ -17,6 +17,6 @@ import Ex03_RunStructImplementation
 @main
 struct Main {
     static func main() async {
-        await StructImplementation.main()
+        await RunS.main()
     }
 }

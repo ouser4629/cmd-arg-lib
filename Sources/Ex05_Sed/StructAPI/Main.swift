@@ -17,7 +17,7 @@ import CmdArgLibCommandNodeDef
 import Ex05_SedShared
 
 @main
-struct Main: CommandNodeDef {
+struct SedS: CommandNodeDef {
     var quiet: Flag = false
     var preview: Flag = false
     var inplace: Extension?? = nil
@@ -30,7 +30,6 @@ struct Main: CommandNodeDef {
     var version: MetaFlag = MetaFlag(string: "Version 1.0")
 
     var configuration: CommandNodeConfig<Void>? = CommandNodeConfig<Void>(
-        commandName: "sed-s",
         embellishments: [
             .embellish("help",label: "h__help"),
             .embellish("quiet",label: "n",typeName: "Flag"),

@@ -186,7 +186,7 @@ The configuration property provides information used by `CommandNodeDef` to cons
 of `CommandNode<T>` it requires.
 
 ```swift
-public init(commandName: String = "",
+public init(
     shadowGroups: [String] = [],
     embellishments: [Embellishment] = [],
     commandSynopsis: String? = nil,

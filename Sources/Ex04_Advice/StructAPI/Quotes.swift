@@ -23,7 +23,6 @@ struct Quotes: CommandNodeDef {
     var help: MetaFlag = MetaFlag(helpElements: helpElements)
 
     var configuration: CommandNodeConfig<TextStyle>? =  CommandNodeConfig<TextStyle>(
-        commandName: "quotes",
         embellishments: [
             .embellish("help", label: "h__help"),
         ],

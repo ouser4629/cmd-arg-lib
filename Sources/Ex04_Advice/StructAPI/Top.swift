@@ -20,7 +20,7 @@ import Foundation
 import Ex04_AdviceShared
 
 @main
-struct Top: CommandNodeDef  {
+struct AdviceS: CommandNodeDef  {
     var help: MetaFlag = MetaFlag(helpElements: helpLayout)
     var tree: MetaFlag = MetaFlag(treeFor: "advice-s", synopsis: "")
     var version: MetaFlag =  MetaFlag(string: "0.1.0")
@@ -30,7 +30,6 @@ struct Top: CommandNodeDef  {
     var color: Color = .white
 
     var configuration: CommandNodeConfig<TextStyle>? = CommandNodeConfig<TextStyle>(
-        commandName: "advice-s",
         shadowGroups: ["lower upper"],
         embellishments: [
             .embellish("help", label: "h__help"),
