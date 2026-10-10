@@ -34,7 +34,7 @@ struct Main {
 }
 ```
 
-* Alternatively, use its struct-based API:
+* Alternatively, use its protocol-based API:
 
 ```swift
 @main
@@ -47,14 +47,8 @@ struct PrintS: MainFunctionDef{
 
     var attributes: MainFunctionAttributes? = nil
 
-    func run(state: [Void]) throws -> [Void] {
-        guard count >= 1 else { throw Exception.error("count must be >= 1") }
-        let line = u ? phrase!.uppercased() : l ? phrase!.lowercased() : phrase!
-        for _ in 1...count { print(line) }
-        return []
-    }
-
-    { ... }
+    func run() throws { ... }
+}
 ```
 
 * Compose help screens with show element constructors:
@@ -136,7 +130,7 @@ cmd-arg-lib> swift build -c release && cp .build/release/person-m ~/.local/bin
 
 ## Examples
 
-Each example is implemented twice, first with CAL's macro-based API, and then with its struct-based API.
+Each example is implemented twice, first with CAL's macro-based API, and then with its protocol-based API.
 
 ### 1 - Print
 
@@ -633,7 +627,7 @@ The library's [documentation](REFERENCE.md) focuses on terminology and API refer
 
 This software is licensed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
-The library is in beta (version 0.5.2) and has been tested only on macOS.
+The library is in beta (version 0.5.2).
 
 All CAL modules require macOS 12 or later.
 
