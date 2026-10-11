@@ -20,11 +20,11 @@ import Ex03_RunShared
 public struct MacrosImplementation {
     @MainFunctionMacro
     public static func runM(
-        _ comment: Comment?,
+        _comment: Comment?,
         command: Rest,
         v__verbose verbose: Flag,
         h__help help: MetaFlag = MetaFlag(helpElements: helpLayout)) throws
     {
-        try readAndCall(comment, command: command.elements, verbose: verbose)
+        try readAndCall(_comment, command: command.elements, verbose: verbose)
     }
 }

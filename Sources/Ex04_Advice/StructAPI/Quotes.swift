@@ -20,12 +20,9 @@ import Foundation
 import Ex04_AdviceShared
 
 struct Quotes: CommandNodeDef {
-    var help: MetaFlag = MetaFlag(helpElements: helpElements)
+    var h__help: MetaFlag = MetaFlag(helpElements: helpElements)
 
-    var configuration: CommandNodeConfig<TextStyle>? =  CommandNodeConfig<TextStyle>(
-        embellishments: [
-            .embellish("help", label: "h__help"),
-        ],
+    var attributes: CommandNodeAttributes<TextStyle>? =  CommandNodeAttributes<TextStyle>(
         commandSynopsis: "Print quotes by famous people.",
         children: [generalNode, computingNode]
     )
@@ -42,7 +39,7 @@ struct Quotes: CommandNodeDef {
         .text("DESCRIPTION\n", "Print quotes by famous people."),
         .synopsis("\nUSAGE\n", line: ["help", "$_:Subcommand"]),
         .text("\nOPTION"),
-        .parameter("help", "Show help information"),
+        .parameter("h__help", "Show help information"),
         .text("\nSUBCOMMANDS"),
         .commandContext(generalNode.context),
         .commandContext(computingNode.context),

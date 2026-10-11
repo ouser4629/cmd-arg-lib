@@ -24,26 +24,17 @@ struct Main {
 
     @MainFunctionMacro(shadowGroups: ["u l"])
     static func personM(
-        h__help help: MetaFlag = MetaFlag(helpElements: helpLayout),
-        l: Flag = false,
-        u: Flag = false,
-        c__count count: Int = 1,
-        w__weight weight: Double? = nil,
-        s__sonHas sonHas: Variadic<Pet> = [],
-        d__daughterHas daughterHas: [Pet] = [],
-        _ name: Name,
+        h__help: MetaFlag = MetaFlag(helpElements: helpLayout),
+        l: Flag,
+        u: Flag,
+        c__count: Int = 1,
+        w__weight: Double? = nil,
+        s__sonHas: Variadic<Pet> = [],
+        d__daughterHas: [Pet] = [],
+        _name: Name,
         generateCompletionScript: MetaOption<Shell> = MetaOption(generator))
     {
-        var lines: [String] = []
-        if let weight { lines.append("  \(name) weighs \(weight) kgs.") }
-        if !sonHas.isEmpty  { lines.append("  \(name)'s son has \(sonHas.map{"a \($0)"}.joinedWith("and")).") }
-        if !daughterHas.isEmpty  { lines.append("  \(name)'s daughter has \(daughterHas.map{"a \($0)"}.joinedWith("and")).") }
-        if lines.isEmpty  { lines.append("  No data was found for \(name).") }
-        if count < 0 { lines.reverse() }
-        lines.insert("DATA:", at: 0)
-        var line = lines.joined(separator: "\n")
-        line = u ? line.uppercased() : l ? line.lowercased() : line
-        for _ in 0..<abs(count) { print(line) }
+        showPerson(l: l, u: u, count: c__count, weight: w__weight, sonHas: s__sonHas, daughterHas: d__daughterHas, name: _name)
     }
     
     static let generator = CompletionGenerator(name: "person-m", suggestionElements: helpLayout)

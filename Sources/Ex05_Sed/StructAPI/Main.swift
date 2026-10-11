@@ -18,39 +18,36 @@ import Ex05_SedShared
 
 @main
 struct SedS: MainFunctionDef {
-    var quiet: Flag = false
-    var preview: Flag = false
-    var inplace: Extension?? = nil
-    var commands: [Command] = []
-    var commandFiles: [CommandFile] = []
-    var command: Command?? = nil
-    var files: Variadic<File> = []
-    var help: MetaFlag = helpScreenMetaFlag
+    var n: Flag = false
+    var p: Flag = false
+    var i: Extension?? = nil
+    var e: [Command] = []
+    var f: [CommandFile] = []
+    var _command: Command?? = nil
+    var _files: Variadic<File> = []
+    var h__help: MetaFlag = helpScreenMetaFlag
     var generateManpage: MetaFlag = manpageMetaFlag
     var version: MetaFlag = MetaFlag(string: "Version 1.0")
 
     var attributes: MainFunctionAttributes? = MainFunctionAttributes(
-        embellishments: [
-            .embellish("help",label: "h__help"),
-            .embellish("quiet",label: "n",typeName: "Flag"),
-            .embellish("preview",label: "p",typeName: "Flag"),
-            .embellish("inplace", label: "i", typeName: "Extension??"),
-            .embellish("commands", label: "e", typeName: "[Command]"),
-            .embellish("commandFiles", label: "f",typeName: "[CommandFile]"),
-            .embellish("command",label: "_",typeName: "Command??"),
-            .embellish("files",label: "_",typeName: "Variadic<File>"),
-        ]
+        typeNames: [
+            "i":"Extension??",
+            "e":"[Command]",
+            "f":"[CommandFile]",
+            "_command":"[CommandFile]",
+            "_files":"Variadic<File>",
+        ],
     )
 
     func run() throws {
         try work(
-            quiet: quiet,
-            preview: preview,
-            inplaceEdit: inplace ?? nil,
-            commands: commands,
-            commandFiles: commandFiles,
-            command: command ?? nil,
-            files: files
+            quiet: n,
+            preview: p,
+            inplaceEdit: i ?? nil,
+            commands: e,
+            commandFiles: f,
+            command: _command ?? nil,
+            files: _files
         )
     }
 }

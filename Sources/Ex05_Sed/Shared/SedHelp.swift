@@ -21,11 +21,11 @@ private let helpLayout: [ShowElement] = [
     .text("DESCRIPTION\n", "A sed wrapper."),
     .synopsis("\nUSAGE\n", lines: [synopsisLine1Names, synopsisLine2Names]),
     .text("\nOPTIONS"),
-    .parameter("quiet", quiet),
-    .parameter("preview", preview),
-    .parameter("inplace", inplaceEdit),
-    .parameter("commands", commands),
-    .parameter("commandFiles", commandRun),
+    .parameter("n", quiet),
+    .parameter("p", preview),
+    .parameter("i", inplaceEdit),
+    .parameter("e", commands),
+    .parameter("f", commandRun),
     .parameter("generateManpage", "Generate a man page"),
     .parameter("version", "Show version information"),
     .parameter("help", "Show help information"),
@@ -34,40 +34,40 @@ private let helpLayout: [ShowElement] = [
     .text("\n", note1),
 ]
 
-let synopsisLine1Names = ["quiet", "preview", "inplace", "$_:Command", "files"]
-let synopsisLine2Names = ["quiet", "preview", "inplace", "commands", "commandFiles", "files"]
+let synopsisLine1Names = ["n", "p", "i", "$_:Command", "_files"]
+let synopsisLine2Names = ["n", "p", "i", "e", "f", "_files"]
 
 let description01 = """
-    The $F{-} utility reads each specified $E{files}, or the standard input if no 
-    $E{files} is specified, modifying the input as specified by a list
+    The $F{-} utility reads each specified $E{_files}, or the standard input if no 
+    $E{_files} is specified, modifying the input as specified by a list
     of editing commands. The input is then written to the standard output.
     """
 let description02 = """
     A single command may be specified as the first argument to $F{-}, in which
-    case no $S{commands} or $S{commandFiles} options are allowed. Multiple commands
-    may be specified by using the $S{commands} or $S{commandFiles} options. All commands
+    case no $S{e} or $S{f} options are allowed. Multiple commands
+    may be specified by using the $S{e} or $S{f} options. All commands
     are applied to the input in the order they are specified regardless of their origin.
     """
 
 let quiet = """
     By default, each line of input is echoed to the standard output after all of the
-    commands have been applied to it. The $S{quiet} option suppresses this behavior
+    commands have been applied to it. The $S{n} option suppresses this behavior
     """
 let preview = """
     Print the generated sed command without executing it
     """
 let inplaceEdit = """
-    Edit each $E{files} in-place, saving backups with the specified $E{inplace}.
+    Edit each $E{_files} in-place, saving backups with the specified $E{i}.
     If a zero-length extension is given (""), no backup will be saved
     """
 let commands = """
-    Append $E{commands} to the list of editing commands (may be repeated)
+    Append $E{e} to the list of editing commands (may be repeated)
     """
 let commandRun = """
-    Append the editing commands found in the file $E{commandFiles} to the list of
+    Append the editing commands found in the file $E{f} to the list of
     editing commands (may be repeated). The editing commands should each be listed
     on a separate line. The editing commands are read from the standard input if 
-    $E{commandFiles} is “-”
+    $E{f} is “-”
     """
 
 let note1 = """

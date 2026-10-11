@@ -21,13 +21,10 @@ import Ex04_AdviceShared
 
 struct Books: CommandNodeDef {
     var count: Int = 1
-    var help: MetaFlag = MetaFlag(helpElements: helpLayout)
+    var h__help: MetaFlag = MetaFlag(helpElements: helpLayout)
 
-    var configuration: CommandNodeConfig<TextStyle>? = CommandNodeConfig<TextStyle>(
+    var attributes: CommandNodeAttributes<TextStyle>? = CommandNodeAttributes<TextStyle>(
         commandName: "books",
-        embellishments: [
-            .embellish("help", label: "h__help"),
-        ], 
         commandSynopsis: "Print a list of recommended books."
     )
 
@@ -44,6 +41,6 @@ struct Books: CommandNodeDef {
         .synopsis("\nUSAGE\n"),
         .text("\nOPTIONS"),
         .parameter("count", "The number of books to include in the list"),
-        .parameter("help", "Show help information"),
+        .parameter("h__help", "Show help information"),
     ]
 }

@@ -18,16 +18,16 @@ struct Top {
 
     @CommandNodeMacro<TextStyle>(synopsis: "Print quotes and book titles.", children: childNodes)
     static func adviceM(
-        h__help help: MetaFlag = MetaFlag(helpElements: helpLayout),
-        t__tree tree: MetaFlag = MetaFlag(treeFor: "advice-m", synopsis: ""),
-        v__version version: MetaFlag = MetaFlag(string: "0.1.0"),
+        h__help: MetaFlag = MetaFlag(helpElements: helpLayout),
+        t__tree: MetaFlag = MetaFlag(treeFor: "advice-m", synopsis: ""),
+        v__version: MetaFlag = MetaFlag(string: "0.1.0"),
         generateCompletionScript script: MetaOption<Shell> = MetaOption(generator),
-        l__lower lower: Flag,
-        u__upper upper: Flag,
-        c__color color: Color = .white,
+        l__lower: Flag,
+        u__upper: Flag,
+        c__color: Color = .white,
         state: [TextStyle]) -> [TextStyle]
     {
-        let textStyle = TextStyle(upper: upper, lower: lower, color: color)
+        let textStyle = TextStyle(upper: u__upper, lower: l__lower, color: c__color)
         return [textStyle]
     }
 

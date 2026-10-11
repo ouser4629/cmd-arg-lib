@@ -21,20 +21,20 @@ struct Main {
 
     @MainFunctionMacro
     static func sedM(
-        n quiet: Flag,
-        p preview: Flag,
-        i inplace: Extension?,
-        e commands: Array<Command> = [],
-        f commandFiles: [CommandFile] = [],
-        _ command: Command?,
-        _ files: Variadic<File> = [],
+        n: Flag,
+        p: Flag,
+        i: Extension?,
+        e: Array<Command> = [],
+        f: [CommandFile] = [],
+        _command: Command?,
+        _files: Variadic<File> = [],
         generateManpage: MetaFlag = manpageMetaFlag,
         h__help help: MetaFlag = helpScreenMetaFlag,
         version: MetaFlag = MetaFlag(string: "Version 1.0")) throws
     {
         try work(
-            quiet: quiet, preview: preview, inplaceEdit: inplace,
-            commands: commands, commandFiles: commandFiles, command: command,
-            files: files)
+            quiet: n, preview: p, inplaceEdit: i,
+            commands: e, commandFiles: f, command: _command,
+            files: _files)
     }
 }

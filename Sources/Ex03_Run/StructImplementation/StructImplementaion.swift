@@ -19,21 +19,18 @@ import Ex03_RunShared
 
 public struct RunS: MainFunctionDef{
 
-    var comment: String?? = nil
+    var _comment: String?? = nil
     var command: Rest? = nil
-    var verbose: Flag = false
-    var help: MetaFlag = MetaFlag(helpElements: helpLayout)
+    var v__verbose: Flag = false
+    var h__help: MetaFlag = MetaFlag(helpElements: helpLayout)
 
     public var attributes: MainFunctionAttributes? = MainFunctionAttributes(
-        embellishments: [
-            .embellish("comment", label: "_", typeName: "Comment??"),
-            .embellish("help", label: "h__help"),
-            .embellish("verbose", label: "v__verbose"),
+        typeNames: ["_comment":"Comment??",
         ]
     )
 
     public func run() throws {
-        try readAndCall(comment ?? nil, command: command!.elements, verbose: verbose)
+        try readAndCall(_comment ?? nil, command: command!.elements, verbose: v__verbose)
     }
 
     public init() {}

@@ -19,42 +19,29 @@ import Ex02_PersonShared
 
 @main
 struct PersonS: MainFunctionDef {
-    var help: MetaFlag = MetaFlag(helpElements: helpLayout)
+    var h__help: MetaFlag = MetaFlag(helpElements: helpLayout)
     var l: Flag = false
     var u: Flag = false
-    var count: Int = 1
-    var weight: Double?? = nil
-    var sonHas: Variadic<Pet> = []
-    var daughterHas: [Pet] = []
-    var name: Name? = nil
+    var c__count: Int = 1
+    var w__weight: Double?? = nil
+    var s__sonHas: Variadic<Pet> = []
+    var d__daughterHas: [Pet] = []
+    var _name: Name? = nil
     var generateCompletionScript: MetaOption<CompletionGenerator> = MetaOption(generator)
 
     // Configuration
     var attributes: MainFunctionAttributes? = MainFunctionAttributes(
         shadowGroups: ["u l"],
-        embellishments: [
-            .embellish("help", label: "h__help"),
-            .embellish("name", label: "_", typeName: "Name?"),
-            .embellish("count", label: "c__count"),
-            .embellish("weight", label: "w__weigth"),
-            .embellish("sonHas", label: "s__sonHas", typeName: "Variadic<Pet>"),
-            .embellish("daughterHas", label: "d__daughterHas"),
-            .embellish("generateCompletionScript", typeName: "MetaOption<Shell>"),
+        typeNames: [
+           "_name":"Name?",
+           "s__sonHas":"Variadic<Pet>",
+           "generateCompletionScript":"MetaOption<Shell>",
         ],
     )
 
     @MainActor
     func run() {
-        var lines: [String] = []
-        if let weight, let weight { lines.append("  \(name!) weighs \(weight) kgs.") }
-        if !sonHas.isEmpty  { lines.append("  \(name!)'s son has \(sonHas.map{"a \($0)"}.joinedWith("and")).") }
-        if !daughterHas.isEmpty  { lines.append("  \(name!)'s daughter has \(daughterHas.map{"a \($0)"}.joinedWith("and")).") }
-        if lines.isEmpty  { lines.append("  No data was found for \(name!).") }
-        if count < 0 { lines.reverse() }
-        lines.insert("DATA:", at: 0)
-        var line = lines.joined(separator: "\n")
-        line = u ? line.uppercased() : l ? line.lowercased() : line
-        for _ in 0..<abs(count) { print(line) }
+        showPerson(l: l, u: u, count: c__count, weight: w__weight, sonHas: s__sonHas, daughterHas: d__daughterHas, name: _name)
     }
 
     static let generator = CompletionGenerator(name: "person-s", suggestionElements: helpLayout)

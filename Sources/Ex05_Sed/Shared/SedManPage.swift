@@ -28,11 +28,11 @@ private let manpageLayout: [ShowElement] = [
     .paragraph("DESCRIPTION", description01),
     .paragraph("", description02),
     .paragraph("", "The following options are available:"),
-    .parameter("commands", commands),
-    .parameter("commandFiles", commandRun),
-    .parameter("inplace", inplaceEdit),
-    .parameter("quiet", quiet),
-    .parameter("preview", preview),
+    .parameter("e", commands),
+    .parameter("f", commandRun),
+    .parameter("i", inplaceEdit),
+    .parameter("n", quiet),
+    .parameter("p", preview),
     .paragraph("", note1),
 
     // Other sections

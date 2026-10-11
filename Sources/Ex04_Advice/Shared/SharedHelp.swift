@@ -12,17 +12,17 @@ public let sharedHelp: [ShowElement] = [
     .text("DESCRIPTION\n", "Print quotes and recommended books."),
     .synopsis("\nUSAGE\n", line: ["$*", "$_:Subcommand", "!script"]),
     .text("\nMETA-OPTIONS"),
-    .parameter("help", "Show help information"),
-    .parameter("tree", "Show a hierarchical list of commands"),
-    .parameter("version", "Show the version."),
+    .parameter("h__help", "Show help information"),
+    .parameter("t__tree", "Show a hierarchical list of commands"),
+    .parameter("v__version", "Show the version."),
     .text("\nOPTIONS"),
-    .parameter("lower", "Lowercase the output"),
-    .parameter("upper", "Uppercase the output"),
-    .parameter("color","The color of the output (\(Color.orCases()))", .list(Color.cases)),
+    .parameter("l__lower", "Lowercase the output"),
+    .parameter("u__upper", "Uppercase the output"),
+    .parameter("c__color","The color of the output (\(Color.orCases()))", .list(Color.cases)),
 ]
 
 public let sharedHelpNote = """
-    The $J{lower} and $J{upper} flags shadow each other; the last 
+    The $J{l__lower} and $J{u__upper} flags shadow each other; the last 
     one encountered determines the formatting.
     
     There is a hidden meta-option, "$J{script} $E{script}",

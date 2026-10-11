@@ -21,8 +21,8 @@ public typealias Command = RawArg
 public typealias CommandFile = RawArg
 
 public func work(
-    quiet: Flag = false,
-    preview: Flag = false,
+    quiet: Flag,
+    preview: Flag,
     inplaceEdit: Extension? = nil,
     commands: [Command] = [],
     commandFiles: [CommandFile] = [],

@@ -21,13 +21,10 @@ import Ex04_AdviceShared
 
 struct ComputingQuotes: CommandNodeDef {
     var count: Int = 1
-    var help: MetaFlag = MetaFlag(helpElements: helpLayout)
+    var h__help: MetaFlag = MetaFlag(helpElements: helpLayout)
 
-    var configuration: CommandNodeConfig<TextStyle>? =  CommandNodeConfig<TextStyle>(
+    var attributes: CommandNodeAttributes<TextStyle>? = CommandNodeAttributes<TextStyle>(
         commandName: "computing",
-        embellishments: [
-            .embellish("help", label: "h__help"),
-        ], 
         commandSynopsis: "Print quotes about computing.",
     )
 
@@ -44,6 +41,6 @@ struct ComputingQuotes: CommandNodeDef {
         .synopsis("\nUSAGE\n"),
         .text("\nOPTIONS"),
         .parameter("count", "The number of quotes to print"),
-        .parameter("help","Show help information"),
+        .parameter("h__help","Show help information"),
     ]
 }

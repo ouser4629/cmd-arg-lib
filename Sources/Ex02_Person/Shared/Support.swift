@@ -23,15 +23,15 @@ public let helpLayout: [ShowElement] = [
     .text("DESCRIPTION\n", "Collect and print a person's personal information."),
     .synopsis("\nUSAGE\n", line: ["!generateCompletionScript"]),
     .text("\nOPTIONS"),
-    .parameter("help", "Show help information."),
+    .parameter("h__help", "Show help information."),
     .parameter("l", "Lowercase the output"),
     .parameter("u", "Uppercase the output"),
-    .parameter("count", countDescription),
+    .parameter("c__count", countDescription),
     .text("\nPERSONAL INFORMATION"),
-    .parameter("weight", "The person's weight in kgs"),
-    .parameter("sonHas", "One or more of the pets owned by the person's son", .list(Pet.cases)),
-    .parameter("daughterHas", "A pet owned by the person's daughter (can be repeated)", .list(Pet.cases)),
-    .parameter("name", "The person's name"),
+    .parameter("w__weight", "The person's weight in kgs"),
+    .parameter("s__sonHas", "One or more of the pets owned by the person's son", .list(Pet.cases)),
+    .parameter("d__daughterHas", "A pet owned by the person's daughter (can be repeated)", .list(Pet.cases)),
+    .parameter("_name", "The person's name"),
     .text("\nPETS"),
     .pseudoParameter("bird","A bird is colorful, intelligent, vibrant and highly social"),
     .pseudoParameter("cat","A cat is agile, curious and cuddly"),
@@ -40,8 +40,8 @@ public let helpLayout: [ShowElement] = [
 ]
 
 private let countDescription = """
-    Print the output n times where n is the absolute value of the $T{count} passed
-    to $J{count}. If the $T{count} is negative the data is listed in reverse order.
+    Print the output n times where n is the absolute value of the $T{c__count} passed
+    to $J{c__count}. If the $T{c__count} is negative the data is listed in reverse order.
     """
 
 private let note = """
@@ -52,6 +52,21 @@ private let note = """
     where $E{generateCompletionScript} can be \(ShellType.orCases("one of")). If specified,
     a corresponding completion script is printed to standard output.
     """
+
+public func showPerson(l: Flag, u: Flag, count: Int, weight: Double??, sonHas: [Pet], daughterHas: [Pet] = [], name: Name?)
+{
+    var lines: [String] = []
+    if let weight, let weight { lines.append("  \(name!) weighs \(weight) kgs.") }
+    if !sonHas.isEmpty  { lines.append("  \(name!)'s son has \(sonHas.map{"a \($0)"}.joinedWith("and")).") }
+    if !daughterHas.isEmpty  { lines.append("  \(name!)'s daughter has \(daughterHas.map{"a \($0)"}.joinedWith("and")).") }
+    if lines.isEmpty  { lines.append("  No data was found for \(name!).") }
+    if count < 0 { lines.reverse() }
+    lines.insert("DATA:", at: 0)
+    var line = lines.joined(separator: "\n")
+    line = u ? line.uppercased() : l ? line.lowercased() : line
+    for _ in 0..<abs(count) { print(line) }
+}
+
 
 // * Import CmdArgLibHelpScreen to get `MetaFlag(helpElements:)`
 //

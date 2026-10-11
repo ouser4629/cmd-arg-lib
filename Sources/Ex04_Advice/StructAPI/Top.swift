@@ -21,32 +21,24 @@ import Ex04_AdviceShared
 
 @main
 struct AdviceS: CommandNodeDef  {
-    var help: MetaFlag = MetaFlag(helpElements: helpLayout)
-    var tree: MetaFlag = MetaFlag(treeFor: "advice-s", synopsis: "")
-    var version: MetaFlag =  MetaFlag(string: "0.1.0")
-    var script: MetaOption<CompletionGenerator> = MetaOption(generator)
-    var upper: Flag = false
-    var lower: Flag = false
-    var color: Color = .white
+    var h__help: MetaFlag = MetaFlag(helpElements: helpLayout)
+    var t__tree: MetaFlag = MetaFlag(treeFor: "advice-s", synopsis: "")
+    var v__version: MetaFlag =  MetaFlag(string: "0.1.0")
+    var generateCompletionScript: MetaOption<CompletionGenerator> = MetaOption(generator)
+    var u__upper: Flag = false
+    var l__lower: Flag = false
+    var c__color: Color = .white
 
-    var configuration: CommandNodeConfig<TextStyle>? = CommandNodeConfig<TextStyle>(
+    var attributes: CommandNodeAttributes<TextStyle>? = CommandNodeAttributes<TextStyle>(
         shadowGroups: ["lower upper"],
-        embellishments: [
-            .embellish("help", label: "h__help"),
-            .embellish("script", label: "generateCompletionScript", typeName: "MetaOption<Shell>"),
-            .embellish("tree", label: "t__tree"),
-            .embellish("version", label: "v__version"),
-            .embellish("lower", label: "l__label"),
-            .embellish("upper", label: "u__upper"),
-            .embellish("color", label: "c__color"),
-        ],
+        typeNames: ["generateCompletionScript":"MetaOption<Shell>"],
         commandSynopsis: "Print quotes and book titles.",
         children: children
     )
 
     func run(state: [TextStyle]) -> [TextStyle]
     {
-        let textStyle = TextStyle(upper: upper, lower: lower, color: color)
+        let textStyle = TextStyle(upper: u__upper, lower: l__lower, color: c__color)
         return [textStyle]
     }
 
