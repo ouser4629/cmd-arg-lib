@@ -28,7 +28,7 @@ private let helpLayout: [ShowElement] = [
     .parameter("f", commandRun),
     .parameter("generateManpage", "Generate a man page"),
     .parameter("version", "Show version information"),
-    .parameter("help", "Show help information"),
+    .parameter("h__help", "Show help information"),
     .text("\nNOTES\n", description01),
     .text("\n", description02),
     .text("\n", note1),

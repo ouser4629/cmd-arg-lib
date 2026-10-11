@@ -34,7 +34,7 @@ struct SedS: MainFunctionDef {
             "i":"Extension??",
             "e":"[Command]",
             "f":"[CommandFile]",
-            "_command":"[CommandFile]",
+            "_command":"Command??",
             "_files":"Variadic<File>",
         ],
     )

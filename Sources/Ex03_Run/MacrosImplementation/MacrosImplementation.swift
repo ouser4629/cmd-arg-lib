@@ -22,9 +22,9 @@ public struct MacrosImplementation {
     public static func runM(
         _comment: Comment?,
         command: Rest,
-        v__verbose verbose: Flag,
-        h__help help: MetaFlag = MetaFlag(helpElements: helpLayout)) throws
+        v__verbose: Flag,
+        h__help: MetaFlag = MetaFlag(helpElements: helpLayout)) throws
     {
-        try readAndCall(_comment, command: command.elements, verbose: verbose)
+        try readAndCall(_comment, command: command.elements, verbose: v__verbose)
     }
 }
