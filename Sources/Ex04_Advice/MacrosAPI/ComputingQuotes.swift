@@ -34,6 +34,6 @@ struct ComputingQuotes {
         .synopsis("\nUSAGE\n"),
         .text("\nOPTIONS"),
         .parameter("count", "The number of quotes to print"),
-        .parameter("help","Show help information"),
+        .parameter("h__help","Show help information"),
     ]
 }

@@ -35,6 +35,6 @@ struct Books {
         .synopsis("\nUSAGE\n"),
         .text("\nOPTIONS"),
         .parameter("count", "The number of books to include in the list"),
-        .parameter("help", "Show help information"),
+        .parameter("h__help", "Show help information"),
     ]
 }

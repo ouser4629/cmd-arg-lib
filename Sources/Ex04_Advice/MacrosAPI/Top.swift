@@ -16,12 +16,12 @@ struct Top {
 
     typealias Shell = CompletionGenerator
 
-    @CommandNodeMacro<TextStyle>(synopsis: "Print quotes and book titles.", children: childNodes)
+    @CommandNodeMacro<TextStyle>(shadowGroups: ["l__lower u__upper"], synopsis: "Print quotes and book titles.", children: childNodes)
     static func adviceM(
         h__help: MetaFlag = MetaFlag(helpElements: helpLayout),
         t__tree: MetaFlag = MetaFlag(treeFor: "advice-m", synopsis: ""),
         v__version: MetaFlag = MetaFlag(string: "0.1.0"),
-        generateCompletionScript script: MetaOption<Shell> = MetaOption(generator),
+        generateCompletionScript: MetaOption<Shell> = MetaOption(generator),
         l__lower: Flag,
         u__upper: Flag,
         c__color: Color = .white,

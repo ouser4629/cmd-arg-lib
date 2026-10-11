@@ -25,8 +25,8 @@ public let sharedHelpNote = """
     The $J{l__lower} and $J{u__upper} flags shadow each other; the last 
     one encountered determines the formatting.
     
-    There is a hidden meta-option, "$J{script} $E{script}",
-    where $E{script} can be \(ShellType.orCases("one of")). If specified,
+    There is a hidden meta-option, "$J{generateCompletionScript} $E{generateCompletionScript}",
+    where $E{generateCompletionScript} can be \(ShellType.orCases("one of")). If specified,
     a corresponding completion script is printed to standard output. The generated script includes
     all subcommands.
     """

@@ -21,7 +21,7 @@ struct Quotes {
 
     @CommandNodeMacro<TextStyle>(synopsis: "Print quotes by famous people.", children: childNodes)
     static func quotes(
-        h__help help: MetaFlag = MetaFlag(helpElements: help),
+        h__help: MetaFlag = MetaFlag(helpElements: help),
         state: [TextStyle]) -> [TextStyle]
     {
         return state
@@ -35,7 +35,7 @@ struct Quotes {
         .text("DESCRIPTION\n", "Print quotes by famous people."),
         .synopsis("\nUSAGE\n", line: ["help", "$_:Subcommand"]),
         .text("\nOPTION"),
-        .parameter("help", "Show help information"),
+        .parameter("h__help", "Show help information"),
         .text("\nSUBCOMMANDS"),
         .commandContext(generalNode.context),
         .commandContext(computingNode.context),

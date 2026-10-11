@@ -30,7 +30,7 @@ struct AdviceS: CommandNodeDef  {
     var c__color: Color = .white
 
     var attributes: CommandNodeAttributes<TextStyle>? = CommandNodeAttributes<TextStyle>(
-        shadowGroups: ["lower upper"],
+        shadowGroups: ["l__lower u__upper"],
         typeNames: ["generateCompletionScript":"MetaOption<Shell>"],
         commandSynopsis: "Print quotes and book titles.",
         children: children
