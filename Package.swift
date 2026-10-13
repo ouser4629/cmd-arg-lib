@@ -17,9 +17,11 @@
 import CompilerPluginSupport
 import PackageDescription
 
-// Include desired examples
-let includeStructBasedCode = true
-var includeMacroBasedCode = true
+// By default, only include example that use the protocol API. The
+// macro-based examples can sometimes compile very slowly on the first
+// build.
+let includeProtocolBasedCode = true
+var includeMacroBasedCode = false
 
 // Include the samples that use CmdArgLibMacros only when built with
 // Swift 6.2 or later. Earlier toolchains either do not support macros
@@ -31,7 +33,7 @@ var includeMacroBasedCode = true
 
 // Products
 var products: [Product] = []
-if includeStructBasedCode {
+if includeProtocolBasedCode {
     products += [
         .executable(name: "print-s", targets: ["Ex01_PrintStructAPI"]),
         .executable(name: "person-s", targets: ["Ex02_PersonStructAPI"]),
@@ -61,7 +63,7 @@ var dependencies: [Package.Dependency] = [
 if includeMacroBasedCode {
     dependencies.append(.package(url: "https://github.com/ouser4629/CmdArgLibMacros.git", branch: "main"))
 }
-if includeStructBasedCode {
+if includeProtocolBasedCode {
     dependencies.append(.package(url: "https://github.com/ouser4629/CmdArgLibProtocols.git", branch: "main"))
 }
 
@@ -93,7 +95,7 @@ var targets: [Target] = [
 ]
 
 // Struct-base API targets
-if includeStructBasedCode {
+if includeProtocolBasedCode {
     targets += [
         .executableTarget(
             name: "Ex01_PrintStructAPI",
