@@ -24,7 +24,7 @@ struct PrintS: MainFunctionDef{
     var count: Int = 1
     var phrase: String? = nil
 
-    var attributes: MainFunctionAttributes? = nil
+    static let argumentAttributes = ArgumentAttributes()
 
     func run() throws {
         guard count >= 1 else { throw Exception.error("count must be >= 1") }

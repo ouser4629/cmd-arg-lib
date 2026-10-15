@@ -23,8 +23,7 @@ struct Books: CommandNodeDef {
     var count: Int = 1
     var h__help: MetaFlag = MetaFlag(helpElements: helpLayout)
 
-    var attributes: CommandNodeAttributes<TextStyle>? = CommandNodeAttributes<TextStyle>(
-        commandName: "books",
+    var commandNodeAttributes: CommandNodeAttributes<TextStyle>? = CommandNodeAttributes<TextStyle>(
         commandSynopsis: "Print a list of recommended books."
     )
 
@@ -35,6 +34,8 @@ struct Books: CommandNodeDef {
         }
         return []
     }
+
+    static let argumentAttributes = ArgumentAttributes()
 
     static let helpLayout: [ShowElement] = [
         .text("DESCRIPTION\n", "Print a list of recommended books."),

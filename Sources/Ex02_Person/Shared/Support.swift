@@ -26,10 +26,10 @@ public let helpLayout: [ShowElement] = [
     .parameter("h__help", "Show help information."),
     .parameter("l", "Lowercase the output"),
     .parameter("u", "Uppercase the output"),
-    .parameter("c__count", countDescription),
+    .parameter("c__count", countDescription, typeName: "Count"),
     .text("\nPERSONAL INFORMATION"),
     .parameter("w__weight", "The person's weight in kgs"),
-    .parameter("s__sonHas", "One or more of the pets owned by the person's son", .list(Pet.cases)),
+    .parameter("s__sonHas", "One or more of the pets owned by the person's son", .list(Pet.cases), typeName: "Variadic<Pet>"),
     .parameter("d__daughterHas", "A pet owned by the person's daughter (can be repeated)", .list(Pet.cases)),
     .parameter("_name", "The person's name"),
     .text("\nPETS"),
@@ -66,16 +66,4 @@ public func showPerson(l: Flag, u: Flag, count: Int, weight: Double??, sonHas: [
     line = u ? line.uppercased() : l ? line.lowercased() : line
     for _ in 0..<abs(count) { print(line) }
 }
-
-
-// * Import CmdArgLibHelpScreen to get `MetaFlag(helpElements:)`
-//
-// * Layout the help screen as a static array of `ShowElement`
-//   * text - header and line-wrapped text
-//   * synopsis - usage and synopsis lines in help screens and manual pages
-//   * parameter - parameter description and completion hints
-//   * rawValue - shows a pair, <name> <description> like a parameter
-//
-//  * Use [show macros](REFERENCE.md#show-macros) for string interpolation of
-//    parameter names, labels, etc.
 

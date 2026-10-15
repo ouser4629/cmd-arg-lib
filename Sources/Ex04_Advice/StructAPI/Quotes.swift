@@ -22,7 +22,7 @@ import Ex04_AdviceShared
 struct Quotes: CommandNodeDef {
     var h__help: MetaFlag = MetaFlag(helpElements: helpElements)
 
-    var attributes: CommandNodeAttributes<TextStyle>? =  CommandNodeAttributes<TextStyle>(
+    var commandNodeAttributes: CommandNodeAttributes<TextStyle>? =  CommandNodeAttributes<TextStyle>(
         commandSynopsis: "Print quotes by famous people.",
         children: [generalNode, computingNode]
     )
@@ -31,6 +31,8 @@ struct Quotes: CommandNodeDef {
     {
         return state
     }
+
+    static let argumentAttributes = ArgumentAttributes()
 
     private static let generalNode = GeneralQuotes().commandNode
     private static let computingNode = ComputingQuotes().commandNode

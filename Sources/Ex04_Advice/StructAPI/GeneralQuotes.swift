@@ -23,7 +23,7 @@ struct GeneralQuotes: CommandNodeDef {
     var count: Int = 1
     var h__help: MetaFlag = MetaFlag(helpElements: helpLayout)
 
-    var attributes: CommandNodeAttributes<TextStyle>? = CommandNodeAttributes<TextStyle>(
+    var commandNodeAttributes: CommandNodeAttributes<TextStyle>? = CommandNodeAttributes<TextStyle>(
         commandName: "general",
         commandSynopsis: "Print quotes about life in general.",
     )
@@ -35,6 +35,8 @@ struct GeneralQuotes: CommandNodeDef {
         }
         return []
     }
+
+    static let argumentAttributes = ArgumentAttributes()
 
     private static let helpLayout: [ShowElement] = [
         .text("DESCRIPTION\n", "Print quotes about life in general."),

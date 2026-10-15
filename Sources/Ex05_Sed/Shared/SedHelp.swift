@@ -17,15 +17,17 @@ import CmdArgLibHelpScreen
 
 public let helpScreenMetaFlag = MetaFlag(helpElements: helpLayout)
 
-private let helpLayout: [ShowElement] = [
+public let helpLayout: [ShowElement] = [
     .text("DESCRIPTION\n", "A sed wrapper."),
     .synopsis("\nUSAGE\n", lines: [synopsisLine1Names, synopsisLine2Names]),
     .text("\nOPTIONS"),
     .parameter("n", quiet),
     .parameter("p", preview),
-    .parameter("i", inplaceEdit),
-    .parameter("e", commands),
-    .parameter("f", commandRun),
+    .parameter("i", inplaceEdit, typeName: "Extension??"),
+    .parameter("e", commands, typeName: "[Command]"),
+    .parameter("f", commandRun, typeName: "[CommandFile]"),
+    .parameter("_command", "", typeName: "Command??"),
+    .parameter("_files", "", typeName: "Variadic<File>"),
     .parameter("generateManpage", "Generate a man page"),
     .parameter("version", "Show version information"),
     .parameter("h__help", "Show help information"),

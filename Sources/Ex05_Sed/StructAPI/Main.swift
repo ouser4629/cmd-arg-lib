@@ -29,14 +29,8 @@ struct SedS: MainFunctionDef {
     var generateManpage: MetaFlag = manpageMetaFlag
     var version: MetaFlag = MetaFlag(string: "Version 1.0")
 
-    var attributes: MainFunctionAttributes? = MainFunctionAttributes(
-        typeNames: [
-            "i":"Extension??",
-            "e":"[Command]",
-            "f":"[CommandFile]",
-            "_command":"Command??",
-            "_files":"Variadic<File>",
-        ],
+    static let argumentAttributes = ArgumentAttributes(
+        showElements: helpLayout
     )
 
     func run() throws {

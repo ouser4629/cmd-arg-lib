@@ -24,9 +24,8 @@ public struct RunS: MainFunctionDef{
     var v__verbose: Flag = false
     var h__help: MetaFlag = MetaFlag(helpElements: helpLayout)
 
-    public var attributes: MainFunctionAttributes? = MainFunctionAttributes(
-        typeNames: ["_comment":"Comment??",
-        ]
+    public static let argumentAttributes = ArgumentAttributes(
+        showElements: helpLayout
     )
 
     public func run() throws {

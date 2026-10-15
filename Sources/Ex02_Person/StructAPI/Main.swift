@@ -30,13 +30,9 @@ struct PersonS: MainFunctionDef {
     var generateCompletionScript: MetaOption<CompletionGenerator> = MetaOption(generator)
 
     // Configuration
-    var attributes: MainFunctionAttributes? = MainFunctionAttributes(
+    static let argumentAttributes = ArgumentAttributes(
         shadowGroups: ["u l"],
-        typeNames: [
-           "_name":"Name?",
-           "s__sonHas":"Variadic<Pet>",
-           "generateCompletionScript":"MetaOption<Shell>",
-        ],
+        showElements: helpLayout
     )
 
     @MainActor

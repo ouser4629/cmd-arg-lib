@@ -29,9 +29,7 @@ struct AdviceS: CommandNodeDef  {
     var l__lower: Flag = false
     var c__color: Color = .white
 
-    var attributes: CommandNodeAttributes<TextStyle>? = CommandNodeAttributes<TextStyle>(
-        shadowGroups: ["l__lower u__upper"],
-        typeNames: ["generateCompletionScript":"MetaOption<Shell>"],
+    var commandNodeAttributes: CommandNodeAttributes<TextStyle>? = CommandNodeAttributes<TextStyle>(
         commandSynopsis: "Print quotes and book titles.",
         children: children
     )
@@ -43,6 +41,11 @@ struct AdviceS: CommandNodeDef  {
     }
 
     static let generator = CompletionGenerator(name: "advice-s", suggestionElements: helpLayout)
+
+    static let argumentAttributes = ArgumentAttributes(
+        shadowGroups: ["u__upper l__lower"],
+        showElements: helpLayout
+    )
 
     private static let booksNode = Books().commandNode
     private static let quotesNode = Quotes().commandNode
