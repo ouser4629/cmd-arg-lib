@@ -63,9 +63,6 @@ var dependencies: [Package.Dependency] = [
 if includeMacroBasedCode {
     dependencies.append(.package(url: "https://github.com/ouser4629/CmdArgLibMacros.git", branch: "main"))
 }
-if includeProtocolBasedCode {
-    dependencies.append(.package(url: "https://github.com/ouser4629/CmdArgLibProtocols.git", branch: "main"))
-}
 
 // Shared targets
 var targets: [Target] = [
@@ -99,13 +96,13 @@ if includeProtocolBasedCode {
     targets += [
         .executableTarget(
             name: "Ex01_PrintStructAPI",
-            dependencies: [ "CmdArgLibCore", "CmdArgLibProtocols", "CmdArgLibHelpScreen",],
+            dependencies: [ "CmdArgLibCore", "CmdArgLibHelpScreen",],
             path: "Sources/Ex01_Print/StructAPI"
         ),
         //
         .executableTarget(
             name: "Ex02_PersonStructAPI",
-            dependencies: [ "CmdArgLibCore", "CmdArgLibProtocols", "Ex02_PersonShared", "CmdArgLibCompletions"],
+            dependencies: [ "CmdArgLibCore", "Ex02_PersonShared", "CmdArgLibCompletions"],
             path: "Sources/Ex02_Person/StructAPI"
         ),
         //
@@ -116,7 +113,7 @@ if includeProtocolBasedCode {
         ),
         .target(
             name: "Ex03_RunStructImplementation",
-            dependencies: ["CmdArgLibCore", "CmdArgLibProtocols", "CmdArgLibCompletions", "Ex03_RunShared"],
+            dependencies: ["CmdArgLibCore", "CmdArgLibCompletions", "Ex03_RunShared"],
             path: "Sources/Ex03_Run/StructImplementation"
         ),
         .testTarget(
@@ -127,13 +124,13 @@ if includeProtocolBasedCode {
         //
         .executableTarget(
             name: "Ex04_AdviceStructAPI",
-            dependencies: [ "CmdArgLibCore", "CmdArgLibProtocols", "CmdArgLibHelpScreen", "CmdArgLibCompletions", "Ex04_AdviceShared"],
+            dependencies: [ "CmdArgLibCore", "CmdArgLibHelpScreen", "CmdArgLibCompletions", "Ex04_AdviceShared"],
             path: "Sources/Ex04_Advice/StructAPI"
         ),
         //
         .executableTarget(
             name: "Ex05_SedStructAPI",
-            dependencies: [ "CmdArgLibCore", "CmdArgLibProtocols", "Ex05_SedShared"],
+            dependencies: [ "CmdArgLibCore", "Ex05_SedShared"],
             path: "Sources/Ex05_Sed/StructAPI"
         ),
     ]

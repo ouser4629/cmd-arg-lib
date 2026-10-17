@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import CmdArgLibCore
-import CmdArgLibProtocols
 import Ex05_SedShared
 
 @main

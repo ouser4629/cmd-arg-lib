@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import CmdArgLibCore
-import CmdArgLibProtocols
 import CmdArgLibHelpScreen
 import Ex03_RunShared
 

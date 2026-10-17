@@ -609,7 +609,6 @@ CAL has a modular design that makes it easier to customize and maintain.
 
 * CLI Definition
   * [CmdArgLibMacros](https://github.com/ouser4629/CmdArgLibMacros.git) provides macros to generate CLIs directly from ordinary Swift function declarations
-  * [CmdArgLibProtocols](https://github.com/ouser4629/CmdArgLibProtocols.git) provides a protocol to generate CLIs from conforming structs
 * Command presentation
   * [CmdArgLibHelpScreen](https://github.com/ouser4629/CmdArgLibHelpScreen.git) provides help screen support
   * [CmdArgLibManpage](https://github.com/ouser4629/CmdArgLibManpage.git) provides manual page support

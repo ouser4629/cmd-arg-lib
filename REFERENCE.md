@@ -66,7 +66,6 @@
 * Modular design enforces separation of concerns
   * CmdArgLibCore - provides core functionality
   * CmdArgLibMacros - provides a macro-based API
-  * CmdArgLibProtocols - provides a protocol-based API
   * CmdArgLibHelpScreen - provides a help screen generator
   * CmdArgLibManpage - provides a manual page generator
   * CmdArgLibCompletions - provides completion script generators
@@ -163,7 +162,7 @@ the returned state and remaining command line arguments.
 
 ## Struct-Based API
 
-The struct-based API is based on `CommandNodeDef`, a protocol provided by the library's `CmdArgLibProtocols` module.
+The struct-based API is based on `CommandDef`, a protocol provided by the library's `CmdArgLibCore` module.
 
 ```swift
 public protocol CommandNodeDef: Sendable, Codable {
