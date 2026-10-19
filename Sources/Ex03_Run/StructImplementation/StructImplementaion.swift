@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import CmdArgLibCore
-import CmdArgLibHelpScreen
+import CmdArgParser
+import CmdArgHelpScreen
 import Ex03_RunShared
 
 public struct RunS: MainFunctionDef{
@@ -22,10 +22,6 @@ public struct RunS: MainFunctionDef{
     var command: Rest? = nil
     var v__verbose: Flag = false
     var h__help: MetaFlag = MetaFlag(helpElements: helpLayout)
-
-    public static let argumentAttributes = ArgumentAttributes(
-        showElements: helpLayout
-    )
 
     public func run() throws {
         try readAndCall(_comment ?? nil, command: command!.elements, verbose: v__verbose)

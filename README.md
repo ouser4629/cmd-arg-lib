@@ -276,7 +276,7 @@ It demonstrates:
 * using [Exception](REFERENCE.md#exception) to write to CAL's error screen, standard output
   and standard error in [exception-pure](REFERENCE.md#exception-pure) functions
 * using a CLI parameter of type [`Rest`](REFERENCE.md#rest) to collect all subsequent words verbatim
-* using CAL's [CmdArgLibTestSupport](https://github.com/ouser4629/CmdArgLibTestSupport.git) module to test
+* using CAL's [CmdArgTestSupport](https://github.com/ouser4629/CmdArgTestSupport.git) module to test
   expected command output
 
 <details>
@@ -426,7 +426,7 @@ Building for debugging...
 ✘ Test defectiveTest() failed after 0.100 seconds with 1 issue.
 ```
 
-See [CmdArgLibTestSuites](https://github.com/ouser4629/CmdArgLibTestSuites.git) for numerous examples.
+See [CmdArgTestSuites](https://github.com/ouser4629/CmdArgTestSuites.git) for numerous examples.
 
 </details>
 
@@ -520,7 +520,7 @@ See "advice-m quotes general --help" for more information.
 This example wraps sed.
 
 It demonstrates more advanced usage, including
-the library's [CmdArgLibManpage](https://github.com/ouser4629/CmdArgLibManpage.git) module.
+the library's [CmdArgManpage](https://github.com/ouser4629/CmdArgManpage.git) module.
 
 <details>
 <summary>Help Screen</summary>
@@ -608,15 +608,15 @@ If you are not familiar with less, which is used to view manual pages, press "q"
 CAL has a modular design that makes it easier to customize and maintain.
 
 * CLI Definition
-  * [CmdArgLibMacros](https://github.com/ouser4629/CmdArgLibMacros.git) provides macros to generate CLIs directly from ordinary Swift function declarations
+  * [CmdArgMacros](https://github.com/ouser4629/CmdArgMacros.git) provides macros to generate CLIs directly from ordinary Swift function declarations
 * Command presentation
-  * [CmdArgLibHelpScreen](https://github.com/ouser4629/CmdArgLibHelpScreen.git) provides help screen support
-  * [CmdArgLibManpage](https://github.com/ouser4629/CmdArgLibManpage.git) provides manual page support
-  * [CmdArgLibCompletions](https://github.com/ouser4629/CmdArgLibCompletions.git) provides shell completion support
+  * [CmdArgHelpScreen](https://github.com/ouser4629/CmdArgHelpScreen.git) provides help screen support
+  * [CmdArgManpage](https://github.com/ouser4629/CmdArgManpage.git) provides manual page support
+  * [CmdArgCompletions](https://github.com/ouser4629/CmdArgCompletions.git) provides shell completion support
 * Support modules
-  * [CmdArgLibTestSupport](https://github.com/ouser4629/CmdArgLibTestSupport.git) provides support for unit tests
-  * [CmdArgLibTestSuites](https://github.com/ouser4629/CmdArgLibTestSuites.git) contains CAL's own unit tests
-  * [CmdArgLibCore](https://github.com/ouser4629/CmdArgLibCore.git) provides support for all other CAL modules
+  * [CmdArgTestSupport](https://github.com/ouser4629/CmdArgTestSupport.git) provides support for unit tests
+  * [CmdArgTestSuites](https://github.com/ouser4629/CmdArgTestSuites.git) contains CAL's own unit tests
+  * [CmdArgParser](https://github.com/ouser4629/CmdArgParser.git) provides support for all other CAL modules
 
 Import what you need.
 
@@ -632,6 +632,6 @@ The library is in beta (version 0.5.2).
 
 All CAL modules require macOS 12 or later.
 
-The [CmdArgLibMacros](https://github.com/ouser4629/CmdArgLibMacros.git) module
+The [CmdArgMacros](https://github.com/ouser4629/CmdArgMacros.git) module
 should be built using Swift 6.2 or later. Earlier toolchains either do not support macros
 or have unacceptable macro build performance.

@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import CmdArgLibCore
-import CmdArgLibCompletions
-import CmdArgLibHelpScreen
+import CmdArgParser
+import CmdArgCompletions
+import CmdArgHelpScreen
 
 public typealias Name = String
 public enum Pet: String, CmdArgEnum { case dog, cat, bird }
@@ -26,10 +26,10 @@ public let helpLayout: [ShowElement] = [
     .parameter("h__help", "Show help information."),
     .parameter("l", "Lowercase the output"),
     .parameter("u", "Uppercase the output"),
-    .parameter("c__count", countDescription, typeName: "Count"),
+    .parameter("c__count", countDescription),
     .text("\nPERSONAL INFORMATION"),
     .parameter("w__weight", "The person's weight in kgs"),
-    .parameter("s__sonHas", "One or more of the pets owned by the person's son", .list(Pet.cases), typeName: "Variadic<Pet>"),
+    .parameter("s__sonHas", "One or more of the pets owned by the person's son", .list(Pet.cases)),
     .parameter("d__daughterHas", "A pet owned by the person's daughter (can be repeated)", .list(Pet.cases)),
     .parameter("_name", "The person's name"),
     .text("\nPETS"),

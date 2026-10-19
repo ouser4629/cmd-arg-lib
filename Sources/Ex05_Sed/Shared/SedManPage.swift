@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import CmdArgLibCore
-import CmdArgLibManpage
+import CmdArgParser
+import CmdArgManpage
 
 public let manpageMetaFlag = MetaFlag(manpageElements: manpageLayout)
 

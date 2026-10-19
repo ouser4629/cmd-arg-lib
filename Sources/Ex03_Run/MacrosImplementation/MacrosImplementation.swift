@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import CmdArgLibCore
-import CmdArgLibMacros
-import CmdArgLibHelpScreen
+import CmdArgParser
+import CmdArgMacros
+import CmdArgHelpScreen
 import Ex03_RunShared
 
 public struct MacrosImplementation {

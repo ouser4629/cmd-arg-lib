@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import CmdArgLibCore
-import CmdArgLibMacros
+import CmdArgParser
+import CmdArgMacros
 import Ex05_SedShared
 
 @main
@@ -27,7 +27,7 @@ struct Main {
         e: Array<Command> = [],
         f: [CommandFile] = [],
         _command: Command?,
-        _files: Variadic<File> = [],
+        _files: Some<File> = [],
         generateManpage: MetaFlag = manpageMetaFlag,
         h__help: MetaFlag = helpScreenMetaFlag,
         version: MetaFlag = MetaFlag(string: "Version 1.0")) throws

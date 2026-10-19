@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import CmdArgLibCore
-import CmdArgLibMacros
-import CmdArgLibHelpScreen
+import CmdArgParser
+import CmdArgMacros
+import CmdArgHelpScreen
 
 @main
 struct Main {

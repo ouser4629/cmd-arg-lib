@@ -5,8 +5,8 @@
 //  License, v. 2.0. If a copy of the MPL was not distributed with this
 //  file, You can obtain one at https://mozillia.org/MPL/2.0.
 
-import CmdArgLibCore
-import CmdArgLibCompletions
+import CmdArgParser
+import CmdArgCompletions
 
 public let sharedHelp: [ShowElement] = [
     .text("DESCRIPTION\n", "Print quotes and recommended books."),

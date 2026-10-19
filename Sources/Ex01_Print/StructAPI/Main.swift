@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import CmdArgLibCore
-import CmdArgLibHelpScreen
+import CmdArgParser
+import CmdArgHelpScreen
 
 @main
 struct PrintS: MainFunctionDef{
@@ -22,8 +22,6 @@ struct PrintS: MainFunctionDef{
     var u: Flag = false
     var count: Int = 1
     var phrase: String? = nil
-
-    static let argumentAttributes = ArgumentAttributes()
 
     func run() throws {
         guard count >= 1 else { throw Exception.error("count must be >= 1") }

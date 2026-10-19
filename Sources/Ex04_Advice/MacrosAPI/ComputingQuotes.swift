@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import CmdArgLibCore
-import CmdArgLibHelpScreen
-import CmdArgLibMacros
+import CmdArgParser
+import CmdArgHelpScreen
+import CmdArgMacros
 import Ex04_AdviceShared
 
 struct ComputingQuotes {

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import CmdArgLibCore
+import CmdArgParser
 import Foundation
 
 public typealias Extension = String
@@ -27,7 +27,7 @@ public func work(
     commands: [Command] = [],
     commandFiles: [CommandFile] = [],
     command: Command? = nil,
-    files: Variadic<File> = []) throws
+    files: Some<File> = []) throws
 {
     var commandTokens: [RawArg] = []
     var fileTokens: [RawArg] = []
@@ -35,7 +35,7 @@ public func work(
         // This is first synopsis treat command as a command
         if let command {
             commandTokens = [command]
-            fileTokens = files
+            fileTokens = files.elements
         }
     } else {
         // This is sceond synopsis, treat command as a file name
@@ -43,7 +43,7 @@ public func work(
         if let command {
             fileTokens.insert(command, at: 0)
         }
-        fileTokens += files
+        fileTokens += files.elements
     }
     if commandTokens.isEmpty {
         return

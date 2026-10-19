@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import CmdArgLibCore
-import CmdArgLibCompletions
+import CmdArgParser
+import CmdArgCompletions
 import Ex02_PersonShared
 
 @main
@@ -23,28 +23,27 @@ struct PersonS: MainFunctionDef {
     var u: Flag = false
     var c__count: Int = 1
     var w__weight: Double?? = nil
-    var s__sonHas: Variadic<Pet> = []
+    var s__sonHas: Some<Pet> = []
     var d__daughterHas: [Pet] = []
     var _name: Name? = nil
-    var generateCompletionScript: MetaOption<CompletionGenerator> = MetaOption(generator)
+    var generateCompletionScript: MetaOption<Shell> = MetaOption(generator)
 
     // Configuration
-    static let argumentAttributes = ArgumentAttributes(
+    static let argumentAttributes = CommandArgumentAttributes(
         shadowGroups: ["u l"],
-        showElements: helpLayout
     )
 
     @MainActor
     func run() {
-        showPerson(l: l, u: u, count: c__count, weight: w__weight, sonHas: s__sonHas, daughterHas: d__daughterHas, name: _name)
+        showPerson(l: l, u: u, count: c__count, weight: w__weight, sonHas: s__sonHas.elements, daughterHas: d__daughterHas, name: _name)
     }
 
-    static let generator = CompletionGenerator(name: "person-s", suggestionElements: helpLayout)
+    static let generator = Shell(name: "person-s", suggestionElements: helpLayout)
 }
 
 // * Purpose
 //   * Shows use of every `CmdArgTBasicType` provided "out of the box"
-//   * Shows use of Array<B>, Variadic<B> and Optional<B> where B is a basic type
+//   * Shows use of Array<B>, Some<B> and Optional<B> where B is a basic type
 //   * Shows use of default values
 //   * Shows use of typeName embellishing to customize placeholders in help screends, etc.
 //   * Shows use of the help screen meta-flag initializer: `MetaFlag(helpElements:)`

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import CmdArgLibCore
+import CmdArgParser
 import Ex05_SedShared
 
 @main
@@ -23,14 +23,10 @@ struct SedS: MainFunctionDef {
     var e: [Command] = []
     var f: [CommandFile] = []
     var _command: Command?? = nil
-    var _files: Variadic<File> = []
+    var _files: Some<File> = []
     var h__help: MetaFlag = helpScreenMetaFlag
     var generateManpage: MetaFlag = manpageMetaFlag
     var version: MetaFlag = MetaFlag(string: "Version 1.0")
-
-    static let argumentAttributes = ArgumentAttributes(
-        showElements: helpLayout
-    )
 
     func run() throws {
         try work(

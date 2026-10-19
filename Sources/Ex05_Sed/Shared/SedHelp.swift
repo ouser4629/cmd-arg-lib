@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import CmdArgLibCore
-import CmdArgLibHelpScreen
+import CmdArgParser
+import CmdArgHelpScreen
 
 public let helpScreenMetaFlag = MetaFlag(helpElements: helpLayout)
 
@@ -23,11 +23,11 @@ public let helpLayout: [ShowElement] = [
     .text("\nOPTIONS"),
     .parameter("n", quiet),
     .parameter("p", preview),
-    .parameter("i", inplaceEdit, typeName: "Extension??"),
-    .parameter("e", commands, typeName: "[Command]"),
-    .parameter("f", commandRun, typeName: "[CommandFile]"),
-    .parameter("_command", "", typeName: "Command??"),
-    .parameter("_files", "", typeName: "Variadic<File>"),
+    .parameter("i", inplaceEdit),
+    .parameter("e", commands),
+    .parameter("f", commandRun),
+    .parameter("_command", ""),
+    .parameter("_files", ""),
     .parameter("generateManpage", "Generate a man page"),
     .parameter("version", "Show version information"),
     .parameter("h__help", "Show help information"),

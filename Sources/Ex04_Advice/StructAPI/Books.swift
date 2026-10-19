@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import CmdArgLibCore
-import CmdArgLibCompletions
-import CmdArgLibHelpScreen
+import CmdArgParser
+import CmdArgCompletions
+import CmdArgHelpScreen
 import Foundation
 import Ex04_AdviceShared
 
@@ -33,8 +33,6 @@ struct Books: CommandNodeDef {
         }
         return []
     }
-
-    static let argumentAttributes = ArgumentAttributes()
 
     static let helpLayout: [ShowElement] = [
         .text("DESCRIPTION\n", "Print a list of recommended books."),

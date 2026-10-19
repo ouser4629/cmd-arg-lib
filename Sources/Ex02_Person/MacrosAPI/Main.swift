@@ -13,9 +13,9 @@
 // limitations under the License.
 
 
-import CmdArgLibCore
-import CmdArgLibMacros
-import CmdArgLibCompletions
+import CmdArgParser
+import CmdArgMacros
+import CmdArgCompletions
 import Ex02_PersonShared
 
 @main
@@ -29,7 +29,7 @@ struct Main {
         u: Flag,
         c__count: Int = 1,
         w__weight: Double? = nil,
-        s__sonHas: Variadic<Pet> = [],
+        s__sonHas: Some<Pet> = [],
         d__daughterHas: [Pet] = [],
         _name: Name,
         generateCompletionScript: MetaOption<Shell> = MetaOption(generator))
@@ -42,15 +42,15 @@ struct Main {
 
 //  * Purpose
 //   * Shows use of every `CmdArgTBasicType` provided "out of the box"
-//   * Shows use of Array<B>, Variadic<B> and Optional<B> where B is a basic type
+//   * Shows use of Array<B>, Some<B> and Optional<B> where B is a basic type
 //   * Shows use of default values
 //   * Shows use of typealias to customize placeholders in help screends, etc.
 //   * Shows use of the help screen meta-flag initializer: `MetaFlag(helpElements:)`
 //   * Shows use of the script generation type: `MetaOption<CompletionGenerator>`
 //
 // *  Imports
-//   * CmdArgLibCore - for core functionality
-//   * CmdArgLibMacros - the macro-based API
+//   * CmdArgParser - for core functionality
+//   * CmdArgMacros - the macro-based API
 //   * CmdArgLIbCompletions - support for completion script generation
 //   * Ex02_PersonShared - functionality shared with the struct-Based Implementation
 //

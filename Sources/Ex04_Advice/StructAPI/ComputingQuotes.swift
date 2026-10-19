@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import CmdArgLibCore
-import CmdArgLibCompletions
-import CmdArgLibHelpScreen
+import CmdArgParser
+import CmdArgCompletions
+import CmdArgHelpScreen
 import Foundation
 import Ex04_AdviceShared
 
@@ -35,7 +35,7 @@ struct ComputingQuotes: CommandNodeDef {
         return []
     }
 
-    static let argumentAttributes = ArgumentAttributes()
+    static let argumentAttributes = CommandArgumentAttributes()
 
     static let helpLayout: [ShowElement] = [
         .text("DESCRIPTION\n", "Print quotes about computing."),

@@ -64,11 +64,11 @@
     * variadic arguments are allowed
     * except for flags, all arguments must have a value
 * Modular design enforces separation of concerns
-  * CmdArgLibCore - provides core functionality
-  * CmdArgLibMacros - provides a macro-based API
-  * CmdArgLibHelpScreen - provides a help screen generator
-  * CmdArgLibManpage - provides a manual page generator
-  * CmdArgLibCompletions - provides completion script generators
+  * CmdArgParser - provides core functionality
+  * CmdArgMacros - provides a macro-based API
+  * CmdArgHelpScreen - provides a help screen generator
+  * CmdArgManpage - provides a manual page generator
+  * CmdArgCompletions - provides completion script generators
 * Run-time error reporting
   * Reusable error screens (for parser and user code)
   * Multiple syntax errors reported in a single pass
@@ -125,7 +125,7 @@ conventions.
 ## Macro-Based API
 
 The macro-based API constists of two macros: `MainFunctionMacro` and `CommandNodeMacro`, both of which
-are provided by the library's CmdArgLibMacros module.
+are provided by the library's CmdArgMacros module.
 
 ### MainFunctionMacro
 
@@ -162,7 +162,7 @@ the returned state and remaining command line arguments.
 
 ## Struct-Based API
 
-The struct-based API is based on `CommandDef`, a protocol provided by the library's `CmdArgLibCore` module.
+The struct-based API is based on `CommandDef`, a protocol provided by the library's `CmdArgParser` module.
 
 ```swift
 public protocol CommandNodeDef: Sendable, Codable {
@@ -189,7 +189,7 @@ public init(
     shadowGroups: [String] = [],
     embellishments: [Embellishment] = [],
     commandSynopsis: String? = nil,
-    children: [CmdArgLibCore.CommandNode<T>] = [])
+    children: [CmdArgParser.CommandNode<T>] = [])
 ```
 ---
 
@@ -244,7 +244,7 @@ any type that conforms to [MetaOptionElement][#metaoptionelement].
 | `B`             | allowed            | 1                     | no         | when missing a default value  |
 | `Array<B>`      | allowed, if `[]`   | 1                     | yes        | when missing a default value  |
 | `Optional<B>`   | implicit - `nil`   | 1                     | no         | never                         |
-| `Variadic<B>`   | allowed, if `[]`   | 1 or more             | no         | when missing a default value  |
+| `Some<B>`   | allowed, if `[]`   | 1 or more             | no         | when missing a default value  |
 | `Rest`          | allowed, if `[]`   | 1 or more             | no         | when missing a default value  |
 | `Flag`          | implicit - `false` | 0                     | yes        | never                         |
 | `MetaFlag`      | required           | 0                     | yes        | never                         |
@@ -290,7 +290,7 @@ ___
 
 ### Rest
 
-The type `Rest` is the same as `Variadic<String>` except that all words
+The type `Rest` is the same as `Some<String>` except that all words
 that follow it are treated as elements of the array being parsed. These include "--", flags, meta-flags
 and labeled values. Parameters with type `Rest` cannot be positional (i.e., they must have a label).
 

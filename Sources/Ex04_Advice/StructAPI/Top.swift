@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import CmdArgLibCore
-import CmdArgLibCompletions
-import CmdArgLibHelpScreen
+import CmdArgParser
+import CmdArgCompletions
+import CmdArgHelpScreen
 import Foundation
 import Ex04_AdviceShared
 
@@ -23,7 +23,7 @@ struct AdviceS: CommandNodeDef  {
     var h__help: MetaFlag = MetaFlag(helpElements: helpLayout)
     var t__tree: MetaFlag = MetaFlag(treeFor: "advice-s", synopsis: "")
     var v__version: MetaFlag =  MetaFlag(string: "0.1.0")
-    var generateCompletionScript: MetaOption<CompletionGenerator> = MetaOption(generator)
+    var generateCompletionScript: MetaOption<Shell> = MetaOption(generator)
     var u__upper: Flag = false
     var l__lower: Flag = false
     var c__color: Color = .white
@@ -39,11 +39,10 @@ struct AdviceS: CommandNodeDef  {
         return [textStyle]
     }
 
-    static let generator = CompletionGenerator(name: "advice-s", suggestionElements: helpLayout)
+    static let generator = Shell(name: "advice-s", suggestionElements: helpLayout)
 
-    static let argumentAttributes = ArgumentAttributes(
+    static let argumentAttributes = CommandArgumentAttributes(
         shadowGroups: ["u__upper l__lower"],
-        showElements: helpLayout
     )
 
     private static let booksNode = Books().commandNode

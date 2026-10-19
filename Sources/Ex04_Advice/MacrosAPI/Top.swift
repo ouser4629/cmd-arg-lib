@@ -5,10 +5,10 @@
 //  License, v. 2.0. If a copy of the MPL was not distributed with this
 //  file, You can obtain one at https://mozillia.org/MPL/2.0.
 
-import CmdArgLibCore
-import CmdArgLibCompletions
-import CmdArgLibHelpScreen
-import CmdArgLibMacros
+import CmdArgParser
+import CmdArgCompletions
+import CmdArgHelpScreen
+import CmdArgMacros
 import Ex04_AdviceShared
 
 @main

@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import CmdArgLibCore
-import CmdArgLibTestSupport
+import CmdArgParser
+import CmdArgTestSupport
 import Foundation
 import Testing
 import Ex03_RunStructImplementation

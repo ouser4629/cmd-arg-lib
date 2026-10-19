@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import CmdArgLibCore
-import CmdArgLibHelpScreen
+import CmdArgParser
+import CmdArgHelpScreen
 import Foundation
 
 public typealias Comment = String
@@ -24,7 +24,7 @@ public let helpLayout: [ShowElement] = [
     .text("DESCRIPTION\n", "Print a comment, if specified, and run a command."),
     .synopsis("\nUSAGE\n"),
     .text("\nPARAMETERS"),
-    .parameter("_comment", "A comment, must be less than 5 words", typeName: "Comment??"),
+    .parameter("_comment", "A comment, must be less than 5 words"),
     .parameter("command", "The name and arguments of a command to run."),
     .parameter("v__verbose", "Print the comment, if any, and the command before running."),
     .parameter("h__help", "Show help information."),
