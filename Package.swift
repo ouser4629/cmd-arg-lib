@@ -21,7 +21,7 @@ import PackageDescription
 // macro-based examples can sometimes compile very slowly on the first
 // build.
 let includeProtocolBasedCode = true
-var includeMacroBasedCode = false
+var includeMacroBasedCode = true
 
 // Include the samples that use CmdArgMacros only when built with
 // Swift 6.2 or later. Earlier toolchains either do not support macros

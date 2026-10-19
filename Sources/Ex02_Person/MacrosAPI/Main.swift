@@ -20,7 +20,6 @@ import Ex02_PersonShared
 
 @main
 struct Main {
-    typealias Shell = CompletionGenerator
 
     @MainFunctionMacro(shadowGroups: ["u l"])
     static func personM(
@@ -34,10 +33,10 @@ struct Main {
         _name: Name,
         generateCompletionScript: MetaOption<Shell> = MetaOption(generator))
     {
-        showPerson(l: l, u: u, count: c__count, weight: w__weight, sonHas: s__sonHas, daughterHas: d__daughterHas, name: _name)
+        showPerson(l: l, u: u, count: c__count, weight: w__weight, sonHas: s__sonHas.elements, daughterHas: d__daughterHas, name: _name)
     }
     
-    static let generator = CompletionGenerator(name: "person-m", suggestionElements: helpLayout)
+    static let generator = Shell(name: "person-m", suggestionElements: helpLayout)
 }
 
 //  * Purpose

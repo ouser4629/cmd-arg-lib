@@ -14,8 +14,6 @@ import Ex04_AdviceShared
 @main
 struct Top {
 
-    typealias Shell = CompletionGenerator
-
     @CommandNodeMacro<TextStyle>(shadowGroups: ["l__lower u__upper"], synopsis: "Print quotes and book titles.", children: childNodes)
     static func adviceM(
         h__help: MetaFlag = MetaFlag(helpElements: helpLayout),
@@ -35,7 +33,7 @@ struct Top {
     private static let quotesNode = Quotes.commandNode
     private static let childNodes = [booksNode, quotesNode]
 
-    static let generator = CompletionGenerator(name: "advice-m", suggestionElements: helpLayout)
+    static let generator = Shell(name: "advice-m", suggestionElements: helpLayout)
 
     private static let helpLayout = sharedHelp + [
         .text("SUBCOMMANDS"),
