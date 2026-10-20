@@ -41,8 +41,4 @@ struct Top {
         .commandContext(booksNode.context),
         .text("\nNOTE\n", sharedHelpNote),
     ]
-
-    static func main() async {
-        await runAsMain(commandNode)
-    }
 }

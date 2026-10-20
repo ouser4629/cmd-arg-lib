@@ -20,6 +20,7 @@ import Ex04_AdviceShared
 
 @main
 struct AdviceS: CommandNodeDef  {
+
     var h__help: MetaFlag = MetaFlag(helpElements: helpLayout)
     var t__tree: MetaFlag = MetaFlag(treeFor: "advice-s", synopsis: "")
     var v__version: MetaFlag =  MetaFlag(string: "0.1.0")
@@ -55,8 +56,4 @@ struct AdviceS: CommandNodeDef  {
         .commandContext(booksNode.context),
         .text("\nNOTE\n", sharedHelpNote),
     ]
-
-    static func main() async {
-        await runAsMain(Self().commandNode)
-    }
 }
