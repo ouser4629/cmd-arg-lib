@@ -25,15 +25,15 @@ private let manpageLayout: [ShowElement] = [
     .synopsis(lines: [synopsisLine1Names, synopsisLine2Names]),
 
     // The description
-    .paragraph("DESCRIPTION", description01),
-    .paragraph("", description02),
-    .paragraph("", "The following options are available:"),
+    .text("DESCRIPTION", description01),
+    .text("", description02),
+    .text("", "The following options are available:"),
     .parameter("e", commands),
     .parameter("f", commandRun),
     .parameter("i", inplaceEdit),
     .parameter("n", quiet),
     .parameter("p", preview),
-    .paragraph("", note1),
+    .text("", note1),
 
     // Other sections
     .mdoc(exitStatus),

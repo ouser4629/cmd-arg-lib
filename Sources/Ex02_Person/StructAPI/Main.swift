@@ -33,7 +33,6 @@ struct PersonS: MainFunctionDef {
         shadowGroups: ["u l"],
     )
 
-    @MainActor
     func run() {
         showPerson(l: l, u: u, count: c__count, weight: w__weight, sonHas: s__sonHas.elements, daughterHas: d__daughterHas, name: _name)
     }
